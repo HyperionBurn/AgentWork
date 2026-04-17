@@ -1,0 +1,27 @@
+# ============================================================
+# AgentWork — Moccasin Framework Configuration
+# Vyper smart contract compilation, testing, and deployment
+# ============================================================
+# Usage:
+#   moccasin compile                  # Compile all .vy files
+#   moccasin test                     # Run tests with titanoboa
+#   moccasin run script/deploy.py --network arc_testnet
+# ============================================================
+
+[project]
+name = "agentwork-contracts"
+src = "src"
+out = "build"
+script = "script"
+dependencies = ["snekmate==0.1.1"]
+dot_env = "../../.env"
+
+[networks.pyevm]
+# Default local testing via titanoboa (no url/chain_id needed)
+
+[networks.arc_testnet]
+url = "https://rpc.testnet.arc.network"
+chain_id = 5042002
+explorer_uri = "https://testnet.arcscan.io"
+live_or_staging = true
+save_to_db = true

@@ -1,0 +1,34 @@
+{
+  "name": "agentwork",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Autonomous AI agent marketplace with Arc L1 nanopayments",
+  "workspaces": [
+    "packages/dashboard",
+    "packages/orchestrator"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "dev:dashboard": "npm run dev --workspace=packages/dashboard",
+    "dev:orchestrator": "npm run dev --workspace=packages/orchestrator",
+    "dev:agents": "docker-compose up agents",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "deploy:contracts": "cd packages/contracts && python script/deploy.py",
+    "start:research": "cd agents/research-agent && python server.py",
+    "start:code": "cd agents/code-agent && python server.py",
+    "start:test": "cd agents/test-agent && python server.py",
+    "start:review": "cd agents/review-agent && python server.py",
+    "generate-wallet": "tsx scripts/generate-wallet.ts",
+    "validate-env": "tsx scripts/validate-env.ts",
+    "smoke-test": "tsx scripts/smoke-test.ts",
+    "dry-run": "tsx scripts/dry-run.ts",
+    "demo": "powershell -ExecutionPolicy Bypass -File ./scripts/demo.ps1",
+    "demo:10": "powershell -ExecutionPolicy Bypass -File ./scripts/demo.ps1 -Runs 10"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "AgentWork Team",
+  "license": "MIT"
+}
