@@ -12,7 +12,9 @@ import logging
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"), override=True)
+
+from llm_client import enrich_with_llm
 
 AGENT_TYPE = "review"
 AGENT_NAME = "Review Agent"
@@ -116,37 +118,53 @@ def require_payment(price: str):
     # --- Passthrough mode (circlekit not installed) ---
 
     if payment_header:
+        import base64
+        import json as _json
         from types import SimpleNamespace
-        logger.info(f"Payment accepted (passthrough): {price}")
-        return SimpleNamespace(payer="0x_passthrough", amount=price, formatted_amount=price)
+        try:
+            decoded = _json.loads(base64.b64decode(payment_header))
+            tx_hash = decoded.get("transaction", "0x_passthrough")
+            logger.info(f"Payment accepted (passthrough): {price}")
+            return SimpleNamespace(payer=decoded.get("authorization", {}).get("from", "0x_passthrough"), amount=price, formatted_amount=price, transaction=tx_hash)
+        except Exception as e:
+            logger.warning(f"Failed to decode payment header: {e}")
+            return SimpleNamespace(payer="0x_passthrough", amount=price, formatted_amount=price)
 
-    # Return 402 challenge with x402 payment requirements
-    resp = jsonify({
-        "error": "payment-required",
-        "message": f"Send {price} USDC to access this endpoint",
-        "payment": {
-            "scheme": "exact",
-            "network": "eip155:5042002",
-            "asset": "0x3600000000000000000000000000000000000000",
-            "amount": price,
-            "payTo": SELLER_ADDRESS,
-            "maxTimeoutSeconds": 60,
-            "extra": {
-                "name": "GatewayWalletBatched",
-                "version": "1",
-                "verifyingContract": "0x0077777d7EBA4688BDeF3E311b846F25870A19B9",
-            },
-        },
-    })
+    # Return 402 challenge with PAYMENT-REQUIRED header (base64-encoded JSON)
+    import base64
+    import json as _json
+    price_atomic = str(int(float(price.replace("$", "")) * 1_000_000))
+    payment_requirements = {
+        "x402Version": 2,
+        "resource": request.url,
+        "accepts": [
+            {
+                "scheme": "exact",
+                "network": "eip155:5042002",
+                "asset": "0x3600000000000000000000000000000000000000",
+                "amount": price_atomic,
+                "payTo": SELLER_ADDRESS or "0x42Db290677b273a8a6B2bC19082e36D94B1A47E9",
+                "maxTimeoutSeconds": 60,
+                "extra": {
+                    "name": "GatewayWalletBatched",
+                    "version": "1",
+                    "verifyingContract": "0x0077777d7EBA4688BDeF3E311b846F25870A19B9",
+                },
+            }
+        ],
+    }
+    encoded = base64.b64encode(_json.dumps(payment_requirements).encode()).decode()
+    resp = jsonify({"error": "payment-required", "message": f"Send {price} USDC to access this endpoint"})
     resp.status_code = 402
-    resp.headers["X-Payment-Required"] = "true"
-    resp.headers["X-Payment-Version"] = "1"
+    resp.headers["PAYMENT-REQUIRED"] = encoded
     return resp
 
 
 def perform_review(task: str, context: str | None = None) -> dict:
     """Core review logic. Returns structured mock output matching ReviewResult TypeScript interface."""
     context_prefix = f"Reviewing with context: {context}. " if context else ""
+    mock_summary = f"{context_prefix}Quality review completed for: {task}"
+    llm_summary = enrich_with_llm(AGENT_NAME, f"Review code for: {task}", mock_summary)
     return {
         "quality_score": 87,
         "issues": [
@@ -160,7 +178,7 @@ def perform_review(task: str, context: str | None = None) -> dict:
             "Consider using dependency injection for testability",
             "Add structured logging with correlation IDs",
         ],
-        "summary": f"{context_prefix}Quality review completed for: {task}",
+        "summary": llm_summary,
     }
 
 
@@ -212,7 +230,10 @@ if __name__ == "__main__":
 
     atexit.register(_shutdown_loop)
 
+    from llm_client import USE_REAL_LLM, LLM_MODEL, LLM_BASE_URL
+    llm_mode = f"REAL ({LLM_MODEL} via {LLM_BASE_URL})" if USE_REAL_LLM else "MOCK (no LLM)"
     logger.info(f"🚀 {AGENT_NAME} starting on port {AGENT_PORT}")
     logger.info(f"   Pricing: {AGENT_PRICE} per review call")
+    logger.info(f"   🤖 LLM mode: {llm_mode}")
     logger.info(f"   Gateway: {'connected' if gateway_middleware else 'passthrough mode'}")
     app.run(host="0.0.0.0", port=AGENT_PORT, debug=False)

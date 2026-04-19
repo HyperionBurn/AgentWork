@@ -126,7 +126,10 @@ export function saveSession(): string | null {
   const filename = `session-${timestamp}.json`;
   const filepath = join(evidenceDir, filename);
 
-  writeFileSync(filepath, JSON.stringify(currentSession, null, 2), "utf-8");
+  // BigInt-safe serialization (SDK results may contain bigint fields)
+  const safeReplacer = (_key: string, value: unknown) =>
+    typeof value === "bigint" ? value.toString() : value;
+  writeFileSync(filepath, JSON.stringify(currentSession, safeReplacer, 2), "utf-8");
   console.log(`\n📁 Session saved to: ${filepath}`);
   console.log(`   Total transactions: ${currentSession.summary.totalTransactions}`);
   console.log(`   Total cost: $${currentSession.summary.totalCost.toFixed(3)}`);

@@ -28,7 +28,7 @@ export default function TxList({ transactions }: TxListProps) {
               const displayHash = isMock
                 ? `${tx.gateway_tx.slice(0, 15)}...`
                 : `${tx.gateway_tx.slice(0, 10)}...${tx.gateway_tx.slice(-8)}`;
-              const formatAmount = (a: string) => a.startsWith("$") ? a : `$${a}`;
+              const formatAmount = (a: string | null | undefined) => (a && a.startsWith("$")) ? a : `$${a ?? "0"}`;
               return (
                 <div
                   key={tx.id}

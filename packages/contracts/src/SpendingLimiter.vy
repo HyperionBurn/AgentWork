@@ -3,10 +3,20 @@
 # Source: vyperlang/vyper-agentic-payments/contracts/SpendingLimiter.vy
 # ==============================================================================
 
-# events:
-    LimitSet: immutable(address, uint256, uint256)
-    SpendingRecorded: immutable(address, uint256, uint256)
-    LimitExceeded: immutable(address, uint256, uint256)
+event LimitSet:
+    agent: address
+    max_per_window: uint256
+    window_duration: uint256
+
+event SpendingRecorded:
+    agent: address
+    amount: uint256
+    new_total: uint256
+
+event LimitExceeded:
+    agent: address
+    attempted: uint256
+    limit: uint256
 
 struct SpendingLimit:
     max_per_window: uint256  # Max USDC per window (6 decimals)

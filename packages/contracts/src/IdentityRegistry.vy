@@ -3,10 +3,21 @@
 # Source: vyperlang/erc-8004-vyper/src/IdentityRegistry.vy
 # ==============================================================================
 
-# events:
-    AgentRegistered: immutable(uint256, address, string, string)
-    AgentUpdated: immutable(uint256, string, string)
-    Transfer: immutable(address, address, uint256)
+event AgentRegistered:
+    token_id: uint256
+    owner: address
+    name: String[64]
+    capabilities: String[256]
+
+event AgentUpdated:
+    token_id: uint256
+    metadata_uri: String[256]
+    capabilities: String[256]
+
+event Transfer:
+    sender: address
+    to: address
+    token_id: uint256
 
 struct AgentIdentity:
     owner: address

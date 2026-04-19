@@ -6,16 +6,21 @@
 # with configurable percentage allocations.
 # ==============================================================================
 
-# events:
-    PaymentSplit: immutable(address, address, uint256)
-    SplitCreated: immutable(address, address[], uint256[])
+event PaymentSplit:
+    sender: address
+    to: address
+    amount: uint256
+
+event SplitCreated:
+    creator: address
+    split_id: uint256
 
 USDC: constant(address) = 0x3600000000000000000000000000000000000000
 
 struct Split:
     creator: address
-    recipients: address[]
-    shares: uint256[]  # Basis points (10000 = 100%)
+    recipients: DynArray[address, 10]
+    shares: DynArray[uint256, 10]  # Basis points (10000 = 100%)
     total_shares: uint256
 
 splits: public(HashMap[uint256, Split])
@@ -33,7 +38,7 @@ def createSplit(_recipients: DynArray[address, 10], _shares: DynArray[uint256, 1
     assert len(_recipients) > 0, "Need at least 1 recipient"
 
     total: uint256 = 0
-    for share in _shares:
+    for share: uint256 in _shares:
         total += share
     assert total == 10000, "Shares must sum to 10000 basis points"
 
@@ -47,7 +52,7 @@ def createSplit(_recipients: DynArray[address, 10], _shares: DynArray[uint256, 1
         total_shares: total,
     })
 
-    log SplitCreated(msg.sender, _recipients, _shares)
+    log SplitCreated(creator=msg.sender, split_id=split_id)
     return split_id
 
 
@@ -61,11 +66,12 @@ def distribute(_split_id: uint256, _total_amount: uint256):
     split: Split = self.splits[_split_id]
     assert split.creator == msg.sender, "Only creator can distribute"
 
-    for i in range(len(split.recipients)):
-        amount: uint256 = (_total_amount * split.shares[i]) / 10000
+    for i: uint256 in range(10):
+        if i >= len(split.recipients):
+            break
+        amount: uint256 = (_total_amount * split.shares[i]) // 10000  # integer floor division
         if amount > 0:
-            log PaymentSplit(msg.sender, split.recipients[i], amount)
-            # In production: ERC20(USDC).transfer(recipient, amount)
+            log PaymentSplit(sender=msg.sender, to=split.recipients[i], amount=amount)
 
 
 @external

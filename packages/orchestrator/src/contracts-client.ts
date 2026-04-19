@@ -46,10 +46,30 @@ export const ESCROW_ABI = [
     outputs: [],
   },
   {
+    name: "submitResult",
+    type: "function",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "_task_id", type: "uint256" },
+      { name: "_result", type: "string" },
+    ],
+    outputs: [],
+  },
+  {
     name: "approveCompletion",
     type: "function",
     stateMutability: "nonpayable",
     inputs: [{ name: "_task_id", type: "uint256" }],
+    outputs: [],
+  },
+  {
+    name: "dispute",
+    type: "function",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "_task_id", type: "uint256" },
+      { name: "_reason", type: "string" },
+    ],
     outputs: [],
   },
 ] as const;

@@ -1,5 +1,24 @@
 # AgentWork Architecture Decisions
 
+## 18-Feature Plan (2026-04-18 RALPLAN Consensus)
+
+### Planning Artifacts
+- Spec: `.copilot-tracking/specs/20260418-18feature-ralplan-spec.md`
+- Plan: `.copilot-tracking/plans/20260418-18feature-plan.instructions.md`
+- Details: `.copilot-tracking/details/20260418-18feature-details.md`
+- Prompt: `.copilot-tracking/prompts/implement-18feature.prompt.md`
+- Changes: `.copilot-tracking/changes/20260418-18feature-changes.md`
+
+### 18 New Feature Flags (config.ts)
+- P0: useSmartRetry, useCostEstimator, useAutoRefund, useGasDashboard, useEnhancedStream, useExportSession
+- P1: useSubscriptionTiers, useSlashing, useRevenueStreaming, useAgentStaking, useTaskTemplates, useAgentComparison
+- P2: useWalletConnect, useBatchAuction, useMultiToken, useMerkleProofs, useGovernance, useBridgeStatus
+
+### New Files to Create
+- Orchestrator: retry.ts, cost-estimator.ts, economy/{refunds,tiers,slashing,streaming,auction,multi-token,merkle-proofs,governance}.ts
+- Dashboard: 8 new components + 4 API routes
+- Contracts: AgentStaking.vy, Governance.vy
+
 ## Integration Patterns
 
 ### Orchestrator → Dashboard Data Pipeline

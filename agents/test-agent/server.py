@@ -12,7 +12,9 @@ import logging
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"), override=True)
+
+from llm_client import enrich_with_llm
 
 AGENT_TYPE = "test"
 AGENT_NAME = "Test Agent"
@@ -116,43 +118,64 @@ def require_payment(price: str):
     # --- Passthrough mode (circlekit not installed) ---
 
     if payment_header:
+        import base64
+        import json as _json
         from types import SimpleNamespace
-        logger.info(f"Payment accepted (passthrough): {price}")
-        return SimpleNamespace(payer="0x_passthrough", amount=price, formatted_amount=price)
+        try:
+            decoded = _json.loads(base64.b64decode(payment_header))
+            tx_hash = decoded.get("transaction", "0x_passthrough")
+            logger.info(f"Payment accepted (passthrough): {price}")
+            return SimpleNamespace(payer=decoded.get("authorization", {}).get("from", "0x_passthrough"), amount=price, formatted_amount=price, transaction=tx_hash)
+        except Exception as e:
+            logger.warning(f"Failed to decode payment header: {e}")
+            return SimpleNamespace(payer="0x_passthrough", amount=price, formatted_amount=price)
 
-    # Return 402 challenge with x402 payment requirements
-    resp = jsonify({
-        "error": "payment-required",
-        "message": f"Send {price} USDC to access this endpoint",
-        "payment": {
-            "scheme": "exact",
-            "network": "eip155:5042002",
-            "asset": "0x3600000000000000000000000000000000000000",
-            "amount": price,
-            "payTo": SELLER_ADDRESS,
-            "maxTimeoutSeconds": 60,
-            "extra": {
-                "name": "GatewayWalletBatched",
-                "version": "1",
-                "verifyingContract": "0x0077777d7EBA4688BDeF3E311b846F25870A19B9",
-            },
-        },
-    })
+    # Return 402 challenge with PAYMENT-REQUIRED header (base64-encoded JSON)
+    import base64
+    import json as _json
+    price_atomic = str(int(float(price.replace("$", "")) * 1_000_000))
+    payment_requirements = {
+        "x402Version": 2,
+        "resource": request.url,
+        "accepts": [
+            {
+                "scheme": "exact",
+                "network": "eip155:5042002",
+                "asset": "0x3600000000000000000000000000000000000000",
+                "amount": price_atomic,
+                "payTo": SELLER_ADDRESS or "0x42Db290677b273a8a6B2bC19082e36D94B1A47E9",
+                "maxTimeoutSeconds": 60,
+                "extra": {
+                    "name": "GatewayWalletBatched",
+                    "version": "1",
+                    "verifyingContract": "0x0077777d7EBA4688BDeF3E311b846F25870A19B9",
+                },
+            }
+        ],
+    }
+    encoded = base64.b64encode(_json.dumps(payment_requirements).encode()).decode()
+    resp = jsonify({"error": "payment-required", "message": f"Send {price} USDC to access this endpoint"})
     resp.status_code = 402
-    resp.headers["X-Payment-Required"] = "true"
-    resp.headers["X-Payment-Version"] = "1"
+    resp.headers["PAYMENT-REQUIRED"] = encoded
     return resp
 
 
 def perform_testing(task: str, context: str | None = None) -> dict:
     """Core test generation logic. Returns structured mock output matching TestResult TypeScript interface."""
     context_prefix = f"Testing code from: {context}. " if context else ""
+    mock_suite = (f"{context_prefix}test_main.py::test_user_creation PASSED\n"
+                  "test_main.py::test_user_validation PASSED\n"
+                  "test_main.py::test_api_get_users PASSED\n"
+                  "test_main.py::test_api_create_user PASSED\n"
+                  "test_main.py::test_api_update_user PASSED\n"
+                  "test_main.py::test_api_delete_user FAILED (assert 404 == 200)")
+    llm_suite = enrich_with_llm(AGENT_NAME, f"Generate tests for: {task}", mock_suite)
     return {
         "tests_generated": 6,
         "passing": 5,
         "failing": 1,
         "coverage": 0.87,
-        "test_suite": f"{context_prefix}test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+        "test_suite": llm_suite,
     }
 
 
@@ -204,7 +227,10 @@ if __name__ == "__main__":
 
     atexit.register(_shutdown_loop)
 
+    from llm_client import USE_REAL_LLM, LLM_MODEL, LLM_BASE_URL
+    llm_mode = f"REAL ({LLM_MODEL} via {LLM_BASE_URL})" if USE_REAL_LLM else "MOCK (no LLM)"
     logger.info(f"🚀 {AGENT_NAME} starting on port {AGENT_PORT}")
     logger.info(f"   Pricing: {AGENT_PRICE} per test call")
+    logger.info(f"   🤖 LLM mode: {llm_mode}")
     logger.info(f"   Gateway: {'connected' if gateway_middleware else 'passthrough mode'}")
     app.run(host="0.0.0.0", port=AGENT_PORT, debug=False)

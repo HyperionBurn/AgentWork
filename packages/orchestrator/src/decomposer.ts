@@ -1,18 +1,164 @@
-import { Subtask, TaskDecomposition, AGENT_ENDPOINTS } from "./config";
+import { Subtask, TaskDecomposition, AGENT_ENDPOINTS, FEATURES } from "./config";
 
 // ============================================================
 // Task Decomposer
 // ============================================================
-// In production, this would use an LLM to decompose tasks.
-// For the hackathon demo, we use a hardcoded decomposition
-// to ensure reliable, repeatable demo execution.
+// Supports two modes:
+// 1. Hardcoded demo decomposition (default — reliable for demo)
+// 2. Dynamic LLM decomposition (USE_LLM_DECOMPOSER=true)
+//    Falls back to hardcoded on any LLM failure.
+// ============================================================
+
+const VALID_AGENT_TYPES = new Set(AGENT_ENDPOINTS.map((a) => a.type));
+
+/**
+ * Decompose a task string into ordered subtasks for specialist agents.
+ * When USE_LLM_DECOMPOSER=true and API key is set, uses an LLM.
+ * Otherwise falls back to the hardcoded demo decomposition.
+ */
+export async function decomposeTask(taskDescription: string): Promise<TaskDecomposition> {
+  if (FEATURES.useLLMDecomposer) {
+    try {
+      const llmResult = await llmDecompose(taskDescription);
+      if (llmResult) {
+        const validated = validateDecomposition(llmResult, taskDescription);
+        if (validated) {
+          console.log("   🤖 Dynamic decomposition from LLM");
+          return validated;
+        }
+      }
+    } catch (error) {
+      console.error("   ⚠️  LLM decomposition failed, falling back to hardcoded:", error);
+    }
+  }
+
+  return hardcodedDecompose(taskDescription);
+}
+
+// ============================================================
+// LLM Decomposition (#5)
+// ============================================================
+
+interface LLMSubtask {
+  id: string;
+  agentType: string;
+  input: string;
+  dependsOn: string[];
+}
+
+async function llmDecompose(taskDescription: string): Promise<LLMSubtask[] | null> {
+  const apiKey = process.env.LLM_API_KEY || process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return null;
+
+  const baseUrl = process.env.LLM_BASE_URL || "https://api.openai.com/v1";
+  const model = process.env.LLM_MODEL || "gpt-4o-mini";
+
+  const prompt = `You are a task decomposer for an AI agent marketplace. Break down this task into 3-8 subtasks for specialist agents.
+
+Available agent types: ${AGENT_ENDPOINTS.map((a) => `"${a.type}"`).join(", ")}
+Each subtask needs: id (e.g., "task-1"), agentType, input (string), dependsOn (array of ids)
+
+Task: "${taskDescription}"
+
+Return ONLY a valid JSON array of subtasks. Example:
+[{"id":"task-1","agentType":"research","input":"Research...","dependsOn":[]}]
+No markdown, no explanation, just the JSON array.`;
+
+  const response = await fetch(`${baseUrl}/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 1000,
+      temperature: 0.3,
+    }),
+  });
+
+  if (!response.ok) return null;
+
+  const data = await response.json() as { choices: Array<{ message: { content: string } }> };
+  const content = data.choices?.[0]?.message?.content?.trim();
+  if (!content) return null;
+
+  // Strip markdown code fences if present
+  const jsonStr = content.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
+  return JSON.parse(jsonStr) as LLMSubtask[];
+}
+
+/**
+ * Validate LLM decomposition output — reject if malformed.
+ */
+function validateDecomposition(
+  subtasks: LLMSubtask[],
+  taskDescription: string,
+): TaskDecomposition | null {
+  if (!Array.isArray(subtasks) || subtasks.length < 3 || subtasks.length > 12) {
+    console.log("   ⚠️  LLM returned invalid subtask count:", subtasks.length);
+    return null;
+  }
+
+  // Check all agent types are valid
+  for (const s of subtasks) {
+    if (!VALID_AGENT_TYPES.has(s.agentType)) {
+      console.log("   ⚠️  LLM returned invalid agent type:", s.agentType);
+      return null;
+    }
+  }
+
+  // Check for dependency cycles (simple BFS)
+  const ids = new Set(subtasks.map((s) => s.id));
+  for (const s of subtasks) {
+    for (const dep of s.dependsOn) {
+      if (!ids.has(dep)) {
+        console.log("   ⚠️  LLM returned unknown dependency:", dep);
+        return null;
+      }
+    }
+  }
+
+  // Build TaskDecomposition
+  const taskId = generateId();
+  const enriched: Subtask[] = subtasks.map((s) => {
+    const agent = AGENT_ENDPOINTS.find((a) => a.type === s.agentType);
+    const params = new URLSearchParams({ input: s.input });
+    return {
+      id: s.id.startsWith("task-") ? `${taskId}-${s.id}` : s.id,
+      agentType: s.agentType,
+      input: s.input,
+      price: agent?.price || "$0.005",
+      url: `${agent?.baseUrl || "http://localhost:4021"}${agent?.apiPath || "/api/research"}?${params.toString()}`,
+      dependsOn: s.dependsOn.map((d) =>
+        d.startsWith("task-") ? `${taskId}-${d}` : d,
+      ),
+    };
+  });
+
+  const totalCost = enriched
+    .reduce((sum, s) => sum + parseFloat(s.price.replace("$", "")), 0)
+    .toFixed(3);
+
+  return {
+    taskId,
+    description: taskDescription,
+    subtasks: enriched,
+    estimatedCost: `$${totalCost}`,
+    estimatedTransactions: enriched.length,
+  };
+}
+
+// ============================================================
+// Hardcoded Demo Decomposition (fallback)
 // ============================================================
 
 /**
  * Decompose a task string into ordered subtasks for specialist agents.
  * Each subtask targets a specific agent type with an input prompt.
  */
-export function decomposeTask(taskDescription: string): TaskDecomposition {
+function hardcodedDecompose(taskDescription: string): TaskDecomposition {
   const taskId = generateId();
 
   // Hardcoded demo decomposition — reliable for demo video

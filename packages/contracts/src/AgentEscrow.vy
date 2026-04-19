@@ -10,13 +10,32 @@
 #   5. dispute — buyer disputes (triggers resolution)
 # ==============================================================================
 
-# events:
-    TaskCreated: immutable(uint256, address, address, uint256, string)
-    TaskClaimed: immutable(uint256, address)
-    ResultSubmitted: immutable(uint256, string)
-    TaskCompleted: immutable(uint256)
-    TaskDisputed: immutable(uint256, string)
-    FundsWithdrawn: immutable(uint256, address, uint256)
+event TaskCreated:
+    task_id: uint256
+    buyer: address
+    agent: address
+    reward: uint256
+    description: String[256]
+
+event TaskClaimed:
+    task_id: uint256
+    agent: address
+
+event ResultSubmitted:
+    task_id: uint256
+    result: String[1024]
+
+event TaskCompleted:
+    task_id: uint256
+
+event TaskDisputed:
+    task_id: uint256
+    reason: String[256]
+
+event FundsWithdrawn:
+    task_id: uint256
+    recipient: address
+    amount: uint256
 
 USDC: constant(address) = 0x3600000000000000000000000000000000000000
 

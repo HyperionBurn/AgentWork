@@ -87,7 +87,7 @@ export async function executePayment(
       amount: result.formattedAmount,
       transactionHash: txHash,
       explorerUrl: `${ARC_CONFIG.explorerUrl}${txHash}`,
-      response: result,
+      response: typeof result.data === "object" ? JSON.parse(JSON.stringify(result.data, (_, v) => typeof v === "bigint" ? v.toString() : v)) : result.data,
     };
 
     // Record to Supabase for dashboard feed (non-blocking)
@@ -148,6 +148,137 @@ async function executePaymentWithRetry(subtask: Subtask): Promise<PaymentResult>
   }
   // Final attempt (or only attempt if MAX_RETRIES is 1)
   return executePayment(subtask);
+}
+
+// ============================================================
+// Parallel Execution (#7)
+// ============================================================
+// Groups subtasks by dependency level and executes each level
+// concurrently. Falls back to sequential when USE_PARALLEL=false.
+// ============================================================
+
+/**
+ * Topologically sort subtasks into dependency levels.
+ * Level 0 = no dependencies, Level 1 = depends on Level 0, etc.
+ */
+export function topologicalSort(subtasks: Subtask[]): Subtask[][] {
+  const idSet = new Set(subtasks.map((s) => s.id));
+  const inDegree = new Map<string, number>();
+  const dependents = new Map<string, string[]>();
+
+  for (const s of subtasks) {
+    inDegree.set(s.id, s.dependsOn.filter((d) => idSet.has(d)).length);
+    dependents.set(s.id, []);
+  }
+  for (const s of subtasks) {
+    for (const dep of s.dependsOn) {
+      if (dependents.has(dep)) {
+        dependents.get(dep)!.push(s.id);
+      }
+    }
+  }
+
+  const levels: Subtask[][] = [];
+  const resolved = new Set<string>();
+  const taskMap = new Map(subtasks.map((s) => [s.id, s]));
+
+  while (resolved.size < subtasks.length) {
+    const level: Subtask[] = [];
+    for (const s of subtasks) {
+      if (!resolved.has(s.id) && inDegree.get(s.id) === 0) {
+        level.push(s);
+      }
+    }
+    if (level.length === 0) {
+      // Cycle detected — resolve remaining sequentially
+      for (const s of subtasks) {
+        if (!resolved.has(s.id)) level.push(s);
+      }
+    }
+    levels.push(level);
+    for (const s of level) {
+      resolved.add(s.id);
+      for (const depId of dependents.get(s.id) || []) {
+        inDegree.set(depId, (inDegree.get(depId) || 1) - 1);
+      }
+    }
+  }
+
+  return levels;
+}
+
+/**
+ * Execute all subtasks with parallel execution within dependency levels.
+ * When USE_PARALLEL=false, processes sequentially (backward compat).
+ */
+export async function executeAllPaymentsParallel(
+  subtasks: Subtask[]
+): Promise<PaymentResult[]> {
+  const useParallel = process.env.USE_PARALLEL !== "false";
+
+  if (!useParallel) {
+    return executeAllPayments(subtasks);
+  }
+
+  const levels = topologicalSort(subtasks);
+  const results: PaymentResult[] = [];
+  const summaries = new Map<string, string>();
+  let totalSpent = 0;
+
+  console.log(`\n${"=".repeat(60)}`);
+  console.log(`⚡ Executing ${subtasks.length} subtasks in ${levels.length} parallel levels`);
+  console.log(`${"=".repeat(60)}`);
+
+  for (let levelIdx = 0; levelIdx < levels.length; levelIdx++) {
+    const level = levels[levelIdx];
+    const levelStart = Date.now();
+
+    console.log(`\n  📊 Level ${levelIdx}: ${level.length} subtask(s) — ${level.map((s) => s.agentType).join(", ")}`);
+
+    // Execute all subtasks in this level concurrently
+    const levelResults = await Promise.all(
+      level.map(async (subtask) => {
+        // Inject context from completed dependencies
+        let enrichedSubtask = subtask;
+        if (subtask.dependsOn.length > 0) {
+          const depSummaries = subtask.dependsOn
+            .map((depId) => summaries.get(depId))
+            .filter(Boolean)
+            .join("; ");
+          if (depSummaries) {
+            const existingContext = subtask.context ? `${subtask.context} | ` : "";
+            const url = new URL(subtask.url);
+            url.searchParams.set("context", `${existingContext}${depSummaries}`);
+            enrichedSubtask = { ...subtask, url: url.toString() };
+          }
+        }
+        return executePaymentWithRetry(enrichedSubtask);
+      }),
+    );
+
+    const elapsed = Date.now() - levelStart;
+    console.log(`  ⏱️  Level ${levelIdx} completed in ${elapsed}ms`);
+
+    for (let i = 0; i < levelResults.length; i++) {
+      const result = levelResults[i];
+      results.push(result);
+      if (result.success) {
+        totalSpent += parseFloat(result.amount.replace("$", ""));
+        const summary = extractSummary(result.response);
+        if (summary) summaries.set(level[i].id, summary);
+      }
+    }
+  }
+
+  const successful = results.filter((r) => r.success).length;
+  const failed = results.length - successful;
+
+  console.log(`\n${"=".repeat(60)}`);
+  console.log(`⚡ Parallel execution complete: ${successful}/${results.length} successful`);
+  console.log(`   Total spent: $${totalSpent.toFixed(4)}`);
+  console.log(`${"=".repeat(60)}`);
+
+  return results;
 }
 
 /**

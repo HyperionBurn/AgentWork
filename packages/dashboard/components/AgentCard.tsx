@@ -8,9 +8,14 @@ interface AgentCardProps {
     tasksCompleted: number;
     description: string;
   };
+  metrics?: {
+    tasksCompleted: number;
+    totalEarnings: number;
+    successRate: string;
+  } | null;
 }
 
-export default function AgentCard({ agent }: AgentCardProps) {
+export default function AgentCard({ agent, metrics }: AgentCardProps) {
   const colors: Record<string, string> = {
     research: "from-violet-500 to-purple-600",
     code: "from-blue-500 to-cyan-500",
@@ -19,6 +24,11 @@ export default function AgentCard({ agent }: AgentCardProps) {
   };
 
   const gradient = colors[agent.type] || "from-slate-500 to-slate-600";
+
+  // Use real metrics if available, otherwise fall back to static data
+  const displayTasks = metrics?.tasksCompleted ?? agent.tasksCompleted;
+  const displayEarnings = metrics?.totalEarnings ?? agent.earnings;
+  const displaySuccessRate = metrics?.successRate ?? null;
 
   return (
     <div className="bg-arc-card border border-arc-border rounded-xl p-4 flex items-start gap-3 hover:border-arc-purple/30 transition-colors">
@@ -45,18 +55,23 @@ export default function AgentCard({ agent }: AgentCardProps) {
         <p className="text-xs text-slate-400 mt-0.5 truncate">
           {agent.description}
         </p>
-        {(agent.earnings > 0 || agent.tasksCompleted > 0) && (
-          <div className="flex items-center gap-3 mt-1.5">
-            {agent.tasksCompleted > 0 && (
-              <span className="text-xs text-slate-500">
-                {agent.tasksCompleted} task{agent.tasksCompleted !== 1 ? "s" : ""}
-              </span>
-            )}
-            {agent.earnings > 0 && (
-              <span className="text-xs text-green-400 font-medium">
-                ${agent.earnings.toFixed(3)} earned
-              </span>
-            )}
+        {/* Real metrics grid (HF-6) */}
+        {(displayTasks > 0 || displayEarnings > 0) && (
+          <div className="grid grid-cols-3 gap-2 mt-2">
+            <div className="text-center">
+              <p className="text-[10px] text-slate-500 uppercase">Tasks</p>
+              <p className="text-sm font-bold text-white">{displayTasks}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[10px] text-slate-500 uppercase">Earned</p>
+              <p className="text-sm font-bold text-green-400">${displayEarnings.toFixed(3)}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[10px] text-slate-500 uppercase">Success</p>
+              <p className="text-sm font-bold text-cyan-400">
+                {displaySuccessRate ? `${displaySuccessRate}%` : "—"}
+              </p>
+            </div>
           </div>
         )}
       </div>

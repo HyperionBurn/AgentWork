@@ -54,8 +54,47 @@ body {
   to { opacity: 1; }
 }
 
+/* HF-1: Live Transaction Waterfall animations */
+@keyframes waterfallSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes waterfallGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+  }
+  50% {
+    box-shadow: 0 0 12px 4px rgba(124, 58, 237, 0.3);
+  }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .animate-slide-in {
   animation: slideInLeft 0.3s ease-out forwards;
+}
+
+.animate-waterfall {
+  animation: waterfallSlide 0.3s ease-out forwards;
+}
+
+.animate-waterfall-glow {
+  animation: waterfallSlide 0.3s ease-out forwards,
+             waterfallGlow 2s ease-in-out 1;
+}
+
+.animate-count-up {
+  animation: countUp 0.5s ease-out forwards;
 }
 
 .animate-pulse-glow {

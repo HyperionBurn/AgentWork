@@ -24,7 +24,8 @@
     "smoke-test": "tsx scripts/smoke-test.ts",
     "dry-run": "tsx scripts/dry-run.ts",
     "demo": "powershell -ExecutionPolicy Bypass -File ./scripts/demo.ps1",
-    "demo:10": "powershell -ExecutionPolicy Bypass -File ./scripts/demo.ps1 -Runs 10"
+    "demo:10": "powershell -ExecutionPolicy Bypass -File ./scripts/demo.ps1 -Runs 10",
+    "collect-evidence": "npx tsx scripts/collect-evidence.ts"
   },
   "engines": {
     "node": ">=18.0.0"

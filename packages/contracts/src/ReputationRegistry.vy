@@ -3,9 +3,18 @@
 # Source: vyperlang/erc-8004-vyper/src/ReputationRegistry.vy
 # ==============================================================================
 
-# events:
-    FeedbackGiven: immutable(uint256, address, address, uint256, uint8, string)
-    FeedbackRevoked: immutable(uint256, address, address)
+event FeedbackGiven:
+    feedback_id: uint256
+    sender: address
+    agent: address
+    timestamp: uint256
+    score: uint8
+    comment: String[256]
+
+event FeedbackRevoked:
+    feedback_id: uint256
+    sender: address
+    agent: address
 
 struct Feedback:
     from_address: address
@@ -19,7 +28,7 @@ identity_registry: public(address)
 agent_feedback: HashMap[address, DynArray[Feedback, 100]]
 agent_scores: HashMap[address, uint256]  # WAD-normalized (18 decimals)
 
-@external
+@deploy
 def __init__(_identity_registry: address):
     self.identity_registry = _identity_registry
 
@@ -49,13 +58,13 @@ def giveFeedback(
         active: True,
     })
 
-    if self.agent_feedback[_agent] == empty(DynArray[Feedback, 100]):
+    if len(self.agent_feedback[_agent]) == 0:
         self.agent_feedback[_agent] = [feedback]
     else:
         self.agent_feedback[_agent].append(feedback)
 
     # Recalculate weighted average (WAD precision)
-    _recalculate_score(_agent)
+    self._recalculate_score(_agent)
 
     feedback_id: uint256 = len(self.agent_feedback[_agent]) - 1
     log FeedbackGiven(feedback_id, msg.sender, _agent, block.timestamp, _score, _comment)
@@ -75,8 +84,8 @@ def revokeFeedback(_agent: address, _feedback_id: uint256):
     assert feedbacks[_feedback_id].active, "Already revoked"
 
     feedbacks[_feedback_id].active = False
-    _recalculate_score(_agent)
-    log FeedbackRevoked(_feedback_id, msg.sender, _agent)
+    self._recalculate_score(_agent)
+    log FeedbackRevoked(feedback_id=_feedback_id, sender=msg.sender, agent=_agent)
 
 
 @external
@@ -91,7 +100,7 @@ def getSummary(_agent: address) -> (uint256, uint256, uint256):
     feedbacks: DynArray[Feedback, 100] = self.agent_feedback[_agent]
     total: uint256 = len(feedbacks)
     active: uint256 = 0
-    for f in feedbacks:
+    for f: Feedback in feedbacks:
         if f.active:
             active += 1
     return (self.agent_scores[_agent], total, active)
@@ -118,12 +127,12 @@ def _recalculate_score(_agent: address):
     feedbacks: DynArray[Feedback, 100] = self.agent_feedback[_agent]
     total: uint256 = 0
     count: uint256 = 0
-    for f in feedbacks:
+    for f: Feedback in feedbacks:
         if f.active:
             total += convert(f.score, uint256) * 1000000000000000000  # WAD
             count += 1
 
     if count > 0:
-        self.agent_scores[_agent] = total / count
+        self.agent_scores[_agent] = total // count
     else:
         self.agent_scores[_agent] = 0

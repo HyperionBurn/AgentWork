@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import TaskFeed from "@/components/TaskFeed";
-import AgentCard from "@/components/AgentCard";
 import TxList from "@/components/TxList";
-import EconomicChart from "@/components/EconomicChart";
+import DemoLauncher from "@/components/DemoLauncher";
+import { DashboardCharts } from "@/components/DashboardCharts";
+import { PaymentFlowAnimation } from "@/components/PaymentFlowAnimation";
 import { subscribeToTasks } from "@/lib/supabase";
 
 // ============================================================
@@ -92,7 +93,11 @@ export default function Dashboard() {
   const [connected, setConnected] = useState(false);
   const [connectionMode, setConnectionMode] = useState<"connecting" | "live" | "polling">("connecting");
   const [gatewayBalance, setGatewayBalance] = useState({ balance: "$0.0000", deposited: "$0.0000", spent: "$0.0000" });
+  const [timeseries, setTimeseries] = useState<Array<{ timestamp: string; count: number; totalAmount: number }>>([]);
+  const [agentBreakdown, setAgentBreakdown] = useState<Array<{ agentType: string; count: number; totalAmount: number }>>([]);
   const channelRef = useRef<ReturnType<typeof subscribeToTasks>>(null);
+  const pendingRef = useRef<unknown[]>([]);
+  const flushRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Derive transactions from task events for TxList
   // (task_events with gateway_tx are on-chain payment records)
@@ -156,19 +161,41 @@ export default function Dashboard() {
     }
   }, []);
 
+  // Fetch time-series data for charts
+  const fetchTimeseries = useCallback(async () => {
+    try {
+      const res = await fetch("/api/stats-timeseries");
+      if (res.ok) {
+        const data = await res.json();
+        setTimeseries(data.timeseries || []);
+        setAgentBreakdown(data.agentBreakdown || []);
+      }
+    } catch {
+      // Timeseries unavailable
+    }
+  }, []);
+
   useEffect(() => {
     fetchTasks();
     checkAgents();
     fetchBalance();
+    fetchTimeseries();
 
     // Attempt Supabase Realtime subscription
     let taskInterval: ReturnType<typeof setInterval> | null = null;
 
     try {
       const channel = subscribeToTasks((_event) => {
-        // New task INSERT received — refresh data
-        fetchTasks();
-        fetchBalance();
+        // Debounce: accumulate events, flush every 100ms (HF-1 waterfall)
+        pendingRef.current.push(_event);
+        if (!flushRef.current) {
+          flushRef.current = setTimeout(() => {
+            flushRef.current = null;
+            fetchTasks();
+            fetchBalance();
+            fetchTimeseries();
+          }, 100);
+        }
       });
       channelRef.current = channel;
 
@@ -228,6 +255,7 @@ export default function Dashboard() {
               <div className={`w-1.5 h-1.5 rounded-full ${modeDot}`} />
               <span className={modeColor}>{modeLabel}</span>
             </div>
+            <a href="/evidence" className="text-xs text-arc-purple hover:text-arc-blue transition-colors">📊 Evidence</a>
             <a href="https://testnet.arcscan.io" target="_blank" rel="noopener noreferrer" className="text-xs text-arc-purple hover:text-arc-blue transition-colors">Arc Explorer ↗</a>
           </div>
         </div>
@@ -249,21 +277,20 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-3">Specialist Agents</h2>
-              <div className="space-y-3">
-                {agents.map((agent) => (<AgentCard key={agent.type} agent={agent} />))}
-              </div>
-            </div>
-            <EconomicChart liveCost={stats.totalSpent} />
-          </div>
-          <div className="lg:col-span-2 space-y-6">
-            <TaskFeed tasks={tasks} />
-            <TxList transactions={transactions} />
-          </div>
+        {/* One-Click Demo Launcher */}
+        <DemoLauncher />
+        {/* Animated Payment Flow */}
+        <PaymentFlowAnimation recentTasks={tasks.slice(0, 5)} />
+        {/* Real-Time Charts */}
+        <DashboardCharts
+          timeseries={timeseries}
+          agentBreakdown={agentBreakdown}
+          totalTransactions={stats.totalOnChainTransactions}
+        />
+        {/* Live Task Feed */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TaskFeed tasks={tasks} />
+          <TxList transactions={transactions} />
         </div>
       </main>
       <footer className="border-t border-arc-border mt-12 py-6 text-center text-xs text-slate-500">

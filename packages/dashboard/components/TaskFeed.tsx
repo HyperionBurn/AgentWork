@@ -26,8 +26,16 @@ const agentLabels: Record<string, string> = {
   orchestrator: "Orchestrator",
 };
 
+const agentColors: Record<string, string> = {
+  research: "border-l-violet-500",
+  code: "border-l-blue-500",
+  test: "border-l-emerald-500",
+  review: "border-l-amber-500",
+  orchestrator: "border-l-purple-500",
+};
+
 // Format amount consistently — avoid double $ prefix
-const formatAmount = (a: string) => a.startsWith("$") ? a : `$${a}`;
+const formatAmount = (a: string | null | undefined) => (a && a.startsWith("$")) ? a : `$${a ?? "0"}`;
 
 export default function TaskFeed({ tasks }: TaskFeedProps) {
   return (
@@ -44,45 +52,73 @@ export default function TaskFeed({ tasks }: TaskFeedProps) {
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-arc-border max-h-[400px] overflow-y-auto">
+          <div className="divide-y divide-arc-border max-h-[500px] overflow-y-auto">
             {tasks.map((task) => {
               const style = statusStyles[task.status] || statusStyles.pending;
               const isMockTx = task.gateway_tx?.startsWith("MOCK_") ?? false;
+              const hasLongResult = task.result && task.result.length > 120;
               return (
-                <div
+                <details
                   key={task.id}
-                  className={`px-4 py-3 flex items-center gap-3 hover:bg-arc-dark/50 transition-colors animate-slide-in ${task.status === "completed" ? "animate-pulse-glow" : ""}`}
+                  className={`group border-l-2 ${agentColors[task.agent_type] || "border-l-slate-500"}`}
                 >
-                  <span className="text-sm">{style.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-white">
-                        {agentLabels[task.agent_type] || task.agent_type}
-                      </span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${style.badge}`}>
-                        {task.status}
-                      </span>
+                  <summary
+                    className={`px-4 py-3 flex items-center gap-3 hover:bg-arc-dark/50 transition-colors cursor-pointer list-none animate-waterfall ${task.status === "completed" ? "animate-waterfall-glow" : ""}`}
+                  >
+                    <span className="text-sm">{style.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-white">
+                          {agentLabels[task.agent_type] || task.agent_type}
+                        </span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${style.badge}`}>
+                          {task.status}
+                        </span>
+                        {task.gateway_tx && !isMockTx && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-400">
+                            ✅ confirmed
+                          </span>
+                        )}
+                        {task.gateway_tx && isMockTx && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400">
+                            ⏳ simulated
+                          </span>
+                        )}
+                      </div>
+                      {task.result && !hasLongResult && (
+                        <p className="text-xs text-slate-400 mt-0.5 truncate">
+                          {task.result}
+                        </p>
+                      )}
+                      {hasLongResult && (
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          ▶ Click to expand response
+                        </p>
+                      )}
                     </div>
-                    {task.result && (
-                      <p className="text-xs text-slate-400 mt-0.5 truncate">
+                    <div className="text-right flex-shrink-0">
+                      <p className="text-xs text-slate-300">{formatAmount(task.amount)}</p>
+                      {task.gateway_tx && !isMockTx && (
+                        <a
+                          href={`https://testnet.arcscan.io/tx/${task.gateway_tx}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-arc-purple hover:underline"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          view tx ↗
+                        </a>
+                      )}
+                    </div>
+                  </summary>
+                  {task.result && hasLongResult && (
+                    <div className="px-4 pb-3 border-t border-arc-border/50">
+                      <pre className="whitespace-pre-wrap text-xs text-slate-300 mt-2 font-mono leading-relaxed max-h-[200px] overflow-y-auto">
                         {task.result}
-                      </p>
-                    )}
-                  </div>
-                  <div className="text-right flex-shrink-0">
-                    <p className="text-xs text-slate-300">{formatAmount(task.amount)}</p>
-                    {task.gateway_tx && !isMockTx && (
-                      <a
-                        href={`https://testnet.arcscan.io/tx/${task.gateway_tx}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-arc-purple hover:underline"
-                      >
-                        view tx ↗
-                      </a>
-                    )}
-                  </div>
-                </div>
+                      </pre>
+                    </div>
+                  )}
+                </details>
               );
             })}
           </div>

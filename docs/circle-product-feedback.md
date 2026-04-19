@@ -124,3 +124,143 @@ Despite the friction above, several things genuinely impressed us:
 The x402 protocol and Circle Gateway are solving a real problem — nanopayments for AI agents. The core technology works. The rough edges are primarily in developer experience: inconsistent naming, undocumented peer deps, and asymmetric config shapes. Fixing these would dramatically reduce time-to-first-payment for new developers.
 
 **We'd rate the SDK 7/10** — solid foundation, needs DX polish.
+
+---
+
+## Feature Requests for Future SDK Versions
+
+### 1. Balance Change WebSocket/Subscription
+
+```typescript
+client.onBalanceChange((newBalance) => {
+  dashboard.updateGatewayBalance(newBalance.formattedAvailable);
+});
+```
+
+Our dashboard polls `/api/gateway-balance` every 5 seconds. A real-time subscription would make the "live" experience much more compelling and reduce unnecessary API calls.
+
+### 2. Payment Status API
+
+```typescript
+client.getPaymentStatus(txHash: string): Promise<{
+  status: "authorized" | "batched" | "settled" | "failed";
+  blockNumber?: number;
+  settledAt?: Date;
+}>
+```
+
+Currently, after calling `client.pay()`, we get a `transaction` hash but have no way to check if it has been finalized on-chain. For our dashboard, we'd like to show a "settling..." state that flips to "confirmed" once the Gateway's batch is on-chain.
+
+### 3. Batch Payment Method
+
+For our orchestrator, we pay 4–12 agents per task. A batch method would reduce round trips:
+
+```typescript
+const results = await client.payBatch([
+  { url: "http://agent:4021/api/research", amount: "$0.005" },
+  { url: "http://agent:4022/api/code", amount: "$0.005" },
+  { url: "http://agent:4023/api/test", amount: "$0.005" },
+  { url: "http://agent:4024/api/review", amount: "$0.005" },
+]);
+```
+
+### 4. CLI Tool for Quick Testing
+
+A `circle-gateway` CLI would accelerate development:
+
+```bash
+circle-gateway deposit --amount 1 --chain arcTestnet
+circle-gateway pay --url http://localhost:4021/api/health --amount $0.005
+circle-gateway balance --chain arcTestnet
+```
+
+This would let teams validate their setup without writing code first.
+
+### 5. Built-in Retry Support
+
+Rather than every consumer implementing their own retry logic, offer it as a constructor option:
+
+```typescript
+const client = new GatewayClient({
+  chain: "arcTestnet",
+  privateKey: "0x..." as Hex,
+  retry: { maxAttempts: 3, backoffMs: 1000 },
+});
+```
+
+We implemented our own exponential backoff with `MAX_RETRIES=3` and `BASE_BACKOFF_MS=2000`. Having this built into the SDK would save every team from reinventing it.
+
+---
+
+## Scale Testing Observations
+
+During our hackathon development, we executed:
+
+- **60+ on-chain transactions** per demo session
+- **4 specialist agents** paid sequentially per task
+- **$0.005 per agent call** (sub-cent nanopayment)
+- **~5 second settlement** via Circle Gateway
+- **Zero failed payments** due to Gateway issues (failures were our own bugs)
+
+The Gateway handled our load without issues. We never hit rate limits from the Gateway itself. The main bottleneck was our own agent response time, not the payment infrastructure.
+
+### Cost Breakdown (60 transactions)
+
+| Method | Cost | Settlement Time |
+|--------|------|-----------------|
+| **Arc + Circle Gateway** | **$0.30** | **<5 min** |
+| L2 (Arbitrum) | $6.00 | ~5 min |
+| Stripe | $18.00 | 1–3 days |
+
+Arc + Circle is **60x cheaper than Stripe** and **20x cheaper than L2** for high-frequency microtransactions. This is the exact use case where nanopayments shine.
+
+---
+
+## SDK Architecture Suggestions
+
+### Result Type Unification
+
+```typescript
+// Current: different shapes per type
+DepositResult { depositTxHash, amount }
+PayResult { transaction, amount, data }
+WithdrawResult { withdrawTxHash?, amount }
+
+// Proposed: unified base interface
+interface PaymentResult {
+  txHash: string;          // always present, always same name
+  amount: bigint;          // always bigint
+  formattedAmount: string; // always human-readable
+  explorerUrl?: string;    // convenience link
+  status: "pending" | "settled";
+}
+```
+
+### Configuration Validation
+
+```typescript
+// Currently fails silently or with obscure errors
+new GatewayClient({ chain: "invalid", ... })
+
+// Would prefer immediate, clear error:
+// Error: Invalid chain "invalid". Supported values: "arcTestnet", "baseSepolia", ...
+```
+
+---
+
+## Summary Rating
+
+| Category | Rating | Notes |
+|----------|--------|-------|
+| Ease of Setup | ⭐⭐⭐⭐ | Good once you know the quirks |
+| Documentation | ⭐⭐⭐ | Exists but lacks examples for edge cases |
+| API Design | ⭐⭐⭐⭐ | Core `pay()` is excellent, field naming inconsistent |
+| Reliability | ⭐⭐⭐⭐⭐ | Zero Gateway-caused failures |
+| Cost Efficiency | ⭐⭐⭐⭐⭐ | 60x cheaper than Stripe for microtransactions |
+| Python SDK | ⭐⭐⭐⭐ | Good parity, graceful fallback when unavailable |
+
+**Bottom line**: The Circle Gateway + x402 protocol is the real deal for nanopayments. The core `pay()` API is the best we've used for agent-to-agent payments. With some DX polish (consistent field names, structured errors, balance subscriptions), it would be nearly perfect.
+
+---
+
+*This feedback is submitted as part of the Agentic Economy on Arc hackathon and is eligible for the $500 Circle Product Feedback bonus.*

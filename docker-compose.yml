@@ -5,6 +5,11 @@
 
 version: "3.8"
 
+# Shared volumes for demo evidence (#10)
+volumes:
+  evidence:
+    driver: local
+
 services:
   # ---- Dashboard (Next.js) ----
   dashboard:
@@ -56,12 +61,22 @@ services:
       - REVIEW_AGENT_PORT=4024
       - DEMO_TASK=${DEMO_TASK:-Build a REST API with user authentication, CRUD endpoints, and unit tests}
       - DEMO_RUNS=${DEMO_RUNS:-15}
+      - USE_PARALLEL=${USE_PARALLEL:-true}
+      - USE_REAL_LLM=${USE_REAL_LLM:-false}
+      - USE_LLM_DECOMPOSER=${USE_LLM_DECOMPOSER:-false}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
       - RESEARCH_AGENT_URL=http://research-agent:4021
       - CODE_AGENT_URL=http://code-agent:4022
       - TEST_AGENT_URL=http://test-agent:4023
       - REVIEW_AGENT_URL=http://review-agent:4024
       - SUPABASE_URL=${SUPABASE_URL:-}
       - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-}
+      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS:-}
+      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS:-}
+      - AGENT_ESCROW_ADDRESS=${AGENT_ESCROW_ADDRESS:-}
+    volumes:
+      - evidence:/app/evidence
     depends_on:
       - research-agent
       - code-agent
@@ -79,6 +94,9 @@ services:
       - RESEARCH_AGENT_PORT=4021
       - RESEARCH_AGENT_PRICE=${RESEARCH_AGENT_PRICE:-$0.005}
       - RESEARCH_AGENT_WALLET=${SELLER_WALLET:-}
+      - USE_REAL_LLM=${USE_REAL_LLM:-false}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4021/health')\""]
       interval: 10s
@@ -97,6 +115,9 @@ services:
       - CODE_AGENT_PORT=4022
       - CODE_AGENT_PRICE=${CODE_AGENT_PRICE:-$0.005}
       - CODE_AGENT_WALLET=${SELLER_WALLET:-}
+      - USE_REAL_LLM=${USE_REAL_LLM:-false}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4022/health')\""]
       interval: 10s
@@ -115,6 +136,9 @@ services:
       - TEST_AGENT_PORT=4023
       - TEST_AGENT_PRICE=${TEST_AGENT_PRICE:-$0.005}
       - TEST_AGENT_WALLET=${SELLER_WALLET:-}
+      - USE_REAL_LLM=${USE_REAL_LLM:-false}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4023/health')\""]
       interval: 10s
@@ -133,9 +157,44 @@ services:
       - REVIEW_AGENT_PORT=4024
       - REVIEW_AGENT_PRICE=${REVIEW_AGENT_PRICE:-$0.005}
       - REVIEW_AGENT_WALLET=${SELLER_WALLET:-}
+      - USE_REAL_LLM=${USE_REAL_LLM:-false}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4024/health')\""]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 5s
+
+  # ---- Orchestrator Demo (#10) ----
+  # One-shot demo runner for hackathon evidence generation.
+  # Runs 15+ iterations, saves logs to evidence volume.
+  orchestrator-demo:
+    build:
+      context: .
+      dockerfile: packages/orchestrator/Dockerfile
+    environment:
+      - ORCHESTRATOR_PRIVATE_KEY=${ORCHESTRATOR_PRIVATE_KEY}
+      - DEMO_TASK=${DEMO_TASK:-Build a REST API with user authentication, CRUD endpoints, and unit tests}
+      - DEMO_RUNS=${DEMO_RUNS:-15}
+      - USE_PARALLEL=true
+      - RESEARCH_AGENT_URL=http://research-agent:4021
+      - CODE_AGENT_URL=http://code-agent:4022
+      - TEST_AGENT_URL=http://test-agent:4023
+      - REVIEW_AGENT_URL=http://review-agent:4024
+      - SUPABASE_URL=${SUPABASE_URL:-}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-}
+    volumes:
+      - evidence:/app/evidence
+    depends_on:
+      research-agent:
+        condition: service_healthy
+      code-agent:
+        condition: service_healthy
+      test-agent:
+        condition: service_healthy
+      review-agent:
+        condition: service_healthy
+    profiles:
+      - demo

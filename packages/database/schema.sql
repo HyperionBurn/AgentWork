@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS task_events (
   agent_type TEXT NOT NULL,
   status TEXT NOT NULL,
   gateway_tx TEXT,
-  amount TEXT NOT NULL,
+  amount TEXT,
   result TEXT,
   error TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -44,12 +44,31 @@ CREATE TABLE IF NOT EXISTS agents (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Gateway State Table
+-- Stores current Circle Gateway wallet balance
+CREATE TABLE IF NOT EXISTS gateway_state (
+  id TEXT PRIMARY KEY DEFAULT 'default',
+  balance TEXT NOT NULL DEFAULT '$0.0000',
+  deposited TEXT NOT NULL DEFAULT '$0.0000',
+  spent TEXT NOT NULL DEFAULT '$0.0000',
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Indexes for Performance
 CREATE INDEX IF NOT EXISTS payment_events_created_at_idx ON payment_events(created_at DESC);
 CREATE INDEX IF NOT EXISTS task_events_task_id_idx ON task_events(task_id);
 CREATE INDEX IF NOT EXISTS task_events_agent_type_idx ON task_events(agent_type);
 CREATE INDEX IF NOT EXISTS task_events_created_at_idx ON task_events(created_at DESC);
 CREATE INDEX IF NOT EXISTS agents_last_heartbeat_idx ON agents(last_heartbeat DESC);
+
+-- ============================================================
+-- Disable RLS (hackathon — anon key needs full access)
+-- Without this, all inserts from orchestrator/dashboard fail
+-- ============================================================
+ALTER TABLE task_events DISABLE ROW LEVEL SECURITY;
+ALTER TABLE payment_events DISABLE ROW LEVEL SECURITY;
+ALTER TABLE agents DISABLE ROW LEVEL SECURITY;
+ALTER TABLE gateway_state DISABLE ROW LEVEL SECURITY;
 
 -- Trigger for auto-updating updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -71,5 +90,5 @@ CREATE TRIGGER update_agents_updated_at
 -- Only payment_events and task_events — agents table is not
 -- read via Realtime (dashboard uses hardcoded array + health API)
 -- ============================================================
-ALTER PUBLICATION supabase_realtime ADD TABLE payment_events;
-ALTER PUBLICATION supabase_realtime ADD TABLE task_events;
+ALTER PUBLICATION supabase_realtime ADD TABLE IF NOT EXISTS payment_events;
+ALTER PUBLICATION supabase_realtime ADD TABLE IF NOT EXISTS task_events;
