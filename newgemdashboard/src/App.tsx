@@ -12,14 +12,13 @@ import { ErrorBoundary } from './components/dashboard/ErrorBoundary';
 // Lazy load all tabs
 const DashboardHome = lazy(() => import('./components/dashboard/tabs/DashboardHome'));
 const PlaygroundTab = lazy(() => import('./components/dashboard/tabs/PlaygroundTab'));
-const AgentsTab = lazy(() => import('./components/dashboard/tabs/AgentsTab').then(m => ({ default: m.AgentsTab })));
+const AgentsTab = lazy(() => import('./components/dashboard/tabs/AgentsTab'));
 const EconomyTab = lazy(() => import('./components/dashboard/tabs/EconomyTab'));
 const SpendingTab = lazy(() => import('./components/dashboard/tabs/SpendingTab'));
 const ReceiptsTab = lazy(() => import('./components/dashboard/tabs/ReceiptsTab'));
 const EvidenceTab = lazy(() => import('./components/dashboard/tabs/EvidenceTab'));
 const GovernanceTab = lazy(() => import('./components/dashboard/tabs/GovernanceTab'));
-const SettingsTab = lazy(() => import('./components/dashboard/tabs/SettingsTab').then(m => ({ default: m.SettingsTab })));
-const SubmitTab = lazy(() => import('./components/dashboard/tabs/SubmitTab'));
+const SettingsTab = lazy(() => import('./components/dashboard/tabs/SettingsTab'));
 
 import { useDashboardStore } from './lib/store';
 
@@ -43,7 +42,6 @@ export default function App() {
       case 'evidence': return <EvidenceTab />;
       case 'governance': return <GovernanceTab />;
       case 'settings': return <SettingsTab />;
-      case 'submit': return <SubmitTab />;
       default: return <DashboardHome />;
     }
   }

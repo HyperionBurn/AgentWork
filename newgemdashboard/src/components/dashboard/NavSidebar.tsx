@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Users, GitMerge, Zap, Settings, Menu, X, Cpu, Play, TrendingUp, DollarSign, CheckCircle2, Server, ArrowRightLeft, Sparkles } from 'lucide-react';
+import { LayoutDashboard, Users, Zap, Settings, Menu, X, Cpu, Play, TrendingUp, DollarSign, CheckCircle2, Server } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { motion } from 'motion/react';
 
@@ -12,7 +12,6 @@ export function NavSidebar({ activeTab, setActiveTab }: NavSidebarProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const tabs = [
-    { id: 'landing', label: 'Landing Page', icon: Sparkles },
     { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'playground', label: 'Playground', icon: Play },
     { id: 'agents', label: 'Agent Registry', icon: Users },
@@ -22,7 +21,6 @@ export function NavSidebar({ activeTab, setActiveTab }: NavSidebarProps) {
     { id: 'evidence', label: 'Evidence', icon: Server },
     { id: 'governance', label: 'Governance', icon: Zap },
     { id: 'settings', label: 'Settings', icon: Settings },
-    { id: 'submit', label: 'Submission', icon: ArrowRightLeft },
   ];
 
   return (

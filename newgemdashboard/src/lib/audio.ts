@@ -41,7 +41,7 @@ class AudioEngine {
 
   setEnabled(val: boolean) {
     this.enabled = val;
-    if (val) this.init();
+    // Don't auto-init AudioContext — defer to first user gesture
   }
 
   async play(name: keyof typeof AUDIO_SAMPLES) {
