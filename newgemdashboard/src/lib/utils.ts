@@ -53,13 +53,17 @@ const MOCK_API_RESPONSES: Record<string, any> = {
 
   // ── Economy Tab ──
   '/api/revenue': {
-    totalRevenue: 12450.80,
-    avgPerTask: 0.15,
-    topEarner: { agent: 'SentinelQA', revenue: 4520.25 },
-    byAgent: { research: 3120.00, code: 2890.50, test: 4520.25, review: 1920.05 },
+    totals: { totalEarned: '45.620', totalTasks: 473, totalRuns: 3 },
+    agents: [
+      { agentId: 'research-01', agentType: 'research', earned: 12.40, tasks: 124 },
+      { agentId: 'code-01', agentType: 'code', earned: 14.25, tasks: 89 },
+      { agentId: 'test-01', agentType: 'test', earned: 10.50, tasks: 215 },
+      { agentId: 'review-01', agentType: 'review', earned: 8.47, tasks: 45 },
+    ],
+    byAgent: { research: 12.40, code: 14.25, test: 10.50, review: 8.47 },
     byDay: Array.from({ length: 14 }, (_, i) => ({
       date: new Date(Date.now() - (13 - i) * 86400000).toISOString().split('T')[0],
-      amount: +(Math.random() * 200 + 400).toFixed(2),
+      amount: +(Math.random() * 5 + 1).toFixed(3),
     })),
   },
 
@@ -79,14 +83,20 @@ const MOCK_API_RESPONSES: Record<string, any> = {
   },
 
   // ── Receipts Tab ──
-  '/api/receipts': { receipts: [
-    { id: 'rcpt-3001', txHash: MOCK_TX(), agent: 'DeepResearch v3', task: 'Market Sentiment Analysis: Arc Network', amount: 0.005, status: 'passed', timestamp: new Date(Date.now() - 60000).toISOString(), metadata: { logic_hash: 'sha256:8f2a...11c2', computation_units: 450, gas_saved_usd: 12.40, provider: 'Arc L1 Settlement' } },
-    { id: 'rcpt-3002', txHash: MOCK_TX(), agent: 'CodeForge Alpha', task: 'Generate x402 Payment Middleware', amount: 0.005, status: 'passed', timestamp: new Date(Date.now() - 180000).toISOString(), metadata: { logic_hash: 'sha256:a1b2...c3d4', computation_units: 820, gas_saved_usd: 18.70, provider: 'Arc L1 Settlement' } },
-    { id: 'rcpt-3003', txHash: MOCK_TX(), agent: 'SentinelQA', task: 'Security Audit: AgentEscrow.vy', amount: 0.005, status: 'passed', timestamp: new Date(Date.now() - 600000).toISOString(), metadata: { logic_hash: 'sha256:e5f6...7890', computation_units: 1200, gas_saved_usd: 32.10, provider: 'Arc L1 Settlement' } },
-    { id: 'rcpt-3004', txHash: MOCK_TX(), agent: 'LogicReviewer', task: 'Code Review: PaymentSplitter', amount: 0.005, status: 'passed', timestamp: new Date(Date.now() - 900000).toISOString(), metadata: { logic_hash: 'sha256:1a2b...3c4d', computation_units: 320, gas_saved_usd: 8.90, provider: 'Arc L1 Settlement' } },
-    { id: 'rcpt-3005', txHash: MOCK_TX(), agent: 'DeepResearch v3', task: 'L2 Scaling Solutions Report', amount: 0.005, status: 'passed', timestamp: new Date(Date.now() - 1200000).toISOString(), metadata: { logic_hash: 'sha256:5e6f...7g8h', computation_units: 280, gas_saved_usd: 6.50, provider: 'Arc L1 Settlement' } },
-    { id: 'rcpt-3006', txHash: MOCK_TX(), agent: 'SentinelQA', task: 'Fuzz Test: IdentityRegistry.vy', amount: 0.005, status: 'failed', timestamp: new Date(Date.now() - 1500000).toISOString(), metadata: { logic_hash: 'sha256:9i0j...1k2l', computation_units: 950, gas_saved_usd: 22.30, provider: 'Arc L1 Settlement' } },
-  ]},
+  '/api/receipts': { receipts: Array.from({ length: 20 }, (_, i) => ({
+    receiptId: `rcpt-${(3200 - i).toString().padStart(4, '0')}`,
+    taskId: ['Market Sentiment Analysis: Arc Network', 'Generate x402 Payment Middleware', 'Security Audit: AgentEscrow.vy', 'Code Review: PaymentSplitter', 'L2 Scaling Solutions Report', 'Fuzz Test: IdentityRegistry.vy', 'Gas Optimization: SpendingLimiter', 'Integration Test: Full Pipeline', 'Research: MEV Protection', 'Compliance Check: ERC-8004'][i % 10],
+    totalAmount: '0.005',
+    successfulPayments: i === 5 ? 0 : 1,
+    status: i === 5 ? 'failed' : 'completed',
+    createdAt: new Date(Date.now() - i * 300000).toISOString(),
+    payments: [{
+      gatewayTx: MOCK_TX(),
+      agentType: ['research', 'code', 'test', 'review'][i % 4],
+      amount: '$0.005',
+      explorerUrl: `https://testnet.arcscan.io/tx/${MOCK_TX()}`,
+    }],
+  }))},
 
   // ── Evidence Tab ──
   '/api/all-agents': { agents: [
