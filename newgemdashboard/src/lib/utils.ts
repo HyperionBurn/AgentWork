@@ -27,7 +27,7 @@ const MOCK_API_RESPONSES: Record<string, any> = {
     { id: 'review-1', name: 'Review Agent', type: 'review', status: 'online', url: 'http://localhost:4024/health' },
   ]},
   '/api/gateway-balance': { balance: '4.251', deposited: '5.000', spent: '0.749' },
-  '/api/task-status': { totalTasks: 100, completed: 59, totalSpent: '0.749', totalOnChainTransactions: 59 },
+  '/api/task-status': { stats: { totalTasks: 100, completed: 59, totalSpent: '0.749', totalOnChainTransactions: 59 } },
   '/api/stats-timeseries': { timeseries: Array.from({ length: 24 }, (_, i) => ({ timestamp: new Date(Date.now() - (23 - i) * 600000).toISOString(), count: Math.floor(Math.random() * 5) + 1, totalAmount: (Math.random() * 0.025 + 0.005).toFixed(3) })) },
   '/api/reasoning': { events: [] },
   '/api/all-agents': { agents: [] },

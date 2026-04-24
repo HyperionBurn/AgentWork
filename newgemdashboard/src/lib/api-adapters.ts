@@ -161,12 +161,17 @@ export function adaptGatewayBalance(backend: any): {balance: number, deposited: 
 }
 
 export function adaptTaskStatus(backend: any): any {
-  if (!backend) return { tasks: [], stats: { total: 0, completed: 0, failed: 0, totalSpent: 0 } };
+  if (!backend) return { tasks: [], stats: { totalTasks: 0, completed: 0, failed: 0, totalSpent: 0, totalOnChainTransactions: 0 } };
+  // Handle both nested { stats: {...} } and flat { totalTasks, completed, ... } formats
+  const rawStats = backend.stats || backend;
   return {
     tasks: Array.isArray(backend.tasks) ? backend.tasks : [],
     stats: {
-      ...backend.stats,
-      totalSpent: parseFloat(backend.stats?.totalSpent || "0")
+      totalTasks: rawStats.totalTasks || rawStats.total || 0,
+      completed: rawStats.completed || 0,
+      failed: rawStats.failed || 0,
+      totalSpent: parseFloat(rawStats.totalSpent || "0"),
+      totalOnChainTransactions: rawStats.totalOnChainTransactions || 0,
     }
   };
 }
