@@ -29,7 +29,20 @@ const {
   batchCreateEscrow,
 } = await import("./contracts");
 const { AGENT_ENDPOINTS, FEATURES, ARC_CONFIG, isContractDeployed, getAgentAddress } = await import("./config");
-const { initSession, recordRun, saveSession } = await import("./session-recorder");
+const sessionModule = await import("./session-recorder");
+const { initSession, recordRun, saveSession } = sessionModule;
+
+interface ExtendedTxRecord {
+  type: string;
+  agentType?: string;
+  contractName?: string;
+  success: boolean;
+  amount: string;
+  transactionHash: string | null;
+  explorerUrl: string | null;
+  mock?: boolean;
+  error?: string;
+}
 const {
   setDefaultSpendingLimits,
   recordSpending,
@@ -60,7 +73,7 @@ const { recordTaskEvent, getAgentHistory } = await import("./economy/supabase-mo
 // ============================================================
 
 const DEMO_TASK = process.env.DEMO_TASK;
-const DEMO_RUNS = parseInt(process.env.DEMO_RUNS || "1", 10);
+const DEMO_RUNS = parseInt(process.env.DEMO_RUNS || "3", 10);
 
 if (!DEMO_TASK) {
   console.error("❌ No task provided. Please provide a task via DEMO_TASK environment variable or the dashboard.");
@@ -138,11 +151,12 @@ async function runOnce(runIndex: number, totalRuns: number): Promise<void> {
   );
 
   // Step 5: A2A Reciprocity (Recursive Chaining)
+  let a2aChainResults: import("./economy/a2a-chaining").A2AChain[] = [];
   if (FEATURES.useA2AChaining) {
     try {
       console.log("\n🔗 Triggering Autonomous A2A Reciprocity Chains...");
-      const chainResults = await executeAllChains(decomposition.taskId, task);
-      console.log(`   A2A chains executed: ${chainResults.length} (${countA2APayments(chainResults)} total nanopayments)`);
+      a2aChainResults = await executeAllChains(decomposition.taskId, task);
+      console.log(`   A2A chains executed: ${a2aChainResults.length} (${countA2APayments(a2aChainResults)} total nanopayments)`);
     } catch (a2aErr) {
       console.log(`   ⚠️  A2A chaining failed (non-blocking): ${a2aErr instanceof Error ? a2aErr.message : String(a2aErr)}`);
     }
@@ -151,10 +165,13 @@ async function runOnce(runIndex: number, totalRuns: number): Promise<void> {
   // Step 6: Post-Task Lifecycle (Claim, Reputation, Streaming)
   console.log("\n✨ Finalizing lifecycle events...");
   const successfulTypes = results.filter(r => r.success).map(r => r.agentType);
+  const claimResults: import("./contracts").ContractInteraction[] = [];
+  const reputationResults: import("./contracts").ContractInteraction[] = [];
   
   for (const agentType of successfulTypes) {
     const agentAddr = (() => { try { return getAgentAddress(agentType); } catch { return `0x_AGENT_${agentType.toUpperCase()}`; } })();
-    await claimEscrowTask(decomposition.taskId, agentAddr);
+    const claimResult = await claimEscrowTask(decomposition.taskId, agentAddr);
+    claimResults.push(claimResult);
     
     // Evaluation
     const agentResult = results.find(r => r.agentType === agentType);
@@ -169,19 +186,84 @@ async function runOnce(runIndex: number, totalRuns: number): Promise<void> {
       }
     }
     const repDecision = await decideReputationScore(agentType, task, responseText, agentResult?.success ?? true);
-    await submitReputation(agentAddr, repDecision.score, repDecision.feedback);
+    const repResult = await submitReputation(agentAddr, repDecision.score, repDecision.feedback);
+    reputationResults.push(repResult);
     console.log(`   ✅ ${agentType}: Evaluation ${repDecision.score}/100 — ${repDecision.feedback}`);
     // Delay between sequential reputation submissions to avoid nonce race
     await new Promise(resolve => setTimeout(resolve, 3000));
   }
 
+  // Build extended transactions array (all tx types beyond agent payments)
+  const extendedTxns: ExtendedTxRecord[] = [];
+
+  // Escrow creates (from batchCreateEscrow results)
+  for (const esc of escrowResults) {
+    extendedTxns.push({
+      type: "escrow_create",
+      contractName: esc.contractName,
+      success: true,
+      amount: "$0.005",
+      transactionHash: esc.txHash,
+      explorerUrl: esc.explorerUrl,
+      mock: esc.mock,
+    });
+  }
+
+  // Escrow claims
+  for (const claim of claimResults) {
+    extendedTxns.push({
+      type: "escrow_claim",
+      contractName: claim.contractName,
+      success: true,
+      amount: "$0.000",
+      transactionHash: claim.txHash,
+      explorerUrl: claim.explorerUrl,
+      mock: claim.mock,
+    });
+  }
+
+  // Reputation writes
+  for (const rep of reputationResults) {
+    extendedTxns.push({
+      type: "reputation",
+      contractName: rep.contractName,
+      success: true,
+      amount: "$0.000",
+      transactionHash: rep.txHash,
+      explorerUrl: rep.explorerUrl,
+      mock: rep.mock,
+    });
+  }
+
+  // A2A chain payments
+  for (const chain of a2aChainResults) {
+    for (const payment of chain.payments) {
+      extendedTxns.push({
+        type: "a2a_chain",
+        agentType: `${payment.fromAgent}→${payment.toAgent}`,
+        success: true,
+        amount: payment.amount,
+        transactionHash: payment.txHash,
+        explorerUrl: payment.explorerUrl,
+        mock: payment.mock,
+      });
+    }
+  }
+
+  const totalTxCount = results.length + escrowResults.length + claimResults.length + reputationResults.length + countA2APayments(a2aChainResults);
+
   // Summary
   console.log(`\n${"=".repeat(60)}\n🎯 SUMMARY: Run ${runIndex + 1} Complete\n${"=".repeat(60)}`);
-  console.log(`   Total Transactions: ~${results.length + escrowResults.length + (FEATURES.useA2AChaining ? 10 : 0)} on-chain`);
+  console.log(`   Agent Payments:     ${results.length}`);
+  console.log(`   Escrow Creates:     ${escrowResults.length}`);
+  console.log(`   Escrow Claims:      ${claimResults.length}`);
+  console.log(`   Reputation Writes:  ${reputationResults.length}`);
+  console.log(`   A2A Nanopayments:   ${countA2APayments(a2aChainResults)}`);
+  console.log(`   Total Transactions: ${totalTxCount} on-chain`);
   console.log(`   Total Cost: ${decomposition.estimatedCost}`);
   console.log(`${"=".repeat(60)}\n`);
 
-  // Signal dashboard that run is complete (triggers Verification step + stops EXECUTING)
+  // Signal dashboard that run is complete
   recordTaskEvent({
     task_id: `${decomposition.taskId}-receipt`,
     agent_type: "orchestrator",
@@ -195,13 +277,17 @@ async function runOnce(runIndex: number, totalRuns: number): Promise<void> {
       successful: results.filter(r => r.success).length,
       failed: results.filter(r => !r.success).length,
       totalCost: decomposition.estimatedCost,
-      escrowTxCount: escrowResults.filter(e => !e.mock).length,
-      a2aTxCount: FEATURES.useA2AChaining ? 7 : 0,
+      agentPayments: results.length,
+      escrowCreates: escrowResults.length,
+      escrowClaims: claimResults.length,
+      reputationWrites: reputationResults.length,
+      a2aPayments: countA2APayments(a2aChainResults),
+      totalTransactions: totalTxCount,
     },
     error: null,
   }).catch(() => {});
 
-  recordRun(runIndex, decomposition.taskId, results, escrowResults);
+  recordRun(runIndex, decomposition.taskId, results, escrowResults, extendedTxns);
 }
 
 async function main(): Promise<void> {

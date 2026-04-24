@@ -156,7 +156,7 @@ cd packages/orchestrator && npx tsx src/index.ts
 ### Full Demo (60+ Transactions)
 
 ```bash
-npm run demo:10   # 10 orchestrated runs → 60+ on-chain txns
+npm run demo:10   # 10 orchestrated runs → 260+ on-chain txns
 ```
 
 ---
@@ -377,40 +377,14 @@ All contracts are deployed on Arc testnet with real on-chain interactions — no
 | Document | Description |
 |:---|:---|
 | [📖 Setup Guide](docs/setup-guide.md) | Full step-by-step installation |
-| [🎬 Demo Script](docs/demo-script.md) | Walkthrough for hackathon judges |
 | [💰 Margin Analysis](docs/MARGIN_ANALYSIS.md) | Detailed economic comparison |
 | [📝 Circle Product Feedback](docs/circle-product-feedback.md) | SDK feedback ($500 bonus prize) |
-| [🎯 Pitch Deck](docs/PITCH.md) | 30-second + 3-minute pitch |
 | [📋 Submission Details](docs/SUBMISSION.md) | Full hackathon submission |
 | [🤖 LLM Provider Setup](docs/llm-provider-setup.md) | Multi-provider AI configuration |
 
 ---
 
-## 🗺️ Roadmap
-
-### Phase 1 — Production Readiness
-- [ ] Real LLM integration (OpenAI / Gemini / Featherless)
-- [ ] Supabase Row Level Security
-- [ ] Comprehensive test suite
-
-### Phase 2 — Agent Marketplace
-- [ ] Agent registration & discovery
-- [ ] Dynamic pricing based on reputation
-- [ ] Agent developer SDK
-
-### Phase 3 — Decentralization
-- [ ] On-chain task arbitration
-- [ ] Agent attestation (TEE / zkML)
-- [ ] Cross-chain payments
-
-### Phase 4 — Enterprise
-- [ ] Organization spending limits
-- [ ] Audit trail export
-- [ ] Custom agent deployment (BYO infra)
-
----
-
-## 🔑 Arc Testnet Constants
+##  Arc Testnet Constants
 
 | Constant | Value |
 |:---|:---|

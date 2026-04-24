@@ -8,6 +8,17 @@ import { join } from "node:path";
 // to timestamped JSON files for demo evidence and judge review.
 // ============================================================
 
+export interface ExtendedTxRecord {
+  type: string;           // "agent_payment" | "escrow_create" | "escrow_claim" | "reputation" | "a2a_chain" | "streaming"
+  agentType?: string;
+  success: boolean;
+  amount: string;
+  transactionHash: string | null;
+  explorerUrl: string | null;
+  mock?: boolean;
+  error?: string;
+}
+
 export interface SessionRecord {
   timestamp: string;
   config: {
@@ -32,6 +43,7 @@ export interface SessionRecord {
       txHash: string;
       explorerUrl: string;
     }>;
+    extendedTransactions: ExtendedTxRecord[];
     cost: string;
     transactionCount: number;
   }>;
@@ -65,7 +77,7 @@ export function initSession(task: string, totalRuns: number): void {
 }
 
 /**
- * Record a single run's results.
+ * Record a single run's results including all transaction types.
  */
 export function recordRun(
   runIndex: number,
@@ -84,7 +96,8 @@ export function recordRun(
     contractName: string;
     txHash: string;
     explorerUrl: string;
-  }>
+  }>,
+  extendedTransactions: ExtendedTxRecord[] = [],
 ): void {
   if (!currentSession) return;
 
@@ -95,6 +108,7 @@ export function recordRun(
   const txHashes = [
     ...results.filter((r) => r.transactionHash).map((r) => r.transactionHash!),
     ...contractInteractions.map((c) => c.txHash),
+    ...extendedTransactions.filter((t) => t.transactionHash).map((t) => t.transactionHash!),
   ];
 
   currentSession.runs.push({
@@ -102,6 +116,7 @@ export function recordRun(
     taskId,
     results,
     contractInteractions,
+    extendedTransactions,
     cost: `$${cost.toFixed(3)}`,
     transactionCount: txHashes.length,
   });

@@ -54,6 +54,11 @@ Thumbs.db
 evidence/
 docs/evidence/
 
+# Internal docs (pitch decks, demo scripts — not for public repo)
+docs/PITCH.md
+docs/demo-script.md
+docs/demo-video-script.md
+
 # Docker
 docker-compose.override.yml
 
