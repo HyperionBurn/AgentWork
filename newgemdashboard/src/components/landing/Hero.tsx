@@ -1,11 +1,8 @@
 import { motion } from "motion/react";
 import { ArrowRight, Activity } from "lucide-react";
 import MagneticButton from "./MagneticButton"; // Added import
-import { useDashboardStore } from "../../lib/store";
 
 export default function Hero() {
-  const setActiveTab = useDashboardStore((s) => s.setActiveTab);
-
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-orange-500/10 via-black/0 to-black/0" />
@@ -57,8 +54,8 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-center gap-4"
         >
-          <MagneticButton onClick={() => setActiveTab('home')} intensity={0.3} className="bg-orange-600 hover:bg-orange-500 text-white rounded-full px-8 py-4 text-sm font-medium transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)] flex items-center gap-2 group cursor-pointer">
-            Launch Dashboard
+          <MagneticButton onClick={() => window.open('http://localhost:3001', '_blank')} intensity={0.3} className="bg-orange-600 hover:bg-orange-500 text-white rounded-full px-8 py-4 text-sm font-medium transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)] flex items-center gap-2 group cursor-pointer">
+            Deploy Smart Agent
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
           <MagneticButton intensity={0.2} className="glass-pill rounded-full px-8 py-4 text-sm font-medium text-white hover:bg-white/5 transition-colors cursor-pointer">

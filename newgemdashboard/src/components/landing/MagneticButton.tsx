@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import { motion, type HTMLMotionProps } from 'motion/react';
+import { motion } from 'motion/react';
 
-interface MagneticButtonProps extends HTMLMotionProps<"button"> {
+interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   intensity?: number;
 }

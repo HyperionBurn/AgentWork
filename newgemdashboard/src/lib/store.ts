@@ -90,7 +90,7 @@ export const useDashboardStore = create<DashboardState>((set) => ({
   gatewayBalance: MOCK_GATEWAY_BALANCE,
   timeseries: MOCK_TIMESERIES,
   agentBreakdown: MOCK_AGENT_BREAKDOWN,
-  activeTab: 'landing',
+  activeTab: 'home',
 
   setAgents: (agents) => set({ agents }),
   setConnected: (connected) => set({ connected }),

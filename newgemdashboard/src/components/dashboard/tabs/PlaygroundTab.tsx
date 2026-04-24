@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, Terminal, Zap, DollarSign, CheckCircle2, AlertTriangle, ShieldCheck, Cpu, Volume2, VolumeX, Server, Loader2 } from 'lucide-react';
-import { apiFetch, cn, formatCurrency } from '../../../lib/utils';
+import { apiFetch, cn, formatCurrency, createMockDemoSimulation, type DemoEvent } from '../../../lib/utils';
 import { useDashboardStore } from '../../../lib/store';
 
 interface PlaygroundEvent {
@@ -334,6 +334,9 @@ export default function PlaygroundTab() {
   //   logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   // }, [events]);
 
+  const mockSimRef = useRef<{ cancel: () => void } | null>(null);
+  const isDeployed = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+
   const handleLaunch = async (inputTask?: string, forceGroq?: boolean) => {
     const taskToLaunch = inputTask || task;
     if (!taskToLaunch) return;
@@ -342,8 +345,82 @@ export default function PlaygroundTab() {
     setBooting(true);
     setEvents([]);
     setStep(1);
-    
-    useDashboardStore.getState().addNotification({ title: 'Task Initiation', message: 'Launching real orchestrator...', type: 'info' });
+
+    const store = useDashboardStore.getState();
+
+    if (isDeployed) {
+      // ── Mock simulation for deployed environment (Vercel) ──
+      store.addNotification({ title: 'Task Initiation', message: 'Launching mock orchestrator...', type: 'info' });
+
+      mockSimRef.current = createMockDemoSimulation((event: DemoEvent) => {
+        // Map demo event steps
+        if (event.type === 'payment') setStep(prev => Math.max(prev, 3));
+        if (event.type === 'agent_result') setStep(prev => Math.max(prev, 4));
+        if (event.type === 'complete') {
+          setStep(4);
+          setExecuting(false);
+          setBooting(false);
+        }
+        if (event.type === 'error') {
+          setExecuting(false);
+          setBooting(false);
+        }
+        // Hide booting once first real signal
+        if (event.type === 'payment' || event.type === 'agent_result') {
+          setBooting(false);
+        }
+
+        const evId = Math.random().toString(36).substring(7);
+        const evType: PlaygroundEvent['type'] =
+          event.type === 'payment' ? 'payment' :
+          event.type === 'agent_result' ? 'result' :
+          event.type === 'error' ? 'error' :
+          event.type === 'complete' ? 'result' : 'status';
+
+        // Map agent result data to rawPayload that AgentOutputRenderer expects
+        let rawPayload: any = null;
+        if (event.type === 'agent_result' && event.data) {
+          const d = event.data;
+          if (event.agentType === 'research') {
+            rawPayload = { key_findings: d.findings, sources: d.sources, summary: d.summary, confidence: d.confidence };
+          } else if (event.agentType === 'code') {
+            rawPayload = { code: d.files?.[0]?.content || '', language: d.language, files_modified: d.files?.map((f: any) => f.name) || [], summary: d.summary };
+          } else if (event.agentType === 'test') {
+            rawPayload = { passing: d.passed, failing: d.failed, coverage: d.coverage, test_suite: d.results?.map((r: any) => `${r.status === 'PASS' ? '✅' : '❌'} ${r.name} (${r.duration})`).join('\n'), summary: d.summary };
+          } else if (event.agentType === 'review') {
+            rawPayload = { quality_score: d.overallScore, approved: d.approved, summary: d.summary, categories: d.categories, issues: d.issues };
+          }
+        } else if (event.type === 'complete' && event.data) {
+          rawPayload = event.data;
+        }
+
+        setEvents(prev => [...prev, {
+          id: evId,
+          type: evType,
+          message: event.message,
+          agent: event.agent || event.agentType,
+          txHash: event.txHash,
+          explorerUrl: event.txHash ? `https://testnet.arcscan.io/tx/${event.txHash}` : undefined,
+          amount: event.type === 'payment' ? 0.005 : undefined,
+          timestamp: new Date(event.timestamp).toLocaleTimeString(),
+          rawPayload,
+        } as PlaygroundEvent]);
+
+        // Fire notifications for key events
+        if (event.type === 'payment') {
+          store.addNotification({ title: 'Payment', message: `${event.agent}: $0.005 paid`, type: 'success' });
+        } else if (event.type === 'agent_result') {
+          store.addNotification({ title: 'Agent Complete', message: `${event.agent} finished`, type: 'success' });
+        } else if (event.type === 'complete') {
+          store.addNotification({ title: 'Pipeline Complete', message: 'All agents completed successfully!', type: 'success' });
+        }
+      });
+
+      return;
+    }
+
+    // ── Real mode (localhost with backend) ──
+    store.addNotification({ title: 'Task Initiation', message: 'Launching real orchestrator...', type: 'info' });
 
     try {
       // 1. Start the real orchestrator via the Backend API
@@ -379,9 +456,9 @@ export default function PlaygroundTab() {
     }
   };
 
-  // Real-time subscription for the playground
+  // Real-time subscription for the playground (localhost only)
   useEffect(() => {
-    if (!executing) return;
+    if (!executing || isDeployed) return;
 
     let unsubscribe: () => void = () => {};
 
@@ -492,6 +569,13 @@ export default function PlaygroundTab() {
       if (unsubscribe) unsubscribe();
     };
   }, [executing]);
+
+  // Cleanup mock simulation on unmount
+  useEffect(() => {
+    return () => {
+      if (mockSimRef.current) mockSimRef.current.cancel();
+    };
+  }, []);
 
   return (
     <div className="space-y-8 pb-20">

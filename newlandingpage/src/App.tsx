@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TechStats from "./components/TechStats";
@@ -12,10 +12,12 @@ import CodeSnippet from "./components/CodeSnippet";
 import AgentChaining from "./components/AgentChaining";
 import TechnicalEvidenceCTA from "./components/TechnicalEvidenceCTA";
 import Footer from "./components/Footer";
-import Network3D from "./components/Network3D";
 import NoiseOverlay from "./components/NoiseOverlay";
 import CustomCursor from "./components/CustomCursor";
 import Preloader from "./components/Preloader";
+
+// Lazy-load Three.js to prevent duplicate instances and SSR issues
+const Network3D = lazy(() => import("./components/Network3D"));
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,7 +31,9 @@ export default function App() {
       
       {isLoaded && (
         <>
-          <Network3D />
+          <Suspense fallback={null}>
+            <Network3D />
+          </Suspense>
           <Navbar />
           
           <main>

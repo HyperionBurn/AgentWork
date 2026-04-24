@@ -14,6 +14,7 @@ export default defineConfig(({mode}) => {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
+      dedupe: ['three', 'react', 'react-dom', '@react-three/fiber'],
     },
     server: {
       port: 3002,
