@@ -17,7 +17,7 @@ interface Agent {
   uptime: string;
 }
 
-export function AgentsTab() {
+export default function AgentsTab() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");

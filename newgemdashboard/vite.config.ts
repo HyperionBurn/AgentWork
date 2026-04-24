@@ -8,12 +8,14 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [react(), tailwindcss()],
     define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || ''),
+      'process.env.AGENT_KEY': JSON.stringify(''),
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
+      dedupe: ['react', 'react-dom'],
     },
     server: {
       port: 3001,

@@ -4,7 +4,7 @@ import { Settings, Shield, Bell, User, Volume2, Database, Key, CheckCircle2, Che
 import { audioEngine } from '../../../lib/audio';
 import { cn } from '../../../lib/utils';
 
-export function SettingsTab() {
+export default function SettingsTab() {
   const [audioEnabled, setAudioEnabled] = useState(() => localStorage.getItem('arc-audio-enabled') !== 'false');
   const [hapticEnabled, setHapticEnabled] = useState(true);
   const [devMode, setDevMode] = useState(false);
