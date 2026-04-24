@@ -38,9 +38,10 @@ artifacts/
 packages/contracts/build/
 !packages/contracts/build/.gitkeep
 
-# IDE
+# IDE / AI tooling configs (personal workspace, not for repo)
 .vscode/
 .idea/
+.github/
 *.swp
 *.swo
 *~
