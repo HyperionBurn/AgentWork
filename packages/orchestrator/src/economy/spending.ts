@@ -6,8 +6,9 @@
 // Falls back to in-memory rate limiting for demo purposes.
 // ============================================================
 
-import { ARC_CONFIG, isContractDeployed } from "../config";
+import { ARC_CONFIG, isContractDeployed, getAgentAddress, hasAgentWallets } from "../config";
 import { getClients, sendContractTx } from "../contracts-client";
+import { recordTaskEvent } from "./supabase-module";
 
 // ── Types ────────────────────────────────────────────────────
 
@@ -87,13 +88,23 @@ interface MemLimit {
 const memLimits = new Map<string, MemLimit>();
 
 // ── Default budgets ─────────────────────────────────────────
+// Lazy getter: resolves real wallet addresses at call time.
 
-const DEFAULT_BUDGETS: Record<string, SpendingBudget> = {
-  research: { agentType: "research", agentAddress: "0x_AGENT_RESEARCH", maxPerWindow: "$0.50", windowDuration: 3600 },
-  code:     { agentType: "code",     agentAddress: "0x_AGENT_CODE",     maxPerWindow: "$0.50", windowDuration: 3600 },
-  test:     { agentType: "test",     agentAddress: "0x_AGENT_TEST",     maxPerWindow: "$0.50", windowDuration: 3600 },
-  review:   { agentType: "review",   agentAddress: "0x_AGENT_REVIEW",   maxPerWindow: "$0.50", windowDuration: 3600 },
-};
+function getDefaultBudgets(): Record<string, SpendingBudget> {
+  const budgets: Record<string, SpendingBudget> = {};
+  for (const type of ["research", "code", "test", "review"] as const) {
+    let agentAddress: string;
+    try {
+      agentAddress = getAgentAddress(type);
+    } catch {
+      agentAddress = `0x_AGENT_${type.toUpperCase()}`;
+    }
+    budgets[type] = { agentType: type, agentAddress, maxPerWindow: "$0.50", windowDuration: 3600 };
+  }
+  return budgets;
+}
+
+const DEFAULT_BUDGETS = getDefaultBudgets();
 
 /**
  * Set a spending limit for an agent.
@@ -138,6 +149,15 @@ export async function setSpendingLimit(
     await clients.publicClient.waitForTransactionReceipt({ hash });
     console.log(`🔒 Spending limit set on-chain for ${budget.agentType}: ${hash}`);
     console.log(`   🔗 Explorer: ${ARC_CONFIG.explorerUrl}${hash}`);
+    recordTaskEvent({
+      task_id: `spending-limit-${budget.agentType}`,
+      agent_type: budget.agentType,
+      status: "completed",
+      gateway_tx: hash,
+      amount: budget.maxPerWindow,
+      result: `Spending limit set: ${budget.maxPerWindow}/hour`,
+      error: null,
+    }).catch(() => {});
     return { txHash: hash, explorerUrl: `${ARC_CONFIG.explorerUrl}${hash}`, mock: false };
   } catch (error) {
     console.error(`❌ Spending limit failed: ${error}`);
@@ -157,7 +177,12 @@ export async function recordSpending(
   const limiterAddress = process.env.SPENDING_LIMITER_ADDRESS;
   const amountNum = parseFloat(amount.replace("$", ""));
   const amountAtomic = BigInt(Math.round(amountNum * 1_000_000));
-  const agentAddress = `0x_AGENT_${agentType.toUpperCase()}`;
+  let agentAddress: string;
+  try {
+    agentAddress = getAgentAddress(agentType);
+  } catch {
+    agentAddress = `0x_AGENT_${agentType.toUpperCase()}`;
+  }
 
   // Update in-memory tracking
   const mem = memLimits.get(agentType);
@@ -205,6 +230,15 @@ export async function recordSpending(
 
     await clients.publicClient.waitForTransactionReceipt({ hash });
     console.log(`   💳 Spending recorded on-chain for ${agentType}: ${hash}`);
+    recordTaskEvent({
+      task_id: `spending-record-${agentType}-${Date.now().toString(16)}`,
+      agent_type: agentType,
+      status: "completed",
+      gateway_tx: hash,
+      amount,
+      result: `Spending recorded: ${amount}`,
+      error: null,
+    }).catch(() => {});
 
     return {
       agentType,
@@ -235,7 +269,12 @@ export async function checkSpendingLimit(
   agentType: string,
 ): Promise<SpendingStatus> {
   const limiterAddress = process.env.SPENDING_LIMITER_ADDRESS;
-  const agentAddress = `0x_AGENT_${agentType.toUpperCase()}`;
+  let agentAddress: string;
+  try {
+    agentAddress = getAgentAddress(agentType);
+  } catch {
+    agentAddress = `0x_AGENT_${agentType.toUpperCase()}`;
+  }
   const mem = memLimits.get(agentType);
   const max = mem?.maxPerWindow ?? 500_000;
 

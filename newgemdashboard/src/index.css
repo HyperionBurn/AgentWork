@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-arc-orange: #FF5300;
+  --color-arc-orange-dark: #cc4200;
+  --color-arc-orange-light: #ff7833;
+  --color-arc-surface: var(--surface);
+  --color-arc-surface-hover: var(--surface-hover);
+  --color-arc-border: var(--border);
+  --color-arc-text: var(--text-color);
+  --color-arc-muted: var(--muted-color);
+  --color-arc-green: #00FF00;
+  --color-arc-red: #FF4444;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --bg-color: #050505;
+  --surface: #111111;
+  --surface-secondary: #0a0a0a;
+  --surface-hover: #1a1a1a;
+  --border: #222222;
+  --text-color: #ffffff;
+  --text-inverse: #050505;
+  --muted-color: #8E9299;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Texture generation */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Premium glows */
+.glow-border {
+  box-shadow: inset 0 0 0 1px rgba(255, 83, 0, 0.1), 0 0 20px rgba(255, 83, 0, 0);
+  transition: all 0.3s ease;
+}
+.glow-border:hover {
+  box-shadow: inset 0 0 0 1px rgba(255, 83, 0, 0.6), 0 0 20px rgba(255, 83, 0, 0.2);
+}
+
+.glow-ambient {
+  background: radial-gradient(circle at 50% -20%, rgba(255, 83, 0, 0.1) 0%, transparent 50%);
+}
+
+.scan-line {
+  background: linear-gradient(to bottom, transparent, rgba(255,83,0,0.4), transparent);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-color); 
+}
+

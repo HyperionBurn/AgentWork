@@ -42,15 +42,18 @@ AgentWork is a marketplace where an **orchestrator agent** decomposes tasks, hir
 
 ```
 ┌──────────────────────────────────────────────┐
-│              Dashboard (Next.js)              │
-│   Real-time feed · Arc explorer links         │
+│        Frontend Dashboard (React/Vite)       │
+│   Modern UI · Real-time feed · Explorer links │
+├──────────────────────────────────────────────┤
+│         Backend API (Next.js/Supabase)       │
+│   API routes · x402 verification · Data      │
 ├──────────────────────────────────────────────┤
 │           Orchestrator (TypeScript)           │
 │   Task decomposer → x402 payment loop         │
 ├──────┬──────┬──────┬──────┬─────────────────┤
-│Research│ Code │ Test │Review│  Python Agents  │
-│Agent  │Agent │Agent │Agent │  (Flask+circlekit)│
-│ :4021 │ :4022│ :4023│ :4024│                 │
+│Research│ Code │ Test │Review│ Express Gateway │
+│Agent  │Agent │Agent │Agent │ (Node.js SDK)   │
+│ :4021 │ :4022│ :4023│ :4024│  REAL x402      │
 ├──────┴──────┴──────┴──────┴─────────────────┤
 │           Circle Gateway (x402)               │
 │   EIP-3009 authorizations → Arc L1            │
@@ -66,17 +69,20 @@ AgentWork is a marketplace where an **orchestrator agent** decomposes tasks, hir
 
 | Component | Tech | Purpose |
 |-----------|------|---------|
-| **Dashboard** | Next.js + Supabase + Tailwind | Real-time task feed, agent cards, tx explorer |
-| **Orchestrator** | TypeScript + @circle-fin/x402-batching | Task decomposition + payment execution |
-| **Research Agent** | Python + Flask + circlekit | Deep research and information synthesis |
-| **Code Agent** | Python + Flask + circlekit | Code generation and implementation |
-| **Test Agent** | Python + Flask + circlekit | Test suite generation and QA |
-| **Review Agent** | Python + Flask + circlekit | Code review and quality scoring |
+| **Frontend Dashboard** | React + Vite + Tailwind (newgemdashboard) | Modern UI, real-time task feed, agent cards, tx explorer |
+| **Backend API** | Next.js + Supabase (packages/dashboard) | API routes, x402 payment verification, Supabase integration |
+| **Express Gateway** | Node.js + @circle-fin/x402-batching | Unified agent host with REAL x402 verification |
+| **Research Agent** | Specialist Logic (Express) | Deep research and information synthesis |
+| **Code Agent** | Specialist Logic (Express) | Code generation and implementation |
+| **Test Agent** | Specialist Logic (Express) | Test suite generation and QA |
+| **Review Agent** | Specialist Logic (Express) | Code review and quality scoring |
 | **AgentEscrow** | Vyper | On-chain task escrow (create→claim→complete) |
 | **PaymentSplitter** | Vyper | Multi-recipient payment distribution |
 | **SpendingLimiter** | Vyper | Per-agent spending rate limits |
 | **IdentityRegistry** | Vyper (ERC-721) | Agent identity NFTs |
 | **ReputationRegistry** | Vyper (ERC-8004) | On-chain reputation scoring |
+
+**Note:** `packages/dashboard` is the backend API only. The actual frontend dashboard is in `newgemdashboard/`.
 
 ### Transaction Flow
 
@@ -97,12 +103,40 @@ A single task execution produces **12+ on-chain transactions**:
 
 **5 tasks × 12 txns = 60+ on-chain transactions. Total cost: ~$0.22**
 
+---
+
+## 🚀 Landing Page
+
+Check out our new **pristine 3D landing page** with glassmorphism effects and scroll-based animations:
+
+```
+http://localhost:3000/landing
+```
+
+**Features:**
+- ✨ Pristine light theme with alabaster whites
+- 🔮 3D glass sculpture using React Three Fiber
+- 📜 Scroll orchestration with 4 pages of content
+- 🎨 Post-processing: N8AO, Bloom, Depth of Field
+- 🎬 Framer Motion animations
+
+**Setup:**
+```bash
+cd packages/dashboard
+npm install @react-three/fiber @react-three/drei @react-three/postprocessing three framer-motion
+npm run dev
+# Visit http://localhost:3000/landing
+```
+
+For detailed documentation, see [packages/dashboard/app/landing/README.md](packages/dashboard/app/landing/README.md).
+
+---
+
 ## Quick Start
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) 18+
-- [Python](https://python.org/) 3.11+
 - Arc testnet wallet with USDC ([Faucet](https://faucet.circle.com))
 - [Supabase](https://supabase.com/) account (for dashboard)
 
@@ -122,7 +156,6 @@ npm run validate-env
 
 # 3. Install dependencies
 npm install                    # Node.js packages
-pip install -r agents/*/requirements.txt  # Python packages
 
 # 4. Fund your wallet from the Arc faucet
 # https://faucet.circle.com
@@ -134,11 +167,8 @@ docker-compose up
 ### Development (without Docker)
 
 ```bash
-# Terminal 1: Start agents
-python agents/research-agent/server.py &
-python agents/code-agent/server.py &
-python agents/test-agent/server.py &
-python agents/review-agent/server.py &
+# Terminal 1: Start Real-Mode Express Gateway (Hosts all 4 agents)
+npm run start:agents:express
 
 # Terminal 2: Start orchestrator
 npm run dev:orchestrator
@@ -187,7 +217,7 @@ The demo shows:
 | **Smart Contracts** | Vyper (AgentEscrow, PaymentSplitter, IdentityRegistry, ReputationRegistry) |
 | **Dashboard** | Next.js 14 + Tailwind CSS + Supabase |
 | **Orchestrator** | TypeScript + @circle-fin/x402-batching |
-| **Agents** | Python + Flask + circlekit |
+| **Agents** | Node.js + Express + x402 SDK |
 | **Infrastructure** | Docker + Docker Compose |
 
 ## Project Structure
@@ -199,10 +229,7 @@ agentwork/
 │   ├── orchestrator/       # TypeScript payment executor
 │   └── contracts/          # Vyper smart contracts
 ├── agents/
-│   ├── research-agent/     # Flask server on :4021
-│   ├── code-agent/         # Flask server on :4022
-│   ├── test-agent/         # Flask server on :4023
-│   └── review-agent/       # Flask server on :4024
+│   └── express-server/     # Unified agent host on :4021-4024
 ├── docker-compose.yml      # One-command deployment
 ├── .env.example            # Configuration template
 └── README.md               # This file

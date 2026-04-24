@@ -2,6 +2,7 @@ import { GatewayClient } from "@circle-fin/x402-batching/client";
 import { ARC_CONFIG } from "./config";
 import { Subtask } from "./config";
 import { recordTaskEvent } from "./supabase";
+import { isRealTransactionHash, resolveGatewaySettlement } from "./gateway-settlement";
 
 const MAX_RETRIES = 3;
 const BASE_BACKOFF_MS = 2000;
@@ -10,7 +11,8 @@ const BASE_BACKOFF_MS = 2000;
 // Payment Executor
 // ============================================================
 // Uses the Circle Gateway x402 client to pay for each subtask.
-// Each gateway.pay() call produces an on-chain transaction on Arc.
+// gateway.pay() returns an immediate payment reference; if it is not already
+// a settled tx hash, we resolve settlement in the background and update Supabase.
 // ============================================================
 
 export interface PaymentResult {
@@ -63,6 +65,7 @@ export async function depositFunds(amount: string): Promise<string> {
 /**
  * Execute a single subtask payment via x402.
  * Returns the payment result with on-chain transaction hash.
+ * Polls for transaction hash with 3-second delay before falling back to pending settlement.
  */
 export async function executePayment(
   subtask: Subtask
@@ -75,10 +78,23 @@ export async function executePayment(
   try {
     const result = await gateway.pay(subtask.url, { method: "GET" });
 
-    const txHash = result.transaction;
+    // Gateway SDK returns an immediate payment reference in result.transaction.
+    // If it is not already a settled hash, resolve settlement in the background.
+    const txHash = result.transaction || null;
+    const settled = isRealTransactionHash(txHash);
+
+    const explorerUrl = isRealTransactionHash(txHash) ? `${ARC_CONFIG.explorerUrl}${txHash}` : null;
+
     console.log(`   ✅ Paid ${result.formattedAmount} USDC`);
-    console.log(`   🔗 TX: ${txHash}`);
-    console.log(`   🌐 Explorer: ${ARC_CONFIG.explorerUrl}${txHash}`);
+    if (txHash && settled) {
+      console.log(`   🔗 TX: ${txHash}`);
+      console.log(`   🌐 Explorer: ${ARC_CONFIG.explorerUrl}${txHash}`);
+    } else if (txHash) {
+      console.log(`   🔗 Gateway Ref: ${txHash}`);
+      console.log(`   ℹ️  Settlement pending — ref stored, will update on-chain later`);
+    } else {
+      console.log(`   ⚠️  No transaction reference returned from Gateway`);
+    }
 
     const paymentResult: PaymentResult = {
       subtaskId: subtask.id,
@@ -86,7 +102,7 @@ export async function executePayment(
       success: true,
       amount: result.formattedAmount,
       transactionHash: txHash,
-      explorerUrl: `${ARC_CONFIG.explorerUrl}${txHash}`,
+      explorerUrl,
       response: typeof result.data === "object" ? JSON.parse(JSON.stringify(result.data, (_, v) => typeof v === "bigint" ? v.toString() : v)) : result.data,
     };
 
@@ -100,6 +116,20 @@ export async function executePayment(
       result: result.data,
       error: null,
     }).catch(() => { /* already logged inside */ });
+
+    if (txHash && !settled) {
+      void resolveGatewaySettlement({
+        gateway,
+        taskId: subtask.id,
+        gatewayRef: txHash,
+        onSettled: (settledHash) => {
+          paymentResult.transactionHash = settledHash;
+          paymentResult.explorerUrl = `${ARC_CONFIG.explorerUrl}${settledHash}`;
+        },
+      }).catch((err) => {
+        console.log(`   ⚠️  Background settlement resolution failed: ${err instanceof Error ? err.message : String(err)}`);
+      });
+    }
 
     return paymentResult;
   } catch (error: unknown) {
@@ -143,7 +173,7 @@ async function executePaymentWithRetry(subtask: Subtask): Promise<PaymentResult>
     if (attempt < MAX_RETRIES) {
       const delay = BASE_BACKOFF_MS * Math.pow(2, attempt - 1);
       console.log(`   ⏳ Retry ${attempt}/${MAX_RETRIES} in ${delay}ms...`);
-      await sleep(delay);
+      await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
   // Final attempt (or only attempt if MAX_RETRIES is 1)
@@ -151,10 +181,11 @@ async function executePaymentWithRetry(subtask: Subtask): Promise<PaymentResult>
 }
 
 // ============================================================
-// Parallel Execution (#7)
+// Adaptive Workflow Execution (#7)
 // ============================================================
 // Groups subtasks by dependency level and executes each level
-// concurrently. Falls back to sequential when USE_PARALLEL=false.
+// concurrently (Parallel Hybrid Mode). 
+// Level 0 = no dependencies, Level 1 = depends on Level 0, etc.
 // ============================================================
 
 /**
@@ -208,15 +239,14 @@ export function topologicalSort(subtasks: Subtask[]): Subtask[][] {
 }
 
 /**
- * Execute all subtasks with parallel execution within dependency levels.
- * When USE_PARALLEL=false, processes sequentially (backward compat).
+ * Execute all subtasks using an adaptive hybrid approach.
+ * Respects topological dependencies while maximizing concurrency.
  */
-export async function executeAllPaymentsParallel(
-  subtasks: Subtask[]
+export async function executeAdaptiveWorkflow(
+  subtasks: Subtask[],
+  forceSequential: boolean = false
 ): Promise<PaymentResult[]> {
-  const useParallel = process.env.USE_PARALLEL !== "false";
-
-  if (!useParallel) {
+  if (forceSequential) {
     return executeAllPayments(subtasks);
   }
 
@@ -330,7 +360,7 @@ export async function executeAllPayments(
     }
 
     // Brief delay between payments for visual effect in demo
-    await sleep(1500);
+    await new Promise(resolve => setTimeout(resolve, 1500));
   }
 
   console.log(`\n${"=".repeat(60)}`);
@@ -339,13 +369,17 @@ export async function executeAllPayments(
   console.log(`   ❌ Failed: ${failed}`);
   console.log(`   💰 Total Spent: $${totalSpent.toFixed(3)}`);
   console.log(`   🔗 On-Chain Transactions: ${successful}`);
-  console.log(`${"=".repeat(60)}\n`);
+  const realHashes = results.filter(
+    (r) => r.success && r.transactionHash &&
+           !r.transactionHash.startsWith("MOCK") &&
+           !r.transactionHash.startsWith("0x_")
+  );
+  console.log(`   ✅ Real On-Chain Hashes: ${realHashes.length}/${successful}`);
+  if (realHashes.length < successful) {
+    console.log(`   ⚠️  ${successful - realHashes.length} payment(s) still pending settlement — check Gateway API`);
+  }
 
   return results;
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -354,12 +388,35 @@ function sleep(ms: number): Promise<void> {
  */
 function extractSummary(response: unknown): string | null {
   if (!response || typeof response !== "object") return null;
-  const data = (response as { data?: unknown }).data;
-  if (!data || typeof data !== "object") return null;
-  const result = (data as { result?: unknown }).result;
-  if (!result || typeof result !== "object") return null;
+
+  const payload = response as Record<string, unknown>;
+  const data = isRecord(payload.data) ? payload.data : payload;
+  const result = isRecord((data as Record<string, unknown>).result)
+    ? (data as Record<string, unknown>).result
+    : data;
 
   const r = result as Record<string, unknown>;
+  if (typeof r.code === "string") {
+    const code = truncateForContext(r.code, 1200);
+    const language = typeof r.language === "string" ? r.language : "text";
+    const filesModified = Array.isArray(r.files_modified) ? r.files_modified.join(", ") : "";
+    const summary = typeof r.summary === "string" ? r.summary : "Code generated";
+    return [
+      summary,
+      `Language: ${language}`,
+      filesModified ? `Files: ${filesModified}` : null,
+      `Code excerpt:\n${code}`,
+    ].filter(Boolean).join("\n");
+  }
+
+  if (typeof r.test_suite === "string") {
+    const suite = truncateForContext(r.test_suite, 1200);
+    const header = typeof r.summary === "string"
+      ? r.summary
+      : `${r.tests_generated ?? 0} tests generated, ${r.passing ?? 0} passing`;
+    return [header, `Test suite:\n${suite}`].join("\n");
+  }
+
   if (typeof r.summary === "string") return r.summary;
   if (typeof r.quality_score === "number")
     return `Quality score: ${r.quality_score}/100, approved: ${r.approved ?? false}`;
@@ -371,4 +428,13 @@ function extractSummary(response: unknown): string | null {
     return `Code generated, ${fileCount} files, ${r.test_coverage * 100}% coverage`;
   }
   return null;
+}
+
+function truncateForContext(value: string, maxLength: number): string {
+  if (value.length <= maxLength) return value;
+  return `${value.slice(0, maxLength)}...`;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }

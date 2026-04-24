@@ -7,7 +7,6 @@
 ## Prerequisites
 
 - **Node.js** 18+ and npm
-- **Python** 3.11+
 - **Docker** (optional, for full-stack)
 - **Supabase CLI** (for local DB) or a Supabase cloud project
 
@@ -19,7 +18,7 @@
 git clone <repo-url>
 cd arcagents
 
-# Install Node.js workspaces (dashboard + orchestrator)
+# Install Node.js workspaces (dashboard + orchestrator + agents)
 npm install
 ```
 
@@ -93,43 +92,18 @@ Apply the schema:
 # 2. Run packages/database/seed.sql
 ```
 
-## 5. Start Python Agents
+## 5. Start Agent Gateway (Real Mode)
+
+The Agent Gateway hosts all 4 specialist agents (Research, Code, Test, Review) and enforces real x402 payment verification using the official Circle SDK.
 
 ```bash
-# Each agent needs its own terminal
-
-# Research Agent (port 4021)
-cd agents/research-agent
-python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # macOS/Linux
-pip install -r requirements.txt
-python server.py
-
-# Code Agent (port 4022)
-cd agents/code-agent
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-python server.py
-
-# Test Agent (port 4023)
-cd agents/test-agent
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-python server.py
-
-# Review Agent (port 4024)
-cd agents/review-agent
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-python server.py
+# Start the unified Express Gateway
+npm run start:agents:express
 ```
 
 Verify agents are running:
 ```bash
+# All ports should return 200 OK
 curl http://localhost:4021/health
 curl http://localhost:4022/health
 curl http://localhost:4023/health
@@ -176,10 +150,7 @@ docker-compose down
 
 Services:
 - Dashboard: http://localhost:3000
-- Research Agent: http://localhost:4021
-- Code Agent: http://localhost:4022
-- Test Agent: http://localhost:4023
-- Review Agent: http://localhost:4024
+- Agent Gateway: http://localhost:4021-4024
 - Orchestrator: runs once and exits
 
 ---
@@ -190,7 +161,7 @@ Services:
 |---------|-----|
 | `Module not found: @x402/evm` | `npm install @x402/core @x402/evm` in dashboard |
 | `supabaseUrl is required` | Set `NEXT_PUBLIC_SUPABASE_URL` in `.env` |
-| Agent won't start | Check circlekit: `python -c "import circlekit"` — falls back to passthrough mode |
+| Agent rejects payment | Check `SELLER_WALLET` in `.env` matches the destination wallet |
 | `balances.available undefined` | Use `balances.gateway.formattedAvailable` |
 | No transactions on dashboard | Check Supabase Realtime is enabled on `payment_events` + `task_events` |
 | Wallet has no USDC | Fund at https://faucet.circle.com |
@@ -199,8 +170,12 @@ Services:
 
 ## Vyper Contracts (Optional)
 
+> [!NOTE]
+> Smart contracts are optional for the core payment demo but recommended for the full AgentWork experience.
+
 ```bash
 cd packages/contracts
+# Requires Python for contract compilation/testing
 pip install moccasin vyper snekmate
 
 # Compile

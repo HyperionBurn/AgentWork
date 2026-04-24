@@ -6,6 +6,7 @@ import { AgentRegistry } from "@/components/AgentRegistry";
 import { TaskDAGVisualization } from "@/components/TaskDAGVisualization";
 import { AgentChat } from "@/components/AgentChat";
 import AgentComparison from "@/components/AgentComparison";
+import SLAMonitor from "@/components/SLAMonitor";
 
 // ============================================================
 // Agent Hub — Independent sub-page with own data fetching
@@ -199,6 +200,9 @@ export default function AgentsPage() {
       <AgentRegistry agents={registryAgents} />
 
       <AgentComparison />
+
+      {/* GC11: SLA Monitor */}
+      <SLAMonitor />
     </div>
   );
 }

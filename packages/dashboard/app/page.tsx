@@ -7,6 +7,10 @@ import DemoLauncher from "@/components/DemoLauncher";
 import { DashboardCharts } from "@/components/DashboardCharts";
 import { PaymentFlowAnimation } from "@/components/PaymentFlowAnimation";
 import { subscribeToTasks } from "@/lib/supabase";
+import { LivePaymentFeed } from "@/components/LivePaymentFeed";
+import LiveEconomicCounter from "@/components/LiveEconomicCounter";
+import AgentReasoningFeed from "@/components/AgentReasoningFeed";
+import { BentoDashboard } from "@/components/BentoDashboard";
 
 // ============================================================
 // Types
@@ -95,6 +99,8 @@ export default function Dashboard() {
   const [gatewayBalance, setGatewayBalance] = useState({ balance: "$0.0000", deposited: "$0.0000", spent: "$0.0000" });
   const [timeseries, setTimeseries] = useState<Array<{ timestamp: string; count: number; totalAmount: number }>>([]);
   const [agentBreakdown, setAgentBreakdown] = useState<Array<{ agentType: string; count: number; totalAmount: number }>>([]);
+  const [isOrchestrating, setIsOrchestrating] = useState(false);
+  const [activeTask, setActiveTask] = useState<string>("");
   const channelRef = useRef<ReturnType<typeof subscribeToTasks>>(null);
   const pendingRef = useRef<unknown[]>([]);
   const flushRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -175,6 +181,24 @@ export default function Dashboard() {
     }
   }, []);
 
+  // Run Demo
+  const handleRunDemo = async (mode: 'mock' | 'real') => {
+    setIsOrchestrating(true);
+    const task = "Build a cross-chain liquidity aggregator on Arc L1";
+    setActiveTask(task);
+    try {
+      await fetch("/api/demo-launch", {
+        method: "POST",
+        body: JSON.stringify({ task, runs: mode === 'real' ? 3 : 1 }),
+      });
+    } catch (err) {
+      console.error("Failed to launch demo:", err);
+    } finally {
+      // Keep loading state until first tasks appear or timeout
+      setTimeout(() => setIsOrchestrating(false), 10000);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
     checkAgents();
@@ -182,11 +206,9 @@ export default function Dashboard() {
     fetchTimeseries();
 
     // Attempt Supabase Realtime subscription
-    let taskInterval: ReturnType<typeof setInterval> | null = null;
-
     try {
       const channel = subscribeToTasks((_event) => {
-        // Debounce: accumulate events, flush every 100ms (HF-1 waterfall)
+        // Debounce: accumulate events, flush every 100ms
         pendingRef.current.push(_event);
         if (!flushRef.current) {
           flushRef.current = setTimeout(() => {
@@ -198,33 +220,39 @@ export default function Dashboard() {
         }
       });
       channelRef.current = channel;
-
-      if (channel) {
-        setConnectionMode("live");
-      } else {
-        // No Supabase client available — fall back to polling
-        setConnectionMode("polling");
-        taskInterval = setInterval(fetchTasks, 3000);
-      }
+      if (channel) setConnectionMode("live");
+      else setConnectionMode("polling");
     } catch {
-      // Realtime subscription failed — fall back to polling
       setConnectionMode("polling");
-      taskInterval = setInterval(fetchTasks, 3000);
     }
 
-    const agentInterval = setInterval(checkAgents, 10000);
-    const balanceInterval = setInterval(fetchBalance, 10000);
+    // Master polling loop (10s for health/balance/stats)
+    const masterInterval = setInterval(() => {
+      checkAgents();
+      fetchBalance();
+      fetchTimeseries();
+      if (connectionMode === "polling") fetchTasks();
+    }, 10000);
+
+    // Fast task polling ONLY if in polling mode
+    let taskPollInterval: ReturnType<typeof setInterval> | null = null;
+    if (connectionMode === "polling") {
+      taskPollInterval = setInterval(fetchTasks, 3000);
+    }
 
     return () => {
       if (channelRef.current) {
         channelRef.current.unsubscribe();
         channelRef.current = null;
       }
-      if (taskInterval) clearInterval(taskInterval);
-      clearInterval(agentInterval);
-      clearInterval(balanceInterval);
+      if (flushRef.current) {
+        clearTimeout(flushRef.current);
+        flushRef.current = null;
+      }
+      clearInterval(masterInterval);
+      if (taskPollInterval) clearInterval(taskPollInterval);
     };
-  }, [fetchTasks, checkAgents, fetchBalance]);
+  }, [fetchTasks, checkAgents, fetchBalance, fetchTimeseries, connectionMode]);
 
   const onlineCount = agents.filter((a) => a.status === "online").length;
 
@@ -261,40 +289,24 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-        {/* Hero Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {[
-            { label: "On-Chain Transactions", value: stats.totalOnChainTransactions, color: "text-arc-purple" },
-            { label: "Tasks Completed", value: stats.completed, color: "text-green-400" },
-            { label: "Total Spent", value: stats.totalSpent, color: "text-arc-blue" },
-            { label: "Active Agents", value: `${onlineCount}/${agents.length}`, color: "text-yellow-400" },
-            { label: "Gateway Balance", value: gatewayBalance.balance, color: "text-cyan-400" },
-          ].map((stat) => (
-            <div key={stat.label} className="bg-arc-card border border-arc-border rounded-xl p-4">
-              <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">{stat.label}</p>
-              <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-            </div>
-          ))}
-        </div>
-        {/* One-Click Demo Launcher */}
-        <DemoLauncher />
-        {/* Animated Payment Flow */}
-        <PaymentFlowAnimation recentTasks={tasks.slice(0, 5)} />
-        {/* Real-Time Charts */}
-        <DashboardCharts
-          timeseries={timeseries}
-          agentBreakdown={agentBreakdown}
-          totalTransactions={stats.totalOnChainTransactions}
+      <main className="max-w-[1600px] mx-auto px-6 py-8">
+        <BentoDashboard
+          agents={agents.map(a => ({
+            type: a.type,
+            status: a.status,
+            avgScore: 95, // Mock score for UI
+            completedCount: a.tasksCompleted,
+            earnings: `${a.earnings.toFixed(3)} USDC`
+          }))}
+          totalEarnings={stats.totalSpent.replace("$", "")}
+          totalTx={stats.totalOnChainTransactions}
+          activeTask={activeTask}
+          onRunDemo={handleRunDemo}
+          isLoading={isOrchestrating}
         />
-        {/* Live Task Feed */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <TaskFeed tasks={tasks} />
-          <TxList transactions={transactions} />
-        </div>
       </main>
-      <footer className="border-t border-arc-border mt-12 py-6 text-center text-xs text-slate-500">
-        Built for the Agentic Economy on Arc Hackathon · Powered by Circle Gateway & ERC-8004
+      <footer className="border-t border-arc-border mt-12 py-6 text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold">
+        Built for the Agentic Economy on Arc Hackathon · Powered by Circle Gateway & ERC-8004 · Premium v1.0
       </footer>
     </div>
   );

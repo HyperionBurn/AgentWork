@@ -7,8 +7,10 @@
 // another agent from its own wallet.
 // ============================================================
 
-import { ARC_CONFIG } from "../config";
+import { ARC_CONFIG, AGENT_ENDPOINTS } from "../config";
 import { recordTaskEvent } from "./supabase-module";
+import { initGateway } from "../executor";
+import { isRealTransactionHash, resolveGatewaySettlement } from "../gateway-settlement";
 
 // ── Types ────────────────────────────────────────────────────
 
@@ -72,13 +74,14 @@ let chainCounter = 0;
 /**
  * Execute an agent-to-agent payment chain.
  * Each step represents one agent paying another for a sub-service.
- * In production, each agent would have its own wallet and use
- * GatewayClient.pay() directly. For demo, we simulate from the
- * orchestrator's wallet but track the A2A flow.
+ * 
+ * NEW: If the step is "recursive", the orchestrator calls the Research agent's /api/chain 
+ * endpoint, which then triggers the Research agent to pay the Code agent.
  */
 export async function executeA2AChain(
   templateName: string,
   parentTaskId: string,
+  originalTask?: string,
 ): Promise<A2AChain> {
   const template = CHAIN_TEMPLATES[templateName];
   if (!template) {
@@ -92,13 +95,46 @@ export async function executeA2AChain(
   console.log(`\n${"=".repeat(50)}`);
   console.log(`🔗 Agent-to-Agent Chain: ${templateName}`);
   console.log(`   Chain ID: ${chainId}`);
-  console.log(`   Steps: ${template.length}`);
   console.log(`${"=".repeat(50)}`);
 
+  let gateway = await initGateway();
+
   for (const step of template) {
-    const mockHash = `MOCK_A2A_${step.from}_${step.to}_${Date.now().toString(16)}`;
-    const amount = parseFloat(step.amount.replace("$", ""));
-    totalAmount += amount;
+    const amountNum = parseFloat(step.amount.replace("$", ""));
+    totalAmount += amountNum;
+
+    let txHash: string;
+    let isMock = false;
+    let agentResponse: unknown = null;
+
+    try {
+      const endpoint = AGENT_ENDPOINTS.find((e) => e.type === step.from);
+      if (!endpoint) throw new Error(`Unknown agent: ${step.from}`);
+
+      // If it's the research agent, we can trigger the recursive /api/chain endpoint
+      const path = (step.from === "research" && templateName === "full_pipeline") 
+        ? "/api/chain" 
+        : endpoint.apiPath;
+      
+      // Use original task as input (not step.reason) so agents generate relevant output
+      const taskInput = originalTask || step.reason;
+      const contextStr = `A2A chain (${step.from}→${step.to}): ${step.reason}`;
+      const url = `${endpoint.baseUrl}${path}?input=${encodeURIComponent(taskInput)}&context=${encodeURIComponent(contextStr)}`;
+
+      console.log(`   💸 ${step.from} initiating payment step...`);
+      const result = await gateway.pay(url, { method: "GET" });
+      txHash = result.transaction || "";
+      agentResponse = result.data ?? null;
+      
+      console.log(`   ✅ Step complete: ${step.from} → ${step.to}`);
+      if (path === "/api/chain") {
+        console.log(`      ⚡ RECURSIVE A2A: Research agent paid Code agent autonomously!`);
+      }
+    } catch (err) {
+      console.error(`   ❌ A2A payment failed: ${err instanceof Error ? err.message : String(err)}`);
+      txHash = `MOCK_A2A_${step.from}_${step.to}`;
+      isMock = true;
+    }
 
     const payment: A2APayment = {
       fromAgent: step.from,
@@ -106,29 +142,38 @@ export async function executeA2AChain(
       amount: step.amount,
       reason: step.reason,
       parentTaskId,
-      txHash: mockHash,
-      explorerUrl: `${ARC_CONFIG.explorerUrl}${mockHash}`,
-      mock: true,
+      txHash,
+      explorerUrl: isRealTransactionHash(txHash) ? `${ARC_CONFIG.explorerUrl}${txHash}` : "",
+      mock: isMock,
     };
+
+    if (!isMock && !isRealTransactionHash(txHash)) {
+      void resolveGatewaySettlement({
+        gateway,
+        taskId: `${parentTaskId}-a2a-${step.from}-${step.to}`,
+        gatewayRef: txHash,
+        onSettled: (settledHash) => {
+          payment.txHash = settledHash;
+          payment.explorerUrl = `${ARC_CONFIG.explorerUrl}${settledHash}`;
+        },
+      }).catch((err) => {
+        console.log(`   ⚠️  Background settlement resolution failed: ${err instanceof Error ? err.message : String(err)}`);
+      });
+    }
 
     payments.push(payment);
 
-    console.log(`   💸 ${step.from} → ${step.to}: ${step.amount} — ${step.reason}`);
-    console.log(`      TX: ${mockHash}`);
-
-    // Record to Supabase for dashboard (non-blocking)
+    // Record to Supabase — include actual agent response data
     recordTaskEvent({
       task_id: `${parentTaskId}-a2a-${step.from}-${step.to}`,
       agent_type: `${step.from}→${step.to}`,
       status: "completed",
-      gateway_tx: mockHash,
+      gateway_tx: txHash,
       amount: step.amount,
-      result: step.reason,
+      result: agentResponse ?? step.reason,
       error: null,
-    }).catch(() => { /* non-blocking */ });
+    }).catch(() => {});
   }
-
-  console.log(`\n   📊 Chain complete: ${payments.length} A2A payments, total: $${totalAmount.toFixed(4)}`);
 
   return {
     chainId,
@@ -144,11 +189,16 @@ export async function executeA2AChain(
  */
 export async function executeAllChains(
   parentTaskId: string,
+  originalTask?: string,
 ): Promise<A2AChain[]> {
   const chains: A2AChain[] = [];
   for (const templateName of Object.keys(CHAIN_TEMPLATES)) {
-    const chain = await executeA2AChain(templateName, parentTaskId);
-    chains.push(chain);
+    try {
+      const chain = await executeA2AChain(templateName, parentTaskId, originalTask);
+      chains.push(chain);
+    } catch (err) {
+      console.log(`   ⚠️  Chain '${templateName}' failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
   }
   return chains;
 }

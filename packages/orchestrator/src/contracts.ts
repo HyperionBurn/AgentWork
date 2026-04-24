@@ -1,10 +1,11 @@
-import { ARC_CONFIG, AGENT_ENDPOINTS, isContractDeployed } from "./config";
+import { ARC_CONFIG, AGENT_ENDPOINTS, isContractDeployed, getAgentAddress, hasAgentWallets } from "./config";
 import {
   getClients,
   sendContractTx,
   ESCROW_ABI,
   REPUTATION_ABI,
 } from "./contracts-client";
+import type { Hash } from "viem";
 
 // ============================================================
 // Contract Interaction Layer
@@ -20,6 +21,7 @@ export interface ContractInteraction {
   functionCall: string;
   txHash: string;
   explorerUrl: string;
+  mock: boolean;
 }
 
 // ── Escrow: create ────────────────────────────────────────────
@@ -52,8 +54,14 @@ export async function createEscrowTask(
     const rewardAtomic = BigInt(
       Math.round(parseFloat(reward.replace("$", "")) * 1_000_000),
     );
-    // Agent address is placeholder — in production this would be the real agent wallet
-    const agentAddr = `0x0000000000000000000000000000000000000001` as `0x${string}`;
+    // Use the real agent wallet address from config (env var)
+    let agentAddr: `0x${string}`;
+    try {
+      agentAddr = getAgentAddress("research"); // default: assign to research agent
+    } catch {
+      console.log("   ⚠️  Agent wallets not configured — using mock address");
+      return mockInteraction("escrow_create", "AgentEscrow", `createTask("${taskId}", "${reward}")`);
+    }
     const hash = await sendContractTx({
       address: escrowAddress as `0x${string}`,
       abi: ESCROW_ABI,
@@ -62,8 +70,8 @@ export async function createEscrowTask(
     });
     await clients.publicClient.waitForTransactionReceipt({
       hash,
-      timeout: 30_000,
-      pollingInterval: 2_000,
+      timeout: 10_000,
+      pollingInterval: 1_000,
     });
 
     const interaction: ContractInteraction = {
@@ -72,6 +80,7 @@ export async function createEscrowTask(
       functionCall: `createTask("${taskId}", "${reward}")`,
       txHash: hash,
       explorerUrl: `${ARC_CONFIG.explorerUrl}${hash}`,
+      mock: false,
     };
     console.log(`📋 Escrow created on-chain: ${hash}`);
     console.log(`   🔗 Explorer: ${interaction.explorerUrl}`);
@@ -111,16 +120,51 @@ export async function claimEscrowTask(
     }
 
     const taskIdNum = BigInt(taskId.replace(/\D/g, "") || "0");
-    const hash = await sendContractTx({
-      address: escrowAddress as `0x${string}`,
-      abi: ESCROW_ABI,
-      functionName: "claimTask",
-      args: [taskIdNum],
-    });
+    
+    // Retry logic for mempool congestion
+    let hash: Hash | null = null;
+    let lastError: Error | null = null;
+    const maxRetries = 3;
+    const retryDelayMs = 2000;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        hash = await sendContractTx({
+          address: escrowAddress as `0x${string}`,
+          abi: ESCROW_ABI,
+          functionName: "claimTask",
+          args: [taskIdNum],
+        });
+        break;
+      } catch (error: any) {
+        lastError = error;
+        const errorMsg = String(error.message || error);
+        // Check for mempool full error or "Only assigned agent can claim"
+        if (errorMsg.includes("txpool is full") || errorMsg.includes("Transaction creation failed")) {
+          console.warn(`   ⚠️  Mempool full (attempt ${attempt}/${maxRetries}), retrying in ${retryDelayMs}ms...`);
+          if (attempt < maxRetries) {
+            await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+            continue;
+          }
+        }
+        // For "Only assigned agent can claim", skip retries and fall back to mock
+        if (errorMsg.includes("Only assigned agent can claim")) {
+          // Known limitation: orchestrator (0x42Db) cannot claim tasks assigned to agent addresses
+          // because it doesn't have the agents' private keys. This is expected — use mock fallback.
+          throw error;
+        }
+        throw error;
+      }
+    }
+
+    if (!hash) {
+      throw lastError || new Error("Failed to claim task after retries");
+    }
+
     await clients.publicClient.waitForTransactionReceipt({
       hash,
-      timeout: 30_000,
-      pollingInterval: 2_000,
+      timeout: 10_000,
+      pollingInterval: 1_000,
     });
 
     const interaction: ContractInteraction = {
@@ -129,11 +173,17 @@ export async function claimEscrowTask(
       functionCall: `claimTask("${taskId}", "${agentAddress}")`,
       txHash: hash,
       explorerUrl: `${ARC_CONFIG.explorerUrl}${hash}`,
+      mock: false,
     };
     console.log(`👋 Task claimed on-chain: ${hash}`);
     return interaction;
   } catch (error) {
-    console.error(`❌ Task claim failed: ${error}`);
+    // Expected: orchestrator can't claim tasks assigned to agents (known limitation)
+    // Only log non-obvious errors at full verbosity
+    const errMsg = String(error instanceof Error ? error.message : error);
+    if (!errMsg.includes("Only assigned agent can claim")) {
+      console.error(`❌ Task claim failed: ${error}`);
+    }
     return mockInteraction(
       "escrow_claim", "AgentEscrow",
       `claimTask("${taskId}", "${agentAddress}")`,
@@ -173,8 +223,8 @@ export async function completeEscrowTask(
     });
     await clients.publicClient.waitForTransactionReceipt({
       hash,
-      timeout: 30_000,
-      pollingInterval: 2_000,
+      timeout: 10_000,
+      pollingInterval: 1_000,
     });
 
     const interaction: ContractInteraction = {
@@ -183,6 +233,7 @@ export async function completeEscrowTask(
       functionCall: `approveCompletion("${taskId}")`,
       txHash: hash,
       explorerUrl: `${ARC_CONFIG.explorerUrl}${hash}`,
+      mock: false,
     };
     console.log(`✅ Escrow completed on-chain: ${hash}`);
     return interaction;
@@ -228,8 +279,8 @@ export async function submitEscrowResult(
     });
     await clients.publicClient.waitForTransactionReceipt({
       hash,
-      timeout: 30_000,
-      pollingInterval: 2_000,
+      timeout: 10_000,
+      pollingInterval: 1_000,
     });
 
     const interaction: ContractInteraction = {
@@ -238,6 +289,7 @@ export async function submitEscrowResult(
       functionCall: `submitResult("${taskId}", "${result.slice(0, 50)}...")`,
       txHash: hash,
       explorerUrl: `${ARC_CONFIG.explorerUrl}${hash}`,
+      mock: false,
     };
     console.log(`📝 Result submitted on-chain: ${hash}`);
     return interaction;
@@ -283,8 +335,8 @@ export async function disputeEscrowTask(
     });
     await clients.publicClient.waitForTransactionReceipt({
       hash,
-      timeout: 30_000,
-      pollingInterval: 2_000,
+      timeout: 10_000,
+      pollingInterval: 1_000,
     });
 
     const interaction: ContractInteraction = {
@@ -293,6 +345,7 @@ export async function disputeEscrowTask(
       functionCall: `dispute("${taskId}", "${reason}")`,
       txHash: hash,
       explorerUrl: `${ARC_CONFIG.explorerUrl}${hash}`,
+      mock: false,
     };
     console.log(`⚖️  Dispute raised on-chain: ${hash}`);
     return interaction;
@@ -330,16 +383,44 @@ export async function submitReputation(
       );
     }
 
-    const hash = await sendContractTx({
-      address: reputationAddress as `0x${string}`,
-      abi: REPUTATION_ABI,
-      functionName: "giveFeedback",
-      args: [agentAddress as `0x${string}`, score, feedback],
-    });
+    // Retry logic for mempool congestion
+    let hash: Hash | null = null;
+    let lastError: Error | null = null;
+    const maxRetries = 3;
+    const retryDelayMs = 2000;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        hash = await sendContractTx({
+          address: reputationAddress as `0x${string}`,
+          abi: REPUTATION_ABI,
+          functionName: "giveFeedback",
+          args: [agentAddress as `0x${string}`, score, feedback],
+        });
+        break;
+      } catch (error: any) {
+        lastError = error;
+        const errorMsg = String(error.message || error);
+        // Check for mempool full error
+        if (errorMsg.includes("txpool is full") || errorMsg.includes("Transaction creation failed")) {
+          console.warn(`   ⚠️  Mempool full (attempt ${attempt}/${maxRetries}), retrying in ${retryDelayMs}ms...`);
+          if (attempt < maxRetries) {
+            await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+            continue;
+          }
+        }
+        throw error;
+      }
+    }
+
+    if (!hash) {
+      throw lastError || new Error("Failed to submit reputation transaction after retries");
+    }
+
     await clients.publicClient.waitForTransactionReceipt({
       hash,
-      timeout: 30_000,
-      pollingInterval: 2_000,
+      timeout: 10_000,
+      pollingInterval: 1_000,
     });
 
     const interaction: ContractInteraction = {
@@ -348,11 +429,18 @@ export async function submitReputation(
       functionCall: `giveFeedback("${agentAddress}", ${score}, "${feedback}")`,
       txHash: hash,
       explorerUrl: `${ARC_CONFIG.explorerUrl}${hash}`,
+      mock: false,
     };
     console.log(`⭐ Reputation submitted on-chain: ${hash}`);
     return interaction;
   } catch (error) {
-    console.error(`❌ Reputation submission failed: ${error}`);
+    // Suppress verbose error — nonce races and mempool issues are expected during rapid-fire calls
+    const errMsg = String(error instanceof Error ? error.message : error);
+    if (errMsg.includes("nonce too low") || errMsg.includes("replacement transaction")) {
+      console.warn(`   ⚠️  Reputation tx nonce conflict (will retry or use mock)`);
+    } else {
+      console.error(`❌ Reputation submission failed: ${errMsg.slice(0, 200)}`);
+    }
     return mockInteraction(
       "reputation", "ReputationRegistry",
       `giveFeedback("${agentAddress}", ${score}, "${feedback}")`,
@@ -450,12 +538,14 @@ function mockInteraction(
   functionCall: string,
 ): ContractInteraction {
   const txHash = `MOCK_0x${generateMockHash()}`;
+  console.log(`   ⚠️  MOCK fallback: ${contractName}.${functionCall.split("(")[0]} — contract not available or call failed`);
   return {
     type,
     contractName,
     functionCall,
     txHash,
     explorerUrl: `${ARC_CONFIG.explorerUrl}${txHash}`,
+    mock: true,
   };
 }
 
@@ -463,6 +553,45 @@ function generateMockHash(): string {
   return Array.from({ length: 64 }, () =>
     Math.floor(Math.random() * 16).toString(16),
   ).join("");
+}
+
+/**
+ * Batch-create escrow tasks — one per agent type.
+ * Produces N real createTask() calls when contracts are deployed.
+ * The orchestrator IS the buyer, so msg.sender matches.
+ */
+export async function batchCreateEscrow(
+  taskId: string,
+  agentTypes: string[],
+  rewardPerAgent: string = "$0.005",
+): Promise<ContractInteraction[]> {
+  const interactions: ContractInteraction[] = [];
+
+  console.log(`📋 Batch creating ${agentTypes.length} escrow tasks...`);
+
+  for (const agentType of agentTypes) {
+    try {
+      const agentAddr = getAgentAddress(agentType);
+      const interaction = await createEscrowTask(
+        `${taskId}_${agentType}`,
+        `Escrow for ${agentType} agent — ${taskId}`,
+        rewardPerAgent,
+      );
+      interactions.push(interaction);
+    } catch {
+      // Agent wallet not configured — still create escrow with placeholder
+      const interaction = await createEscrowTask(
+        `${taskId}_${agentType}`,
+        `Escrow for ${agentType} agent — ${taskId}`,
+        rewardPerAgent,
+      );
+      interactions.push(interaction);
+    }
+  }
+
+  const realCount = interactions.filter((i) => !i.mock).length;
+  console.log(`   Batch escrow: ${realCount} real, ${interactions.length - realCount} mock`);
+  return interactions;
 }
 
 /**

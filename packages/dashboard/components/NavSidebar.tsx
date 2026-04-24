@@ -11,15 +11,18 @@ interface NavSidebarProps {
 
 const routes = [
   { path: "/", label: "Dashboard", icon: "📊" },
+  { path: "/playground", label: "Playground", icon: "🎮" },
   { path: "/agents", label: "Agents", icon: "🤖" },
   { path: "/economy", label: "Economy", icon: "💰" },
+  { path: "/spending", label: "Spending", icon: "💳" },
+  { path: "/receipts", label: "Receipts", icon: "🧾" },
   { path: "/evidence", label: "Evidence", icon: "📋" },
   { path: "/governance", label: "Governance", icon: "🏛️" },
   { path: "/settings", label: "Settings", icon: "⚙️" },
   { path: "/submit", label: "Submit", icon: "🚀" },
 ] as const;
 
-const MOBILE_VISIBLE_COUNT = 5;
+const MOBILE_VISIBLE_COUNT = 6;
 
 function StatusDot({ mode }: { mode: NavSidebarProps["connectionMode"] }) {
   const color =

@@ -31,14 +31,35 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Agent not found" }, { status: 404 });
       }
 
+      // Derive bids from real agent performance data — no random generation
       const basePrice = parseFloat(agent.price.replace("$", ""));
-      const bids = Array.from({ length: 3 }, (_, i) => ({
-        bidder: `${agent.type}-bidder-${i + 1}`,
-        price: `$${(basePrice * (0.8 + Math.random() * 0.4)).toFixed(4)}`,
-        estimatedTime: Math.round(2 + Math.random() * 6),
-        reputation: agent.reputation,
-        score: Math.round(60 + Math.random() * 40),
-      }));
+      const repFactor = agent.reputation / 100; // 0.0 – 0.99
+      const completionBonus = Math.min(agent.tasksCompleted * 0.5, 10); // up to 10% discount for high volume
+
+      // Three tiers: competitive, market-rate, premium
+      const bids = [
+        {
+          bidder: `${agent.type}-competitive`,
+          price: `$${(basePrice * (0.95 - completionBonus / 100)).toFixed(4)}`,
+          estimatedTime: Math.max(1, Math.round(5 - repFactor * 3)),
+          reputation: agent.reputation,
+          score: Math.round(agent.reputation + completionBonus),
+        },
+        {
+          bidder: `${agent.type}-market`,
+          price: `$${basePrice.toFixed(4)}`,
+          estimatedTime: Math.max(2, Math.round(4 - repFactor * 2)),
+          reputation: agent.reputation,
+          score: agent.reputation,
+        },
+        {
+          bidder: `${agent.type}-premium`,
+          price: `$${(basePrice * 1.05).toFixed(4)}`,
+          estimatedTime: Math.max(1, Math.round(3 - repFactor * 2)),
+          reputation: agent.reputation,
+          score: Math.round(agent.reputation * 0.9),
+        },
+      ];
 
       bids.sort((a, b) => b.score - a.score);
       return NextResponse.json({ bids, winner: bids[0] });

@@ -72,3 +72,35 @@ export async function recordTaskEvent(
     console.error(`❌ Supabase insert failed: ${message}`);
   }
 }
+
+/**
+ * Update the transaction hash for a task event.
+ * Called when a pending settlement resolves to an actual on-chain transaction.
+ * Non-blocking — errors are logged but never throw.
+ */
+export async function updateTaskEventTxHash(
+  taskId: string,
+  currentGatewayTx: string,
+  txHash: string
+): Promise<void> {
+  const client = initSupabase();
+  if (!client) return;
+
+  try {
+    const { error } = await client
+      .from("task_events")
+      .update({ gateway_tx: txHash })
+      .eq("task_id", taskId)
+      .eq("gateway_tx", currentGatewayTx);
+
+    if (error) {
+      console.error(`❌ Failed to update task event tx hash: ${error.message}`);
+    } else {
+      console.log(`   ✅ Updated TX hash for task ${taskId}: ${txHash}`);
+    }
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : "Unknown Supabase error";
+    console.error(`❌ Supabase update failed: ${message}`);
+  }
+}

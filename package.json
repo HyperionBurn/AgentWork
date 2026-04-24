@@ -5,20 +5,19 @@
   "description": "Autonomous AI agent marketplace with Arc L1 nanopayments",
   "workspaces": [
     "packages/dashboard",
-    "packages/orchestrator"
+    "packages/orchestrator",
+    "newgemdashboard",
+    "newlandingpage"
   ],
   "scripts": {
     "dev": "npm run dev --workspaces",
     "dev:dashboard": "npm run dev --workspace=packages/dashboard",
     "dev:orchestrator": "npm run dev --workspace=packages/orchestrator",
-    "dev:agents": "docker-compose up agents",
+    "dev:agents": "npm run start:agents:express",
     "build": "npm run build --workspaces",
     "lint": "npm run lint --workspaces",
     "deploy:contracts": "cd packages/contracts && python script/deploy.py",
-    "start:research": "cd agents/research-agent && python server.py",
-    "start:code": "cd agents/code-agent && python server.py",
-    "start:test": "cd agents/test-agent && python server.py",
-    "start:review": "cd agents/review-agent && python server.py",
+    "start:agents:express": "npx tsx agents/express-server/server.ts",
     "generate-wallet": "tsx scripts/generate-wallet.ts",
     "validate-env": "tsx scripts/validate-env.ts",
     "smoke-test": "tsx scripts/smoke-test.ts",

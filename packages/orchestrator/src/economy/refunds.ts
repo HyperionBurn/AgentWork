@@ -30,6 +30,7 @@ export interface RefundEligibility {
 
 /**
  * Process an auto-refund for a failed/disputed task.
+ * Uses real on-chain disputeEscrowTask when contracts are deployed.
  * Falls back to mock if contract not deployed.
  */
 export async function processAutoRefund(
@@ -43,9 +44,26 @@ export async function processAutoRefund(
   }
 
   try {
-    // In production: would call AgentEscrow.refund(taskId)
-    // For now: mock with realistic structure
-    console.log(`💸 Processing refund for task ${taskId}: ${amount} — ${reason}`);
+    // F6: Real on-chain refund via AgentEscrow.dispute()
+    const { disputeEscrowTask } = await import("../contracts");
+    console.log(`💸 Processing real on-chain refund for task ${taskId}: ${amount} — ${reason}`);
+    const dispute = await disputeEscrowTask(taskId, reason);
+
+    if (!dispute.mock && dispute.txHash) {
+      console.log(`   ✅ On-chain dispute: ${dispute.txHash.slice(0, 18)}...`);
+      console.log(`   🔗 Explorer: ${dispute.explorerUrl}`);
+      return {
+        taskId,
+        amount,
+        reason,
+        txHash: dispute.txHash,
+        explorerUrl: dispute.explorerUrl,
+        mock: false,
+      };
+    }
+
+    // Contract call returned mock — use mock refund
+    console.log(`   ⚠️ Dispute returned mock — using mock refund`);
     return mockRefund(taskId, undefined, amount, reason);
   } catch (error) {
     console.error(`❌ Refund processing failed: ${error}`);
@@ -99,6 +117,13 @@ export function startRefundTimer(
   }, timeoutSeconds * 1000);
 
   return timer;
+}
+
+/**
+ * Cancel a pending refund timer.
+ */
+export function cancelRefundTimer(timerId: NodeJS.Timeout): void {
+  clearTimeout(timerId);
 }
 
 /**

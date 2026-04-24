@@ -7,6 +7,7 @@
 // ============================================================
 
 import { getAgentReputation } from "../contracts";
+import { getAgentAddress } from "../config";
 import { discoverAgents, type DiscoveredAgent } from "./discovery";
 
 // ── Types ────────────────────────────────────────────────────
@@ -65,9 +66,15 @@ export async function routeTask(
 
   if (agents.length === 0) {
     // Fallback to the requested agent type
+    let agentAddress: string;
+    try {
+      agentAddress = getAgentAddress(agentType);
+    } catch {
+      agentAddress = `0x_AGENT_${agentType.toUpperCase()}`;
+    }
     return {
       agentType,
-      agentAddress: `0x_AGENT_${agentType.toUpperCase()}`,
+      agentAddress,
       score: 0,
       factors: { reputationWeight: 0, loadWeight: 0, priceWeight: 0 },
       reason: "No agents discovered — using default routing",
@@ -115,7 +122,7 @@ export async function routeTask(
 
   return {
     agentType: best.agent.type,
-    agentAddress: `0x_AGENT_${best.agent.type.toUpperCase()}`,
+    agentAddress: (() => { try { return getAgentAddress(best.agent.type); } catch { return `0x_AGENT_${best.agent.type.toUpperCase()}`; } })(),
     score: best.score,
     factors: {
       reputationWeight: best.reputation / 100,
@@ -150,7 +157,7 @@ export async function routeAllAgents(
 async function refreshReputationCache(agents: DiscoveredAgent[]): Promise<void> {
   for (const agent of agents) {
     try {
-      const address = `0x_AGENT_${agent.type.toUpperCase()}`;
+      const address = (() => { try { return getAgentAddress(agent.type); } catch { return `0x_AGENT_${agent.type.toUpperCase()}`; } })();
       const rep = await getAgentReputation(address);
       if (!rep.mock) {
         reputationCache.set(agent.type, rep.averageScore);

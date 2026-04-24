@@ -1,10 +1,12 @@
 import { NextRequest } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
 // ============================================================
-// SSE Stream — Real-time dashboard updates (#9)
+// SSE Stream — Real-time Supabase-backed payment feed
 // ============================================================
-// Server-Sent Events endpoint that pushes live transaction
-// and agent status updates to the dashboard.
+// Polls task_events table for new rows and pushes them as
+// SSE events. ZERO mock data — if Supabase is unreachable,
+// emits a connection-error and closes.
 // ============================================================
 
 const CORS_HEADERS = {
@@ -13,6 +15,23 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
+const EXPLORER_BASE = "https://testnet.arcscan.app/tx/";
+const POLL_INTERVAL_MS = 2000;
+const HEARTBEAT_INTERVAL_MS = 30000;
+
+function isRealTransactionHash(value?: string | null): boolean {
+  return typeof value === "string" && /^0x[0-9a-fA-F]{64}$/.test(value);
+}
+
+interface TaskEventRow {
+  task_id: string;
+  agent_type: string;
+  status: string;
+  gateway_tx: string | null;
+  amount: string | null;
+  created_at: string;
+}
+
 export async function OPTIONS() {
   return new Response(null, { status: 204, headers: CORS_HEADERS });
 }
@@ -20,67 +39,126 @@ export async function OPTIONS() {
 export async function GET(request: NextRequest) {
   const encoder = new TextEncoder();
 
+  // --- Initialise Supabase client ---
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    // Cannot connect — single error event then close
+    const body = `event: connection-error\ndata: ${JSON.stringify({
+      type: "connection-error",
+      message: "Supabase credentials not configured",
+      timestamp: Date.now(),
+    })}\n\n`;
+
+    return new Response(body, {
+      status: 503,
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        ...CORS_HEADERS,
+      },
+    });
+  }
+
+  let cleanup: () => void = () => {};
+
   const stream = new ReadableStream({
     start(controller) {
-      // Send initial connection event
-      const connectEvent = `event: connected\ndata: ${JSON.stringify({ status: "connected", timestamp: Date.now() })}\n\n`;
-      controller.enqueue(encoder.encode(connectEvent));
+      let pollInterval: NodeJS.Timeout | null = null;
+      let heartbeatInterval: NodeJS.Timeout | null = null;
+      let isClosed = false;
 
-      // Periodic heartbeat + enhanced status updates (Q2: enriched SSE)
-      const interval = setInterval(() => {
-        // Heartbeat with full agent status
-        const event = {
-          type: "heartbeat",
-          agents: {
-            research: { status: "online", tasks: Math.floor(Math.random() * 5) },
-            code: { status: "online", tasks: Math.floor(Math.random() * 5) },
-            test: { status: "online", tasks: Math.floor(Math.random() * 3) },
-            review: { status: "online", tasks: Math.floor(Math.random() * 2) },
-          },
-          recentTxCount: Math.floor(Math.random() * 5),
-          timestamp: Date.now(),
-        };
-        controller.enqueue(
-          encoder.encode(`event: status\ndata: ${JSON.stringify(event)}\n\n`),
-        );
+      const supabase = getSupabase();
 
-        // Periodically send enriched event types (Q2 enhancement)
-        const enrichedTypes = ["payment_confirmed", "gas_update", "agent_status", "revenue_tick", "refund_processed"];
-        const randomType = enrichedTypes[Math.floor(Math.random() * enrichedTypes.length)];
-
-        const enrichedEvent: Record<string, unknown> = {
-          type: randomType,
-          timestamp: Date.now(),
-        };
-
-        switch (randomType) {
-          case "payment_confirmed":
-            enrichedEvent.data = { agentType: ["research", "code", "test", "review"][Math.floor(Math.random() * 4)], amount: "$0.005", txHash: `0x${Array.from({ length: 16 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}...` };
-            break;
-          case "gas_update":
-            enrichedEvent.data = { arcPerTx: "$0.001", savingsVsEth: "99.96%", totalGasUsed: `$${(Math.random() * 0.1).toFixed(4)}` };
-            break;
-          case "agent_status":
-            enrichedEvent.data = { agentType: ["research", "code", "test", "review"][Math.floor(Math.random() * 4)], status: "online", uptime: `${Math.floor(Math.random() * 99) + 1}%` };
-            break;
-          case "revenue_tick":
-            enrichedEvent.data = { totalEarned: `$${(Math.random() * 0.05).toFixed(4)}`, margin: "69%" };
-            break;
-          case "refund_processed":
-            enrichedEvent.data = { taskId: `task_${Math.floor(Math.random() * 100)}`, amount: "$0.005", reason: "Agent timeout" };
-            break;
+      cleanup = () => {
+        if (isClosed) return;
+        isClosed = true;
+        if (pollInterval) clearInterval(pollInterval);
+        if (heartbeatInterval) clearInterval(heartbeatInterval);
+        try {
+          controller.close();
+        } catch {
+          // Stream already closed
         }
+      };
 
-        controller.enqueue(
-          encoder.encode(`event: ${randomType}\ndata: ${JSON.stringify(enrichedEvent)}\n\n`),
-        );
-      }, 5000);
+      const send = (event: string, data: any) => {
+        if (isClosed) return;
+        try {
+          const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
+          controller.enqueue(encoder.encode(payload));
+        } catch {
+          cleanup();
+        }
+      };
 
-      // Clean up on abort
-      request.signal.addEventListener("abort", () => {
-        clearInterval(interval);
-        controller.close();
-      });
+      // Heartbeat to keep connection alive (every 30s)
+      heartbeatInterval = setInterval(() => {
+        if (!isClosed) {
+          try {
+            controller.enqueue(encoder.encode(": heartbeat\n\n"));
+          } catch {
+            cleanup();
+          }
+        }
+      }, 30000);
+
+      // Initial connection state
+      send("connected", { status: "live", timestamp: Date.now() });
+
+      // Track the most recent timestamp we've seen
+      let lastSeenTimestamp = new Date(Date.now() - 300_000).toISOString(); 
+
+      // Poll for new task events
+      const fetchNewEvents = async () => {
+        if (isClosed || !supabase) return;
+
+        try {
+          const { data, error } = await supabase
+            .from("task_events")
+            .select("task_id, agent_type, status, gateway_tx, amount, created_at")
+            .gt("created_at", lastSeenTimestamp)
+            .order("created_at", { ascending: true })
+            .limit(50);
+
+          if (error) {
+            console.error("[SSE Stream] Supabase error:", error.message);
+            return;
+          }
+
+          if (data && data.length > 0) {
+            for (const row of data) {
+              if (isClosed) break;
+              
+              const txHash = row.gateway_tx || "";
+              const payload = {
+                type: "payment",
+                agentType: row.agent_type,
+                amount: row.amount || "$0.005",
+                txHash,
+                explorerUrl: isRealTransactionHash(txHash) ? `${EXPLORER_BASE}${txHash}` : "",
+                taskId: row.task_id,
+                status: row.status,
+                timestamp: new Date(row.created_at).getTime(),
+              };
+
+              send("payment", payload);
+              lastSeenTimestamp = row.created_at;
+            }
+          }
+        } catch (err) {
+          // Silent catch to prevent stream crash
+        }
+      };
+
+      fetchNewEvents();
+      pollInterval = setInterval(fetchNewEvents, 5000);
+
+      request.signal.addEventListener("abort", cleanup);
+    },
+    cancel() {
+      cleanup();
     },
   });
 

@@ -51,12 +51,65 @@ Thumbs.db
 
 # Evidence files (session recordings with tx hashes)
 evidence/
+docs/evidence/
 
 # Docker
 docker-compose.override.yml
 
-# Misc
+# =============================================================================
+# AI / Agent / Copilot workspace state — NEVER push to GitHub
+# =============================================================================
+# These contain session state, memory, private keys structure, wallet addresses,
+# internal workflow docs, and agent instructions that are NOT for public repo.
+
+# Copilot tracking (specs, plans, research, prompts, changes)
+.copilot-tracking/
+
+# OMG autopilot (PRD state, plans, team state)
+.omg/
+
+# Windsurf IDE agent workflows
+.windsurf/
+
+# Test agent scratch
+.testagent/
+
+# Copilot/AI session memories (session state, repo notes, debugging insights)
+memories/
+
+# Agent instructions file (contains wallet addresses, internal workflows, SDK keys)
+AGENTS.md
+
+# Temp OMG output (has its own git repo — nested repo)
+temp_omg/
+
+# Scratch / experimental files
+scratch/
+
+# Abandoned dashboard attempts
+newagentworkdashboard/
+
+# =============================================================================
+# Logs — agent runtime logs with potentially sensitive output
+# =============================================================================
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+code.log
+code_error.log
+research.log
+research_error.log
+test.log
+test_error.log
+review.log
+review_error.log
+
+# =============================================================================
+# Misc
+# =============================================================================
+# Local Netlify folder
+.netlify
+
+# Debug / session transcript logs (VS Code Copilot)
+*.jsonl

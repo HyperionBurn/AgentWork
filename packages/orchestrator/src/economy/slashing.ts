@@ -6,7 +6,7 @@
 // Mock fallback when AgentStaking contract is not deployed.
 // ============================================================
 
-import { ARC_CONFIG, isContractDeployed } from "../config";
+import { ARC_CONFIG, isContractDeployed, getAgentAddress } from "../config";
 
 // ── Types ────────────────────────────────────────────────────
 
@@ -189,7 +189,8 @@ export async function initDefaultStakes(
 ): Promise<StakeInfo[]> {
   const results: StakeInfo[] = [];
   for (const type of agentTypes) {
-    const address = `0x_AGENT_${type.toUpperCase()}`;
+    let address: string;
+    try { address = getAgentAddress(type); } catch { address = `0x_AGENT_${type.toUpperCase()}`; }
     const info = await stakeAgent(address, type, amount);
     results.push(info);
   }

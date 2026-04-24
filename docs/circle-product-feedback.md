@@ -3,6 +3,8 @@
 > Submitted for the Circle Product Feedback Prize at "Agentic Economy on Arc" hackathon.
 > This document captures real pain points encountered while building with Circle's x402-batching SDK.
 
+> **TL;DR**: The x402 protocol is genuine innovation — gasless EIP-3009 transfers via Gateway batching solve a real problem. The SDK needs DX polish: consistent naming, documented peer deps, and flatter response types.
+
 ---
 
 ## Summary
@@ -31,9 +33,23 @@ The buyer-side `GatewayClient` requires `chain` and `privateKey`, while the sell
 2. Or add explicit JSDoc warnings that seller-side clients don't need chain/privateKey
 3. Consider runtime validation that rejects unknown properties
 
----
+```typescript
+// Proposed: shared base type with clear separation
+interface BaseClientConfig {
+  url?: string;  // Gateway API URL, defaults to testnet
+}
 
-## Pain Point 2: Inconsistent Transaction Hash Field Names
+interface BuyerConfig extends BaseClientConfig {
+  chain: SupportedChainName;  // required for buyer
+  privateKey: Hex;            // required for buyer
+  rpcUrl?: string;
+}
+
+interface SellerConfig extends BaseClientConfig {
+  createAuthHeaders?: () => Promise<AuthHeaders>;
+  // TypeScript error if chain/privateKey are passed
+}
+```: Inconsistent Transaction Hash Field Names
 
 ### What We Found
 ```typescript
@@ -51,9 +67,21 @@ Two result types, two different naming conventions for essentially the same conc
 **Suggestion**: Standardize on a single field name across all result types:
 - `txHash` or `transactionHash` — consistent across `DepositResult`, `PayResult`, `WithdrawResult`
 
----
+```typescript
+// Current: different field names for the same concept
+const deposit = await client.deposit("1");
+console.log(deposit.depositTxHash);   // "depositTxHash"
 
-## Pain Point 3: Deeply Nested Balance Response
+const payment = await client.pay(url);
+console.log(payment.transaction);      // "transaction"
+
+// Proposed: consistent naming
+const deposit = await client.deposit("1");
+console.log(deposit.txHash);           // same field name
+
+const payment = await client.pay(url);
+console.log(payment.txHash);           // same field name
+```: Deeply Nested Balance Response
 
 ### What We Expected
 ```typescript
@@ -72,9 +100,17 @@ balances.wallet.balance              // ← wallet balance is separate
 1. Add a top-level `available` convenience accessor
 2. Or document the response shape more prominently with TypeScript types that make the nesting obvious at compile time
 
----
+```typescript
+// Current: must know the exact nesting path
+const bal = await client.getBalances();
+console.log(bal.gateway.formattedAvailable);  // non-obvious
 
-## Pain Point 4: Missing Peer Dependencies Not Documented
+// Proposed: convenience accessor at top level
+const bal = await client.getBalances();
+console.log(bal.available);  // delegates to gateway.formattedAvailable
+console.log(bal.total);      // delegates to gateway.total
+console.log(bal.wallet);     // wallet balance still accessible
+```: Missing Peer Dependencies Not Documented
 
 ### What We Found
 `@circle-fin/x402-batching` requires `@x402/core` and `@x402/evm` as peer dependencies, but:
@@ -89,9 +125,18 @@ balances.wallet.balance              // ← wallet balance is separate
 2. Add a post-install check that warns about missing peers
 3. Consider bundling the peer deps or making them direct dependencies
 
----
+```typescript
+// Proposed: post-install warning
+// When running `npm install @circle-fin/x402-batching`:
+// ⚠️  Missing peer dependencies detected:
+//   - @x402/core@^2.3.0 (required)
+//   - @x402/evm@^2.3.0 (required)
+//   Install with: npm install @x402/core @x402/evm
 
-## Pain Point 5: Chain Name String Must Be Exact
+// Or bundle them and eliminate the issue entirely:
+import { GatewayClient } from "@circle-fin/x402-batching";
+// All sub-dependencies resolved — no manual peer dep installation
+```: Chain Name String Must Be Exact
 
 ### What We Found
 ```typescript
@@ -105,6 +150,22 @@ There's a `SupportedChainName` type, but the valid values aren't documented in t
 
 **Suggestion**: Document all valid `SupportedChainName` values in the README or in the type's JSDoc.
 
+```typescript
+// Proposed: JSDoc with all valid values
+/**
+ * Supported chain names for GatewayClient.
+ * - "arcTestnet" — Arc Testnet (chain ID 5042002)
+ * - "baseSepolia" — Base Sepolia (chain ID 84532)
+ * - "ethereumSepolia" — Ethereum Sepolia (chain ID 11155111)
+ */
+type SupportedChainName = "arcTestnet" | "baseSepolia" | "ethereumSepolia";
+
+// Even better: runtime validation with helpful error
+new GatewayClient({ chain: "arc" });
+// Error: Invalid chain "arc". Did you mean "arcTestnet"?
+//        Supported values: arcTestnet, baseSepolia, ethereumSepolia
+```
+
 ---
 
 ## What Worked Well
@@ -112,10 +173,11 @@ There's a `SupportedChainName` type, but the valid values aren't documented in t
 Despite the friction above, several things genuinely impressed us:
 
 1. **EIP-3009 gasless transfers** — The concept of signing off-chain authorizations and having the Gateway batch-settle them is elegant and works reliably
-2. **Dollar-denominated amounts** — Using `"$0.005"` instead of raw BigInt is a great UX choice for developers
+2. **Dollar-denominated amounts** — Using `"$0.005"` strings instead of raw BigInt arithmetic (`5000n`) is a thoughtful DX choice that eliminates an entire class of decimal-conversion bugs
 3. **Gateway API reliability** — Zero downtime during our development window
 4. **Arc testnet faucet** — Instant, generous USDC funding at `faucet.circle.com`
 5. **Fast settlement** — Payments appear on-chain in under 5 seconds, even during batching
+6. **TypeScript types shipped in-package** — The SDK includes proper TypeScript types (not a separate `@types` package), enabling autocompletion and compile-time safety out of the box
 
 ---
 
@@ -123,7 +185,13 @@ Despite the friction above, several things genuinely impressed us:
 
 The x402 protocol and Circle Gateway are solving a real problem — nanopayments for AI agents. The core technology works. The rough edges are primarily in developer experience: inconsistent naming, undocumented peer deps, and asymmetric config shapes. Fixing these would dramatically reduce time-to-first-payment for new developers.
 
-**We'd rate the SDK 7/10** — solid foundation, needs DX polish.
+| Dimension | Rating | Notes |
+|-----------|--------|-------|
+| **Core Technology** | 9/10 | EIP-3009 + Gateway batching is genuinely innovative — gasless, sub-second, reliable |
+| **Developer Experience** | 6/10 | Inconsistent naming, undocumented peer deps, silent failures on misconfiguration |
+| **Overall** | **7.5/10** | Solid foundation with a clear path to 9/10 — the fixes are mostly naming + docs |
+
+**The path to 9/10**: Standardize result type field names (`txHash` everywhere), add top-level balance accessors, document peer dependencies in the README, and ship runtime config validation. None of these require architectural changes — they're DX polish that would dramatically reduce time-to-first-payment.
 
 ---
 
@@ -162,9 +230,41 @@ const results = await client.payBatch([
   { url: "http://agent:4023/api/test", amount: "$0.005" },
   { url: "http://agent:4024/api/review", amount: "$0.005" },
 ]);
+// results: PayResult[] — all payments settled in a single batch
 ```
 
-### 4. CLI Tool for Quick Testing
+### 4. Event Webhook / Settlement Callback
+
+After the Gateway settles a batch of EIP-3009 authorizations on-chain, POST to a configurable webhook URL with settlement details. This would enable server-side dashboards to update in real time without polling.
+
+```typescript
+// Proposed: webhook configuration on GatewayClient
+const client = new GatewayClient({
+  chain: "arcTestnet",
+  privateKey: "0x..." as Hex,
+  webhook: {
+    url: "https://dashboard.agentwork.dev/api/webhook/settlement",
+    secret: "whsec_...",   // HMAC verification
+    events: ["payment.settled", "deposit.confirmed", "withdrawal.completed"],
+  },
+});
+
+// Webhook payload received at the configured URL:
+// POST https://dashboard.agentwork.dev/api/webhook/settlement
+// {
+//   event: "payment.settled",
+//   txHash: "0xabc...",
+//   amount: "$0.005",
+//   payTo: "0xA4F6...",
+//   settledAt: "2026-04-21T10:30:00Z",
+//   batchId: "batch_abc123",
+//   batchSize: 4
+// }
+```
+
+Our dashboard currently polls `/api/gateway-balance` every 5 seconds. A webhook would eliminate polling entirely and provide instant UI updates — critical for live demo experiences.
+
+### 5. CLI Tool for Quick Testing
 
 A `circle-gateway` CLI would accelerate development:
 
@@ -176,7 +276,7 @@ circle-gateway balance --chain arcTestnet
 
 This would let teams validate their setup without writing code first.
 
-### 5. Built-in Retry Support
+### 6. Built-in Retry Support
 
 Rather than every consumer implementing their own retry logic, offer it as a constructor option:
 
@@ -218,7 +318,9 @@ Arc + Circle is **60x cheaper than Stripe** and **20x cheaper than L2** for high
 
 ## SDK Architecture Suggestions
 
-### Result Type Unification
+### Suggestion A: Shared Result Type Interface
+
+The three core result types (`DepositResult`, `PayResult`, `WithdrawResult`) should extend a common base interface. This eliminates the "which field name do I use?" problem once and for all.
 
 ```typescript
 // Current: different shapes per type
@@ -227,16 +329,55 @@ PayResult { transaction, amount, data }
 WithdrawResult { withdrawTxHash?, amount }
 
 // Proposed: unified base interface
-interface PaymentResult {
-  txHash: string;          // always present, always same name
+interface TransactionResult {
+  txHash: string;          // always present, always the same name
   amount: bigint;          // always bigint
   formattedAmount: string; // always human-readable
-  explorerUrl?: string;    // convenience link
+  explorerUrl?: string;    // convenience link to block explorer
   status: "pending" | "settled";
+}
+
+interface DepositResult extends TransactionResult {
+  // deposit-specific fields if any
+}
+
+interface PayResult extends TransactionResult {
+  data: unknown;           // response data from paid endpoint
+}
+
+interface WithdrawResult extends TransactionResult {
+  recipient: string;
 }
 ```
 
-### Configuration Validation
+**Impact**: Developers write `result.txHash` once and it works everywhere. No more `depositTxHash` vs `transaction` confusion.
+
+### Suggestion B: Unified Balance Accessor
+
+The `Balances` response type currently requires knowledge of internal Gateway structure (`balances.gateway.formattedAvailable`). A top-level convenience property would make the common case trivial.
+
+```typescript
+// Current: must know the nesting
+const balances = await client.getBalances();
+const available = balances.gateway.formattedAvailable;
+const total = balances.gateway.total;
+
+// Proposed: top-level accessors that delegate internally
+const balances = await client.getBalances();
+
+// Simple case (covers 90% of usage)
+console.log(balances.available);  // → "$0.85" (formatted)
+console.log(balances.total);      // → "$1.00" (formatted)
+console.log(balances.wallet);     // → "$0.15" (formatted)
+
+// Advanced case (when you need full detail)
+console.log(balances.gateway.raw);      // → raw gateway response
+console.log(balances.gateway.available); // → bigint (atomic units)
+```
+
+**Impact**: The most common operation — "show me my available balance" — goes from `balances.gateway.formattedAvailable` to `balances.available`. Three keystrokes instead of 36.
+
+### Suggestion C: Configuration Validation
 
 ```typescript
 // Currently fails silently or with obscure errors

@@ -19,7 +19,11 @@ interface DemoState {
   continuousRuns: number;
 }
 
-export default function DemoLauncher() {
+interface DemoLauncherProps {
+  compact?: boolean;
+}
+
+export default function DemoLauncher({ compact = false }: DemoLauncherProps) {
   const [state, setState] = useState<DemoState>({
     status: "idle",
     pid: null,
@@ -32,6 +36,7 @@ export default function DemoLauncher() {
   const [customRuns, setCustomRuns] = useState(15);
   const [continuous, setContinuous] = useState(false);
   const [continuousTimer, setContinuousTimer] = useState<number | null>(null);
+  const [showNexus, setShowNexus] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Poll demo status while running
@@ -47,6 +52,7 @@ export default function DemoLauncher() {
             status: "complete",
             continuousRuns: prev.continuousRuns + prev.runs,
           }));
+          setShowNexus(false);
           if (pollRef.current) {
             clearInterval(pollRef.current);
             pollRef.current = null;
@@ -54,7 +60,7 @@ export default function DemoLauncher() {
         }
       }
     } catch {
-      // Polling failed — ignore, Supabase Realtime will catch updates
+      // Polling failed
     }
   }, [state.status]);
 
@@ -62,6 +68,7 @@ export default function DemoLauncher() {
   useEffect(() => {
     if (state.status === "running" && !pollRef.current) {
       pollRef.current = setInterval(pollStatus, 3000);
+      setShowNexus(true);
     }
     // Auto-relaunch in continuous mode
     if (state.status === "complete" && continuous) {
@@ -85,6 +92,7 @@ export default function DemoLauncher() {
     // Preserve cumulative run count
     const currentRuns = state.continuousRuns;
     setState((prev) => ({ ...prev, status: "launching", errorMessage: "", continuousRuns: prev.status === "complete" ? currentRuns : 0 }));
+    setShowNexus(true);
 
     try {
       const res = await fetch("/api/demo-launch", {
@@ -104,7 +112,7 @@ export default function DemoLauncher() {
           status: "error",
           errorMessage: data.error || "Launch failed",
         }));
-        // Auto-clear error after 5 seconds
+        setShowNexus(false);
         setTimeout(() => {
           setState((prev) => (prev.status === "error" ? { ...prev, status: "idle" } : prev));
         }, 5000);
@@ -124,6 +132,7 @@ export default function DemoLauncher() {
         status: "error",
         errorMessage: err instanceof Error ? err.message : "Network error",
       }));
+      setShowNexus(false);
       setTimeout(() => {
         setState((prev) => (prev.status === "error" ? { ...prev, status: "idle" } : prev));
       }, 5000);
@@ -133,28 +142,28 @@ export default function DemoLauncher() {
   // Button styling based on state
   const buttonConfig: Record<string, { label: string; className: string; disabled: boolean }> = {
     idle: {
-      label: "🚀 Run Demo",
-      className: "bg-gradient-to-r from-arc-purple to-arc-blue hover:from-arc-purple/90 hover:to-arc-blue/90 text-white font-bold",
+      label: "🚀 Run Live Demo",
+      className: "bg-gradient-to-r from-arc-purple to-arc-blue hover:from-arc-purple/90 hover:to-arc-blue/90 text-white font-bold shadow-lg shadow-arc-purple/20",
       disabled: false,
     },
     launching: {
-      label: "Starting...",
+      label: "Initializing Nexus...",
       className: "bg-arc-card border border-arc-border text-slate-400",
       disabled: true,
     },
     running: {
-      label: `⚡ Running (${state.runs} runs)...`,
-      className: "bg-gradient-to-r from-arc-purple/60 to-arc-blue/60 text-white/80 animate-pulse",
+      label: `⚡ ${state.runs} Run Chain Active`,
+      className: "bg-gradient-to-r from-arc-purple/20 to-arc-blue/20 text-white border border-arc-purple/40 animate-pulse",
       disabled: true,
     },
     complete: {
-      label: "✅ Demo Complete — Run Again",
-      className: "bg-green-600 hover:bg-green-500 text-white font-bold",
+      label: "✅ Cycle Complete — Restart",
+      className: "bg-green-600/20 hover:bg-green-600/30 text-green-400 border border-green-500/30 font-bold",
       disabled: false,
     },
     error: {
       label: `❌ ${state.errorMessage}`,
-      className: "bg-red-600/50 text-red-300",
+      className: "bg-red-600/10 text-red-400 border border-red-500/20",
       disabled: true,
     },
   };
@@ -162,80 +171,121 @@ export default function DemoLauncher() {
   const btn = buttonConfig[state.status] || buttonConfig.idle;
 
   return (
-    <div className="bg-arc-card border border-arc-border rounded-xl p-5">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
-          One-Click Demo
-        </h2>
-        {state.status === "running" && (
-          <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-xs text-green-400">PID: {state.pid}</span>
+    <>
+      {/* Loading Nexus Overlay */}
+      {showNexus && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md transition-all duration-500">
+           <div className="relative w-64 h-64">
+              {/* Outer Rings */}
+              <div className="absolute inset-0 border-4 border-arc-purple/20 rounded-full animate-[spin_10s_linear_infinite]" />
+              <div className="absolute inset-4 border-2 border-arc-blue/30 rounded-full animate-[spin_6s_linear_infinite_reverse]" />
+              <div className="absolute inset-8 border border-cyan-400/20 rounded-full animate-[spin_3s_linear_infinite]" />
+              
+              {/* Nexus Center */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                 <div className="w-16 h-16 bg-gradient-to-br from-arc-purple to-arc-blue rounded-2xl rotate-45 animate-pulse flex items-center justify-center shadow-2xl shadow-arc-purple/50">
+                    <span className="text-2xl font-bold text-white -rotate-45">AW</span>
+                 </div>
+                 <div className="mt-8 space-y-2">
+                    <p className="text-sm font-black text-white uppercase tracking-[0.2em] animate-pulse">Orchestrating</p>
+                    <p className="text-[10px] text-slate-400 font-mono">System ID: {state.pid || "0xNexus"}</p>
+                 </div>
+                 {/* Connection Lines (Animated) */}
+                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-0.5 h-12 bg-gradient-to-t from-arc-purple to-transparent" />
+                 <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-0.5 h-12 bg-gradient-to-b from-arc-blue to-transparent" />
+                 <div className="absolute top-1/2 -left-12 -translate-y-1/2 h-0.5 w-12 bg-gradient-to-l from-cyan-400 to-transparent" />
+                 <div className="absolute top-1/2 -right-12 -translate-y-1/2 h-0.5 w-12 bg-gradient-to-r from-violet-500 to-transparent" />
+              </div>
+           </div>
+           
+           <div className="absolute bottom-20 flex gap-8">
+              {["RESEARCH", "CODE", "TEST", "REVIEW"].map((agent) => (
+                <div key={agent} className="flex flex-col items-center gap-2 opacity-60 animate-bounce" style={{ animationDelay: `${Math.random()}s` }}>
+                   <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg">🤖</div>
+                   <span className="text-[8px] font-bold text-slate-500 tracking-widest">{agent}</span>
+                </div>
+              ))}
+           </div>
+        </div>
+      )}
+
+      <div className={`${compact ? "" : "bg-arc-card border border-arc-border rounded-xl p-5"}`}>
+        {!compact && (
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
+              One-Click Demo
+            </h2>
+            {state.status === "running" && (
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-xs text-green-400">PID: {state.pid}</span>
+              </div>
+            )}
           </div>
         )}
-      </div>
 
-      {/* Config row */}
-      <div className="flex items-center gap-3 mb-3">
-        <div className="flex items-center gap-2">
-          <label className="text-xs text-slate-400">Runs:</label>
-          <select
-            value={customRuns}
-            onChange={(e) => setCustomRuns(parseInt(e.target.value, 10))}
-            disabled={state.status !== "idle" && state.status !== "complete"}
-            className="bg-arc-dark border border-arc-border rounded px-2 py-1 text-xs text-white disabled:opacity-50"
-          >
-            <option value={1}>1 run</option>
-            <option value={3}>3 runs</option>
-            <option value={5}>5 runs</option>
-            <option value={10}>10 runs</option>
-            <option value={15}>15 runs (60+ txns)</option>
-            <option value={25}>25 runs</option>
-          </select>
+        {/* Config row */}
+        <div className={`flex items-center gap-3 mb-4 ${compact ? "bg-black/20 p-2 rounded-lg" : ""}`}>
+          <div className="flex items-center gap-2">
+            <label className="text-[10px] text-slate-500 uppercase font-bold">Volume:</label>
+            <select
+              value={customRuns}
+              onChange={(e) => setCustomRuns(parseInt(e.target.value, 10))}
+              disabled={state.status !== "idle" && state.status !== "complete"}
+              className="bg-transparent border-none focus:ring-0 text-xs text-white font-bold cursor-pointer"
+            >
+              <option value={1} className="bg-slate-900">1 Cycle</option>
+              <option value={5} className="bg-slate-900">5 Cycles</option>
+              <option value={15} className="bg-slate-900">15 Cycles (60+ txns)</option>
+              <option value={30} className="bg-slate-900">30 Cycles (High Density)</option>
+            </select>
+          </div>
+          {/* Continuous mode toggle */}
+          <div className="flex items-center gap-2 ml-auto">
+            <label className="text-[10px] text-slate-500 uppercase font-bold">Autopilot:</label>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={continuous}
+              onClick={() => setContinuous((c) => !c)}
+              className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors ${continuous ? "bg-arc-purple" : "bg-slate-700"}`}
+            >
+              <span className={`inline-block h-2.5 w-2.5 transform rounded-full bg-white transition-transform ${continuous ? "translate-x-3.5" : "translate-x-0.5"}`} />
+            </button>
+          </div>
         </div>
-        {/* Continuous mode toggle */}
-        <div className="flex items-center gap-2 ml-auto">
-          <label className="text-xs text-slate-400">Continuous:</label>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={continuous}
-            onClick={() => setContinuous((c) => !c)}
-            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${continuous ? "bg-arc-purple" : "bg-slate-600"}`}
-          >
-            <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${continuous ? "translate-x-4" : "translate-x-0.5"}`} />
-          </button>
-          {continuous && state.continuousRuns > 0 && (
-            <span className="text-xs text-arc-purple">∞ {state.continuousRuns} runs done</span>
+
+        {/* Launch button */}
+        <button
+          onClick={launchDemo}
+          disabled={btn.disabled}
+          className={`w-full py-4 rounded-xl text-sm transition-all relative overflow-hidden group ${btn.className}`}
+        >
+          <span className="relative z-10">{btn.label}</span>
+          {state.status === "idle" && (
+            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
           )}
-        </div>
-      </div>
+        </button>
 
-      {/* Launch button */}
-      <button
-        onClick={launchDemo}
-        disabled={btn.disabled}
-        className={`w-full py-3 rounded-lg text-sm transition-all ${btn.className}`}
-      >
-        {btn.label}
-      </button>
-
-      {/* Info text */}
-      <p className="text-xs text-slate-500 mt-2 text-center">
-        {state.status === "idle"
-          ? continuous
-            ? "Continuous mode: will auto-relaunch after each batch completes."
-            : "Spawns the orchestrator. Watch the Task Feed for live updates."
-          : state.status === "running"
-            ? `Running ${state.runs} orchestrator cycle(s). Progress appears in real-time above.`
-            : state.status === "complete"
+        {/* Info text */}
+        {!compact && (
+          <p className="text-xs text-slate-500 mt-3 text-center leading-relaxed">
+            {state.status === "idle"
               ? continuous
-                ? `Batch done (${state.continuousRuns} total). Next launch in 3s...`
-                : "Demo complete! Check the Task Feed and Transaction List for results."
-              : state.status === "error"
-                ? "An error occurred. Check the terminal for details."
-                : "Preparing to launch..."}
-      </p>
-    </div>
+                ? "Autopilot enabled: system will run recursive agent cycles indefinitely."
+                : "Spawns the autonomous orchestrator. All actions are verifiable on Arc Testnet."
+              : state.status === "running"
+                ? `Active Pipeline: ${state.runs} cycles triggered. View real-time transactions in the feed.`
+                : state.status === "complete"
+                  ? continuous
+                    ? `Batch complete. Resuming next cycle in 3s...`
+                    : "Task complete. All transaction hashes have been recorded to the ledger."
+                  : state.status === "error"
+                    ? "Handshake failed. Ensure the local orchestrator node is reachable."
+                    : "Calibrating Nexus..."}
+          </p>
+        )}
+      </div>
+    </>
   );
 }

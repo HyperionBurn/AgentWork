@@ -7,8 +7,9 @@
 // Falls back to simulated splits for demo purposes.
 // ============================================================
 
-import { ARC_CONFIG, isContractDeployed } from "../config";
+import { ARC_CONFIG, isContractDeployed, getAgentAddress, hasAgentWallets } from "../config";
 import { getClients, sendContractTx } from "../contracts-client";
+import { recordTaskEvent } from "./supabase-module";
 
 // ── Types ────────────────────────────────────────────────────
 
@@ -78,7 +79,21 @@ const PAYMENT_SPLITTER_ABI = [
 ] as const;
 
 // ── Default split: equal shares across 4 agents ─────────────
+// Lazy getter: resolves real wallet addresses at call time (dotenv-safe).
 
+export function getDefaultSplitRecipients(): SplitRecipient[] {
+  const agents: SplitRecipient[] = [];
+  for (const type of ["research", "code", "test", "review"] as const) {
+    try {
+      agents.push({ agentType: type, address: getAgentAddress(type), shareBps: 2500 });
+    } catch {
+      agents.push({ agentType: type, address: `0x_AGENT_${type.toUpperCase()}`, shareBps: 2500 });
+    }
+  }
+  return agents;
+}
+
+/** @deprecated Use getDefaultSplitRecipients() for real addresses */
 const DEFAULT_EQUAL_SPLIT: SplitRecipient[] = [
   { agentType: "research", address: "0x_AGENT_RESEARCH", shareBps: 2500 },
   { agentType: "code",     address: "0x_AGENT_CODE",     shareBps: 2500 },
@@ -124,6 +139,15 @@ export async function createSplit(
     const splitId = nextSplitId++;
     console.log(`🔀 Payment split created on-chain (ID=${splitId}): ${hash}`);
     console.log(`   🔗 Explorer: ${ARC_CONFIG.explorerUrl}${hash}`);
+    recordTaskEvent({
+      task_id: `split-create-${splitId}`,
+      agent_type: "splitter",
+      status: "completed",
+      gateway_tx: hash,
+      amount: "$0.000",
+      result: `Split created with ${recipients.length} recipients`,
+      error: null,
+    }).catch(() => {});
 
     return {
       splitId,
@@ -193,6 +217,15 @@ export async function distributeSplit(
     for (const d of distributions) {
       console.log(`   → ${d.recipient}: ${d.amount} (${d.shareBps / 100}%)`);
     }
+    recordTaskEvent({
+      task_id: `split-distribute-${splitConfig.splitId}`,
+      agent_type: "splitter",
+      status: "completed",
+      gateway_tx: hash,
+      amount: totalAmount,
+      result: `Distributed ${totalAmount} to ${distributions.length} agents`,
+      error: null,
+    }).catch(() => {});
 
     return {
       splitId: splitConfig.splitId!,
@@ -234,7 +267,8 @@ function createMockSplit(recipients: SplitRecipient[]): SplitConfig {
 
 /**
  * Get the default equal-split configuration for 4 agents.
+ * Uses real wallet addresses when configured, falls back to placeholders.
  */
 export function getDefaultSplit(): SplitRecipient[] {
-  return [...DEFAULT_EQUAL_SPLIT];
+  return getDefaultSplitRecipients();
 }

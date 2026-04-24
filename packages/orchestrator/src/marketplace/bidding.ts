@@ -6,7 +6,7 @@
 // and estimated completion time.
 // ============================================================
 
-import { ARC_CONFIG, isContractDeployed } from "../config";
+import { ARC_CONFIG, isContractDeployed, getAgentAddress } from "../config";
 import { getClients, sendContractTx } from "../contracts-client";
 
 // ── Types ────────────────────────────────────────────────────
@@ -59,9 +59,11 @@ export function generateBids(
 ): AgentBid[] {
   const profile = AGENT_BID_PROFILES[agentType];
   if (!profile) {
+    let fallbackAddr: string;
+    try { fallbackAddr = getAgentAddress(agentType); } catch { fallbackAddr = `0x_AGENT_${agentType.toUpperCase()}`; }
     return [{
       agentType,
-      agentAddress: `0x_AGENT_${agentType.toUpperCase()}`,
+      agentAddress: fallbackAddr,
       price: "$0.005",
       estimatedTime: 5,
       reputationScore: 80,

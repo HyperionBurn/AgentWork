@@ -1,3 +1,5 @@
+import BentoAgentResult from "./BentoAgentResult";
+
 interface TaskFeedProps {
   tasks: Array<{
     id: string;
@@ -52,11 +54,11 @@ export default function TaskFeed({ tasks }: TaskFeedProps) {
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-arc-border max-h-[500px] overflow-y-auto">
+          <div className="divide-y divide-arc-border max-h-[600px] overflow-y-auto">
             {tasks.map((task) => {
               const style = statusStyles[task.status] || statusStyles.pending;
               const isMockTx = task.gateway_tx?.startsWith("MOCK_") ?? false;
-              const hasLongResult = task.result && task.result.length > 120;
+              
               return (
                 <details
                   key={task.id}
@@ -85,16 +87,9 @@ export default function TaskFeed({ tasks }: TaskFeedProps) {
                           </span>
                         )}
                       </div>
-                      {task.result && !hasLongResult && (
-                        <p className="text-xs text-slate-400 mt-0.5 truncate">
-                          {task.result}
-                        </p>
-                      )}
-                      {hasLongResult && (
-                        <p className="text-xs text-slate-500 mt-0.5">
-                          ▶ Click to expand response
-                        </p>
-                      )}
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        {task.status === 'completed' ? '▶ Click to view reasoning & output' : 'Task in progress...'}
+                      </p>
                     </div>
                     <div className="text-right flex-shrink-0">
                       <p className="text-xs text-slate-300">{formatAmount(task.amount)}</p>
@@ -111,11 +106,9 @@ export default function TaskFeed({ tasks }: TaskFeedProps) {
                       )}
                     </div>
                   </summary>
-                  {task.result && hasLongResult && (
-                    <div className="px-4 pb-3 border-t border-arc-border/50">
-                      <pre className="whitespace-pre-wrap text-xs text-slate-300 mt-2 font-mono leading-relaxed max-h-[200px] overflow-y-auto">
-                        {task.result}
-                      </pre>
+                  {task.result && (
+                    <div className="px-4 pb-4 border-t border-arc-border/50 bg-slate-900/20">
+                      <BentoAgentResult agentType={task.agent_type} result={task.result} />
                     </div>
                   )}
                 </details>
@@ -127,3 +120,4 @@ export default function TaskFeed({ tasks }: TaskFeedProps) {
     </div>
   );
 }
+

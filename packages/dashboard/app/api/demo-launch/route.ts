@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const task = typeof body.task === "string" ? body.task : "";
   const runs = Math.min(Math.max(parseInt(String(body.runs || "15"), 10), 1), 50);
+  const forceGroq = body.forceGroq === true;
 
   // Sanitize task input (M1: command injection prevention)
   if (task && !/^[\w\s.,!?()\-":;]+$/.test(task)) {
@@ -66,12 +67,15 @@ export async function POST(req: NextRequest) {
   if (task) {
     (childEnv as Record<string, string>).DEMO_TASK = task;
   }
+  if (forceGroq) {
+    (childEnv as Record<string, string>).FORCE_GROQ = "true";
+  }
 
   const childProc = spawn("npx", ["tsx", "src/index.ts"], {
     cwd: orchestratorPath,
     env: childEnv,
     stdio: ["ignore", "pipe", "pipe"] as const,
-    // M1: DO NOT use shell: true (command injection risk)
+    shell: process.platform === 'win32',
   });
 
   activeProcess = childProc;
@@ -83,32 +87,47 @@ export async function POST(req: NextRequest) {
   const MAX_BUFFER = 2000;
 
   childProc.stdout?.on("data", (data: Buffer) => {
-    outputBuffer += data.toString();
+    const chunk = data.toString();
+    console.log(`[orchestrator-stdout] ${chunk}`);
+    outputBuffer += chunk;
     if (outputBuffer.length > MAX_BUFFER) {
       outputBuffer = outputBuffer.slice(-MAX_BUFFER);
     }
   });
 
   childProc.stderr?.on("data", (data: Buffer) => {
-    outputBuffer += data.toString();
+    const chunk = data.toString();
+    console.error(`[orchestrator-stderr] ${chunk}`);
+    outputBuffer += chunk;
     if (outputBuffer.length > MAX_BUFFER) {
       outputBuffer = outputBuffer.slice(-MAX_BUFFER);
     }
   });
 
   // Cleanup on process exit
-  childProc.on("exit", () => {
+  const onExit = () => {
     lastCompletedAt = Date.now();
-    activeProcess = null;
-  });
-
-  // Cleanup on client disconnect (AbortSignal)
-  req.signal.addEventListener("abort", () => {
-    if (activeProcess && activeProcess.exitCode === null) {
-      activeProcess.kill("SIGTERM");
+    if (activeProcess === childProc) {
       activeProcess = null;
     }
-  });
+  };
+
+  childProc.on("exit", onExit);
+  childProc.on("error", onExit);
+
+  // Cleanup on client disconnect (AbortSignal)
+  const onAbort = () => {
+    if (activeProcess === childProc && childProc.exitCode === null) {
+      if (process.platform === "win32") {
+        spawn("taskkill", ["/F", "/T", "/PID", String(childProc.pid)]);
+      } else {
+        childProc.kill("SIGTERM");
+      }
+      activeProcess = null;
+    }
+  };
+
+  req.signal.addEventListener("abort", onAbort);
 
   // Return immediately — the orchestrator writes to Supabase,
   // and the dashboard reads updates via Supabase Realtime

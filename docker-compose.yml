@@ -19,10 +19,10 @@ services:
       args:
         NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}
-        NEXT_PUBLIC_RESEARCH_AGENT_URL: http://research-agent:4021
-        NEXT_PUBLIC_CODE_AGENT_URL: http://code-agent:4022
-        NEXT_PUBLIC_TEST_AGENT_URL: http://test-agent:4023
-        NEXT_PUBLIC_REVIEW_AGENT_URL: http://review-agent:4024
+        NEXT_PUBLIC_RESEARCH_AGENT_URL: http://agent-gateway:4021
+        NEXT_PUBLIC_CODE_AGENT_URL: http://agent-gateway:4022
+        NEXT_PUBLIC_TEST_AGENT_URL: http://agent-gateway:4023
+        NEXT_PUBLIC_REVIEW_AGENT_URL: http://agent-gateway:4024
     ports:
       - "${DASHBOARD_PORT:-3000}:3000"
     environment:
@@ -33,20 +33,15 @@ services:
       - ARC_EXPLORER=${ARC_EXPLORER:-https://testnet.arcscan.io/tx/}
       - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
       - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
-      - NEXT_PUBLIC_RESEARCH_AGENT_URL=http://research-agent:4021
-      - NEXT_PUBLIC_CODE_AGENT_URL=http://code-agent:4022
-      - NEXT_PUBLIC_TEST_AGENT_URL=http://test-agent:4023
-      - NEXT_PUBLIC_REVIEW_AGENT_URL=http://review-agent:4024
+      - NEXT_PUBLIC_RESEARCH_AGENT_URL=http://agent-gateway:4021
+      - NEXT_PUBLIC_CODE_AGENT_URL=http://agent-gateway:4022
+      - NEXT_PUBLIC_TEST_AGENT_URL=http://agent-gateway:4023
+      - NEXT_PUBLIC_REVIEW_AGENT_URL=http://agent-gateway:4024
       - SELLER_WALLET=${SELLER_WALLET:-}
     depends_on:
-      - research-agent
-      - code-agent
-      - test-agent
-      - review-agent
+      - agent-gateway
 
   # ---- Orchestrator (TypeScript) ----
-  # Note: No healthcheck — orchestrator is a one-shot batch job,
-  # not a long-running service. It runs DEMO_RUNS iterations and exits.
   orchestrator:
     build:
       context: .
@@ -66,10 +61,10 @@ services:
       - USE_LLM_DECOMPOSER=${USE_LLM_DECOMPOSER:-false}
       - LLM_API_KEY=${LLM_API_KEY:-}
       - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
-      - RESEARCH_AGENT_URL=http://research-agent:4021
-      - CODE_AGENT_URL=http://code-agent:4022
-      - TEST_AGENT_URL=http://test-agent:4023
-      - REVIEW_AGENT_URL=http://review-agent:4024
+      - RESEARCH_AGENT_URL=http://agent-gateway:4021
+      - CODE_AGENT_URL=http://agent-gateway:4022
+      - TEST_AGENT_URL=http://agent-gateway:4023
+      - REVIEW_AGENT_URL=http://agent-gateway:4024
       - SUPABASE_URL=${SUPABASE_URL:-}
       - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-}
       - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS:-}
@@ -78,98 +73,36 @@ services:
     volumes:
       - evidence:/app/evidence
     depends_on:
-      - research-agent
-      - code-agent
-      - test-agent
-      - review-agent
+      - agent-gateway
 
-  # ---- Research Agent (Python + Flask) ----
-  research-agent:
+  # ---- Agent Gateway (Node.js + Real x402) ----
+  agent-gateway:
     build:
-      context: ./agents/research-agent
+      context: ./agents/express-server
       dockerfile: Dockerfile
     ports:
-      - "${RESEARCH_AGENT_PORT:-4021}:4021"
+      - "4021:4021"
+      - "4022:4022"
+      - "4023:4023"
+      - "4024:4024"
     environment:
+      - SELLER_WALLET=${SELLER_WALLET}
       - RESEARCH_AGENT_PORT=4021
-      - RESEARCH_AGENT_PRICE=${RESEARCH_AGENT_PRICE:-$0.005}
-      - RESEARCH_AGENT_WALLET=${SELLER_WALLET:-}
-      - USE_REAL_LLM=${USE_REAL_LLM:-false}
-      - LLM_API_KEY=${LLM_API_KEY:-}
-      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
-    healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4021/health')\""]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
-
-  # ---- Code Agent (Python + Flask) ----
-  code-agent:
-    build:
-      context: ./agents/code-agent
-      dockerfile: Dockerfile
-    ports:
-      - "${CODE_AGENT_PORT:-4022}:4022"
-    environment:
       - CODE_AGENT_PORT=4022
-      - CODE_AGENT_PRICE=${CODE_AGENT_PRICE:-$0.005}
-      - CODE_AGENT_WALLET=${SELLER_WALLET:-}
-      - USE_REAL_LLM=${USE_REAL_LLM:-false}
-      - LLM_API_KEY=${LLM_API_KEY:-}
-      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
-    healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4022/health')\""]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
-
-  # ---- Test Agent (Python + Flask) ----
-  test-agent:
-    build:
-      context: ./agents/test-agent
-      dockerfile: Dockerfile
-    ports:
-      - "${TEST_AGENT_PORT:-4023}:4023"
-    environment:
       - TEST_AGENT_PORT=4023
-      - TEST_AGENT_PRICE=${TEST_AGENT_PRICE:-$0.005}
-      - TEST_AGENT_WALLET=${SELLER_WALLET:-}
-      - USE_REAL_LLM=${USE_REAL_LLM:-false}
-      - LLM_API_KEY=${LLM_API_KEY:-}
-      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
-    healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4023/health')\""]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
-
-  # ---- Review Agent (Python + Flask) ----
-  review-agent:
-    build:
-      context: ./agents/review-agent
-      dockerfile: Dockerfile
-    ports:
-      - "${REVIEW_AGENT_PORT:-4024}:4024"
-    environment:
       - REVIEW_AGENT_PORT=4024
+      - RESEARCH_AGENT_PRICE=${RESEARCH_AGENT_PRICE:-$0.005}
+      - CODE_AGENT_PRICE=${CODE_AGENT_PRICE:-$0.005}
+      - TEST_AGENT_PRICE=${TEST_AGENT_PRICE:-$0.005}
       - REVIEW_AGENT_PRICE=${REVIEW_AGENT_PRICE:-$0.005}
-      - REVIEW_AGENT_WALLET=${SELLER_WALLET:-}
-      - USE_REAL_LLM=${USE_REAL_LLM:-false}
-      - LLM_API_KEY=${LLM_API_KEY:-}
-      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
     healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4024/health')\""]
+      test: ["CMD", "curl", "-f", "http://localhost:4021/health"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 5s
 
-  # ---- Orchestrator Demo (#10) ----
-  # One-shot demo runner for hackathon evidence generation.
-  # Runs 15+ iterations, saves logs to evidence volume.
+  # ---- Orchestrator Demo ----
   orchestrator-demo:
     build:
       context: .
@@ -179,22 +112,21 @@ services:
       - DEMO_TASK=${DEMO_TASK:-Build a REST API with user authentication, CRUD endpoints, and unit tests}
       - DEMO_RUNS=${DEMO_RUNS:-15}
       - USE_PARALLEL=true
-      - RESEARCH_AGENT_URL=http://research-agent:4021
-      - CODE_AGENT_URL=http://code-agent:4022
-      - TEST_AGENT_URL=http://test-agent:4023
-      - REVIEW_AGENT_URL=http://review-agent:4024
+      - RESEARCH_AGENT_URL=http://agent-gateway:4021
+      - CODE_AGENT_URL=http://agent-gateway:4022
+      - TEST_AGENT_URL=http://agent-gateway:4023
+      - REVIEW_AGENT_URL=http://agent-gateway:4024
       - SUPABASE_URL=${SUPABASE_URL:-}
       - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-}
+      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS:-}
+      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS:-}
+      - AGENT_ESCROW_ADDRESS=${AGENT_ESCROW_ADDRESS:-}
+      - PAYMENT_SPLITTER_ADDRESS=${PAYMENT_SPLITTER_ADDRESS:-}
+      - SPENDING_LIMITER_ADDRESS=${SPENDING_LIMITER_ADDRESS:-}
     volumes:
       - evidence:/app/evidence
     depends_on:
-      research-agent:
-        condition: service_healthy
-      code-agent:
-        condition: service_healthy
-      test-agent:
-        condition: service_healthy
-      review-agent:
+      agent-gateway:
         condition: service_healthy
     profiles:
       - demo

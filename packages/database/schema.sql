@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS task_events (
   amount TEXT,
   result TEXT,
   error TEXT,
+  -- GC3: Agent Reasoning Feed — AI decision trace as JSONB
+  reasoning JSONB,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

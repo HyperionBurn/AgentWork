@@ -152,16 +152,17 @@ export function runMockGovernance(): GovernanceProposal[] {
 
   // Proposal 1: Adjust research agent pricing
   const p1 = createProposal("research_agent_price", "$0.005", "$0.004", "Lower research agent pricing due to increased efficiency");
-  castVote(p1.proposalId, true, "0x_AGENT_RESEARCH", 3);
-  castVote(p1.proposalId, true, "0x_AGENT_CODE", 2);
-  castVote(p1.proposalId, false, "0x_AGENT_REVIEW", 1);
+  const govAddr = (t: string) => { try { const { getAgentAddress } = require("../config"); return getAgentAddress(t); } catch { return `0x_AGENT_${t.toUpperCase()}`; } };
+  castVote(p1.proposalId, true, govAddr("research"), 3);
+  castVote(p1.proposalId, true, govAddr("code"), 2);
+  castVote(p1.proposalId, false, govAddr("review"), 1);
   results.push(executeProposal(p1.proposalId)!);
 
   // Proposal 2: Approve new data-agent
   const p2 = createProposal("new_agent_approval", "none", "data-agent", "Approve new data processing specialist agent");
-  castVote(p2.proposalId, true, "0x_AGENT_RESEARCH", 2);
-  castVote(p2.proposalId, true, "0x_AGENT_TEST", 2);
-  castVote(p2.proposalId, true, "0x_AGENT_CODE", 1);
+  castVote(p2.proposalId, true, govAddr("research"), 2);
+  castVote(p2.proposalId, true, govAddr("test"), 2);
+  castVote(p2.proposalId, true, govAddr("code"), 1);
   results.push(executeProposal(p2.proposalId)!);
 
   return results;

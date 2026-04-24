@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { NavSidebar } from "@/components/NavSidebar";
+import { DashboardShell } from "@/components/DashboardShell";
 
 export const metadata: Metadata = {
   title: "AgentWork — AI Agent Marketplace on Arc",
@@ -15,13 +15,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-arc-dark">
-        <div className="flex">
-          <NavSidebar />
-          <main className="flex-1 md:ml-[200px] mb-14 md:mb-0">
-            {children}
-          </main>
-        </div>
+      <body className="min-h-screen antialiased">
+        <DashboardShell>{children}</DashboardShell>
       </body>
     </html>
   );

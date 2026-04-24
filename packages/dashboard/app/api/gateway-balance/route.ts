@@ -27,23 +27,24 @@ export async function GET() {
     });
   }
 
-  // Fallback: derive from task_events
+  // Fallback: derive from task_events (orchestrator writes here)
   const { data: tasks } = await supabase
     .from("task_events")
-    .select("amount")
-    .eq("status", "completed");
+    .select("amount, status")
+    .order("created_at", { ascending: false })
+    .limit(500);
 
-  const totalSpent = (tasks || []).reduce(
-    (sum, t) => sum + parseFloat((t.amount || "0").replace("$", "")),
-    0
+  const completed = (tasks || []).filter((t: { status: string }) => t.status === "completed");
+  const totalSpent = completed.reduce(
+    (sum: number, t: { amount: string }) => sum + parseFloat((t.amount || "0").replace("$", "")),
+    0,
   );
-  // Assume 1 USDC deposited if we have any activity
-  const deposited = totalSpent > 0 ? 1.0 : 0;
-  const remaining = Math.max(0, deposited - totalSpent);
 
   return NextResponse.json({
-    balance: `$${remaining.toFixed(4)}`,
-    deposited: `$${deposited.toFixed(4)}`,
+    balance: "—",
+    deposited: `$${totalSpent.toFixed(4)}`,
     spent: `$${totalSpent.toFixed(4)}`,
+    transactions: completed.length,
+    note: "Balance requires live gateway connection; spent/txns derived from on-chain task_events",
   });
 }

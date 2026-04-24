@@ -47,7 +47,7 @@ interface LLMSubtask {
 }
 
 async function llmDecompose(taskDescription: string): Promise<LLMSubtask[] | null> {
-  const apiKey = process.env.LLM_API_KEY || process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.LLM_API_KEY || process.env.GEMINI_API_KEY || process.env.FEATHERLESS_API_KEY;
   if (!apiKey) return null;
 
   const baseUrl = process.env.LLM_BASE_URL || "https://api.openai.com/v1";
@@ -76,6 +76,7 @@ No markdown, no explanation, just the JSON array.`;
       max_tokens: 1000,
       temperature: 0.3,
     }),
+    signal: AbortSignal.timeout(10000), // GC-Optimization: 10s timeout
   });
 
   if (!response.ok) return null;

@@ -7,6 +7,14 @@ import RevenueDashboard from "@/components/RevenueDashboard";
 import SpendingBudget from "@/components/SpendingBudget";
 import GasDashboard from "@/components/GasDashboard";
 import TierSelector from "@/components/TierSelector";
+import CrossChainWithdraw from "@/components/CrossChainWithdraw";
+import dynamic from "next/dynamic";
+
+// GC10: Dynamic import — Three.js is heavy, only load when visible
+const TransactionGlobe = dynamic(
+  () => import("@/components/TransactionGlobe"),
+  { ssr: false, loading: () => <div className="h-[600px] rounded-xl bg-arc-card animate-pulse" /> },
+);
 
 interface TaskStats {
   totalTasks: number;
@@ -93,6 +101,11 @@ export default function EconomyPage() {
         </div>
       </div>
 
+      {/* Full-width: Transaction Globe (GC10) */}
+      <div className="bg-arc-card border border-arc-border rounded-xl overflow-hidden">
+        <TransactionGlobe />
+      </div>
+
       {/* Full-width: 4 Charts in 2×2 Grid */}
       <div className="bg-arc-card border border-arc-border rounded-xl p-4">
         <DashboardCharts
@@ -132,6 +145,15 @@ export default function EconomyPage() {
           <div className="bg-arc-card border border-arc-border rounded-xl p-4">
             <h2 className="text-lg font-semibold mb-3">Spending Budget</h2>
             <SpendingBudget />
+          </div>
+
+          {/* GC9: Cross-Chain Withdraw */}
+          <div className="bg-arc-card border border-arc-border rounded-xl p-4">
+            <h2 className="text-lg font-semibold mb-3">🌉 Cross-Chain Withdraw</h2>
+            <p className="text-xs text-gray-500 mb-3">
+              Withdraw USDC from Arc Gateway to 7 chains via Circle Bridge Kit (CCTP)
+            </p>
+            <CrossChainWithdraw />
           </div>
         </div>
       </div>

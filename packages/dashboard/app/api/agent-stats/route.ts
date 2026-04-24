@@ -25,14 +25,15 @@ export const GET = withGateway(
     const { searchParams } = new URL(req.url);
     const agentId = searchParams.get("agent");
 
+    // Read from task_events (orchestrator writes here, NOT payment_events)
     let query = supabase
-      .from("payment_events")
+      .from("task_events")
       .select("*")
       .order("created_at", { ascending: false })
       .limit(50);
 
     if (agentId) {
-      query = query.eq("endpoint", agentId);
+      query = query.eq("agent_type", agentId);
     }
 
     const { data: payments, error } = await query;
