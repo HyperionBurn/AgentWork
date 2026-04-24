@@ -54,7 +54,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-center gap-4"
         >
-          <MagneticButton onClick={() => window.open('http://localhost:3001', '_blank')} intensity={0.3} className="bg-orange-600 hover:bg-orange-500 text-white rounded-full px-8 py-4 text-sm font-medium transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)] flex items-center gap-2 group cursor-pointer">
+          <MagneticButton onClick={() => window.open(import.meta.env.VITE_DASHBOARD_URL || 'http://localhost:3001', '_blank')} intensity={0.3} className="bg-orange-600 hover:bg-orange-500 text-white rounded-full px-8 py-4 text-sm font-medium transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)] flex items-center gap-2 group cursor-pointer">
             Deploy Smart Agent
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
