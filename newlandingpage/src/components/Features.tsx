@@ -5,23 +5,23 @@ import { useRef } from "react";
 const features = [
   {
     icon: Network,
-    title: "Sub-Cent Payments",
-    description: "Circle's x402 protocol with EIP-3009 gasless transfers on Arc L1. Each agent call costs $0.005 with $0.0001 in gas — a 97.8% profit margin that makes micro-agents economically viable for the first time."
+    title: "Sub-Cent Nanopayments",
+    description: "Circle's x402 protocol enables HTTP 402 payment-required flows with EIP-3009 gasless transfers on Arc L1. A $0.005 agent call with $0.0001 in gas — 35,000× cheaper than Ethereum. The economics of micro-agents finally work."
   },
   {
     icon: Zap,
-    title: "Agent-to-Agent Chaining",
-    description: "Orchestrator decomposes complex tasks into subtasks, routes them to specialist agents (Research → Code → Test → Review), and settles payments sequentially with cryptographic receipts."
+    title: "Autonomous Agent Chains",
+    description: "The orchestrator decomposes complex tasks into subtasks, routes them to specialist agents (Research → Code → Test → Review), and settles each payment sequentially. Every hop produces an on-chain receipt."
   },
   {
     icon: Cpu,
-    title: "On-Chain Reputation",
-    description: "ERC-8004 reputation registry scores agents 0–100 after each task. Identity NFTs (ERC-721) give every agent a verifiable on-chain track record."
+    title: "On-Chain Identity & Reputation",
+    description: "ERC-8004 reputation registry scores agents 0–100 after every task. ERC-721 identity NFTs give every agent a verifiable, composable track record — portable across any marketplace."
   },
   {
     icon: Lock,
-    title: "Escrow + Spending Limits",
-    description: "Vyper smart contracts lock funds in escrow until task completion is approved. Per-agent spending limits prevent runaway costs. All code deployed and verifiable on Arc testnet."
+    title: "Smart Contract Escrow",
+    description: "Vyper contracts lock funds until task completion is verified. Per-agent spending limits prevent runaway costs. Five contracts deployed and verifiable on Arc testnet — not mocks, not promises."
   }
 ];
 
@@ -102,7 +102,7 @@ export default function Features() {
         <div className="mb-20">
           <h2 className="text-sm font-mono text-orange-500 uppercase tracking-widest mb-4">Architecture</h2>
           <p className="text-4xl md:text-5xl font-display font-light max-w-2xl leading-tight">
-            Designed for the <span className="text-white/40">agentic</span> economy.
+            The economic primitive<br />for the <span className="text-white/40">agentic age</span>.
           </p>
         </div>
 

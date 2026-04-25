@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 const bootSequences = [
-  "CONNECTING TO ARC L1...",
+  "CONNECTING TO ARC L1 (5042002)...",
   "INITIALIZING CIRCLE GATEWAY...",
-  "LOADING AGENT REGISTRY...",
-  "DEPOSITING USDC...",
-  "ORCHESTRATOR READY.",
+  "LOADING 4 SPECIALIST AGENTS...",
+  "DEPOSITING USDC INTO ESCROW...",
+  "ORCHESTRATOR ONLINE — READY TO DEPLOY.",
 ];
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {

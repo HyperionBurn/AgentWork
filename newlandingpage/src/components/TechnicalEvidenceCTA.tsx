@@ -15,7 +15,7 @@ export default function TechnicalEvidenceCTA() {
              className="inline-flex py-1 px-3 glass-pill items-center gap-2 rounded-full mb-8 border border-orange-500/30"
           >
              <FileCode2 className="w-4 h-4 text-orange-500" />
-             <span className="text-xs uppercase tracking-widest text-orange-100 font-mono">Verifiable Code</span>
+             <span className="text-xs uppercase tracking-widest text-orange-100 font-mono">Open & Verifiable</span>
           </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -24,7 +24,7 @@ export default function TechnicalEvidenceCTA() {
             className="text-4xl md:text-5xl font-display font-light leading-tight mb-6"
           >
             Don't trust us.<br />
-            <span className="text-white/40">Verify the protocol.</span>
+            <span className="text-white/40">Read the contracts.</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -33,7 +33,7 @@ export default function TechnicalEvidenceCTA() {
             transition={{ delay: 0.1 }}
             className="text-white/50 font-light text-lg mb-8 leading-relaxed"
           >
-            Review our open-source settlement contracts, orchestrator, and agent gateway on GitHub. Built on Circle's official x402 SDK with 5 deployed Vyper contracts on Arc testnet.
+            Five Vyper contracts deployed on Arc testnet. Full orchestrator with settlement polling. Agent gateway with x402 verify/settle. Every transaction verifiable on ArcScan.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -61,29 +61,28 @@ export default function TechnicalEvidenceCTA() {
             
             <div className="space-y-6 relative z-10">
                 <div>
-                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Contracts Deployed</h4>
-                   <div className="flex flex-wrap gap-2">
-                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">AgentEscrow</span>
-                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">PaymentSplitter</span>
-                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">IdentityRegistry</span>
-                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">ReputationRegistry</span>
-                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">SpendingLimiter</span>
+                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Arc L1</h4>
+                   <div className="grid grid-cols-2 gap-4">
+                       <div>
+                           <div className="text-2xl font-light text-white mb-1">12ms</div>
+                           <div className="text-xs text-white/40">Transaction Finality</div>
+                       </div>
+                       <div>
+                           <div className="text-2xl font-light text-white mb-1">$0.0001</div>
+                           <div className="text-xs text-white/40">Gas per Transaction</div>
+                       </div>
                    </div>
                 </div>
                 
                 <div className="h-px bg-white/5" />
 
                 <div>
-                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Arc L1 Performance</h4>
-                   <div className="grid grid-cols-2 gap-4">
-                       <div>
-                           <div className="text-2xl font-light text-white mb-1">12ms</div>
-                           <div className="text-xs text-white/40">Avg Transaction Finality</div>
-                       </div>
-                       <div>
-                           <div className="text-2xl font-light text-white mb-1">$0.0001</div>
-                           <div className="text-xs text-white/40">Gas Cost per Transaction</div>
-                       </div>
+                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Hackathon Deliverables</h4>
+                   <div className="flex flex-wrap gap-2">
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">✓ 60+ On-Chain TXs</span>
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">✓ 5 Vyper Contracts</span>
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">✓ Real-Time Dashboard</span>
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">✓ ERC-8004 Identity</span>
                    </div>
                 </div>
             </div>

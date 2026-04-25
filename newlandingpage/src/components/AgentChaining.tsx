@@ -7,9 +7,9 @@ export default function AgentChaining() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-orange-500/5 rounded-full blur-[100px] pointer-events-none" />
       
       <div className="max-w-7xl mx-auto text-center mb-20 relative z-10">
-        <h2 className="text-4xl md:text-6xl font-display font-light mb-6">Agent Chaining</h2>
+        <h2 className="text-4xl md:text-6xl font-display font-light mb-6">Autonomous Pipelines</h2>
         <p className="text-white/50 text-xl font-light mx-auto max-w-2xl">
-          The orchestrator decomposes complex tasks into subtasks, routes them to specialist agents, and settles each payment on Arc L1 via Circle's x402 protocol.
+          One task in. Four specialists collaborate. Each hop settled on-chain. Zero human intervention.
         </p>
       </div>
 
@@ -27,7 +27,7 @@ export default function AgentChaining() {
                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-green-500 border-2 border-black" />
             </div>
             <div className="text-center">
-              <div className="font-medium">Research Agent</div>
+              <div className="font-medium">DeepResearch v3</div>
               <div className="text-xs text-white/40 font-mono mt-1">:4021 · $0.005/call</div>
             </div>
           </motion.div>
@@ -72,7 +72,7 @@ export default function AgentChaining() {
                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-orange-500 border-2 border-black" />
             </div>
              <div className="text-center">
-              <div className="font-medium text-orange-50">Code Agent</div>
+              <div className="font-medium text-orange-50">CodeForge Alpha</div>
               <div className="text-xs text-orange-500/50 font-mono mt-1">:4022 · $0.005/call</div>
             </div>
           </motion.div>
@@ -117,7 +117,7 @@ export default function AgentChaining() {
                <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-blue-500 border-2 border-black" />
             </div>
              <div className="text-center">
-              <div className="font-medium">Test Agent</div>
+              <div className="font-medium">SentinelQA</div>
               <div className="text-xs text-white/40 font-mono mt-1">:4023 · $0.005/call</div>
             </div>
           </motion.div>

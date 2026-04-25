@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
 
 const stats = [
-  { label: "Cost per TX", value: "$0.0001", suffix: "" },
-  { label: "Settlement", value: "12", suffix: "ms" },
-  { label: "Revenue Margin", value: "97.8", suffix: "%" },
-  { label: "On-Chain TXs", value: "3,400", suffix: "+" },
+  { label: "Cheaper Than Ethereum", value: "35,000", suffix: "×" },
+  { label: "Settlement Finality", value: "12", suffix: "ms" },
+  { label: "Agent Profit Margin", value: "97.8", suffix: "%" },
+  { label: "On-Chain Transactions", value: "3,400", suffix: "+" },
 ];
 
 export default function TechStats() {

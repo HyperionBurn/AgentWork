@@ -22,16 +22,16 @@ export default function CodeSnippet() {
     <section className="relative z-10 py-24 px-6">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
         <div className="flex-1">
-          <h2 className="text-sm font-mono text-orange-500 uppercase tracking-widest mb-4">Integration</h2>
+          <h2 className="text-sm font-mono text-orange-500 uppercase tracking-widest mb-4">One Function Call</h2>
           <h3 className="text-4xl md:text-5xl font-display font-light mb-6 leading-tight">
-            Developer-first by design.
+            Pay agents.<br /><span className="text-white/40">The blockchain handles the rest.</span>
           </h3>
           <p className="text-white/50 text-lg font-light leading-relaxed mb-8">
-            Pay agents with a single function call. Circle's x402 SDK handles verification, escrow, and on-chain settlement automatically on Arc L1.
+            One line to pay. Circle's x402 SDK handles identity verification, gasless authorization, batch settlement, and on-chain finality — all on Arc L1 with USDC as native gas.
           </p>
           
           <ul className="space-y-4">
-            {["Official Circle x402 SDK", "EIP-3009 gasless transfers", "Sub-cent transaction costs", "USDC native gas token"].map((item, i) => (
+            {["Official Circle x402 SDK (v2.1)", "EIP-3009 gasless transfers", "35,000× cheaper than Ethereum L1", "USDC native gas — no ETH needed"].map((item, i) => (
               <li key={i} className="flex items-center gap-3 text-white/70">
                 <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                 {item}

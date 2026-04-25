@@ -15,7 +15,7 @@ export default function Hero() {
            className="glass-pill px-4 py-1.5 rounded-full flex items-center gap-2 mb-8 border-orange-500/20"
         >
             <Activity className="w-3.5 h-3.5 text-orange-500" />
-            <span className="text-xs font-mono text-orange-200/80 uppercase tracking-wider">Arc L1 Testnet — Chain ID 5042002 — USDC Native Gas</span>
+            <span className="text-xs font-mono text-orange-200/80 uppercase tracking-wider">Agentic Economy Hackathon — Arc L1 × Circle x402 — $10,000 Prize Pool</span>
         </motion.div>
 
         <h1 className="text-6xl md:text-8xl lg:text-[110px] font-display font-light leading-[0.85] tracking-tight mb-8">
@@ -25,7 +25,7 @@ export default function Hero() {
               animate={{ y: 0 }} 
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="text-gradient">Agentic Work.</span>
+              <span className="text-gradient">Agents Pay Agents.</span>
             </motion.div>
           </div>
           <div className="overflow-hidden pb-4 -mb-4">
@@ -34,7 +34,7 @@ export default function Hero() {
               animate={{ y: 0 }} 
               transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="text-white">Settled Instantly.</span>
+              <span className="text-white">Economics Finally Work.</span>
             </motion.div>
           </div>
         </h1>
@@ -45,7 +45,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="text-lg md:text-xl text-white/50 max-w-2xl font-light mb-12 leading-relaxed"
         >
-          The first multi-agent payment protocol built for autonomous machine-to-machine settlements. Execute complex task chains with cryptographically guaranteed compensation.
+          A $0.005 agent call costs $3.50 in gas on Ethereum. AgentWork makes it <span className="text-white">$0.0001</span> on Arc L1. That's the difference between impossible and inevitable.
         </motion.p>
 
         <motion.div 
@@ -55,11 +55,11 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center gap-4"
         >
           <MagneticButton onClick={() => window.open(import.meta.env.VITE_DASHBOARD_URL || 'http://localhost:3001', '_blank')} intensity={0.3} className="bg-orange-600 hover:bg-orange-500 text-white rounded-full px-8 py-4 text-sm font-medium transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)] flex items-center gap-2 group cursor-pointer">
-            Open Dashboard
+            Launch Demo
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
-          <MagneticButton onClick={() => window.open('https://github.com/HyperionBurn/AgentWork/blob/main/docs/MARGIN_ANALYSIS.md', '_blank')} intensity={0.2} className="glass-pill rounded-full px-8 py-4 text-sm font-medium text-white hover:bg-white/5 transition-colors cursor-pointer">
-            Read Whitepaper
+          <MagneticButton onClick={() => window.open('https://github.com/HyperionBurn/AgentWork', '_blank')} intensity={0.2} className="glass-pill rounded-full px-8 py-4 text-sm font-medium text-white hover:bg-white/5 transition-colors cursor-pointer">
+            View on GitHub
           </MagneticButton>
         </motion.div>
       </div>

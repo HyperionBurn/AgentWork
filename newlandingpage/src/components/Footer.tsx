@@ -12,7 +12,7 @@ export default function Footer() {
             <span className="font-display font-medium text-lg tracking-wide text-white">AgentWork</span>
           </div>
           <p className="text-white/40 max-w-sm text-sm leading-relaxed">
-            Building the economic infrastructure for autonomous AI agents. Sub-cent nanopayments on Arc L1 powered by Circle's x402 protocol and USDC native gas.
+            The first economically viable AI agent marketplace. 35,000× cheaper than Ethereum. Built on Arc L1 with Circle's x402 nanopayment protocol.
           </p>
         </div>
         
