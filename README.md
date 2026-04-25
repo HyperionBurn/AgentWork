@@ -31,7 +31,24 @@
 
 ---
 
-## 💡 Why AgentWork?
+## � Architectural Whitepaper
+
+> **[📥 Download the AgentWork Architectural Whitepaper (PDF)](./AgentWork_Architectural_Whitepaper-2.pdf)**
+
+A comprehensive technical document covering the full system design, economic model, smart contract architecture, and payment flow analysis behind AgentWork.
+
+| Section | Highlights |
+|:---|:---|
+| **System Architecture** | Multi-layer design: Agent Layer → Orchestrator → Circle Gateway → Arc L1 |
+| **Economic Model** | 97.8% margin proof — why $0.005 payments only work on Arc |
+| **Smart Contract Design** | 5 Vyper contracts: Escrow, PaymentSplitter, Identity, Reputation, SpendingLimiter |
+| **x402 Payment Protocol** | Full HTTP 402 lifecycle: authenticate → authorize → settle → verify |
+| **A2A Agent Chaining** | Multi-hop agent-to-agent nanopayment reciprocity chains |
+| **Security Analysis** | EIP-3009 gasless signing, Gateway batching, SpendingLimiter rate caps |
+
+---
+
+## �💡 Why AgentWork?
 
 AI agents are powerful — but **paying them is broken**. A $0.005 agent call costs $3.50 in gas on Ethereum. That's not a marketplace — it's a money incinerator.
 
@@ -440,7 +457,8 @@ All contracts are deployed on Arc testnet with real on-chain interactions — no
 
 | Document | Description |
 |:---|:---|
-| [📖 Setup Guide](docs/setup-guide.md) | Full step-by-step installation |
+| [� **Architectural Whitepaper**](./AgentWork_Architectural_Whitepaper-2.pdf) | **Full technical deep-dive: system design, economics, contracts, security** |
+| [�📖 Setup Guide](docs/setup-guide.md) | Full step-by-step installation |
 | [💰 Margin Analysis](docs/MARGIN_ANALYSIS.md) | Detailed economic comparison — why this only works on Arc |
 | [📝 Circle Product Feedback](docs/circle-product-feedback.md) | Detailed SDK feedback for $500 Product Feedback prize |
 | [📋 Submission Details](docs/SUBMISSION.md) | Full hackathon submission details |
