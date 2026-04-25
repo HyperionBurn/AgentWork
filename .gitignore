@@ -51,8 +51,9 @@ packages/contracts/build/
 Thumbs.db
 
 # Evidence files (session recordings with tx hashes)
-evidence/
-docs/evidence/
+# Un-ignored for hackathon submission — judges need to see tx hashes
+# evidence/
+# docs/evidence/
 
 # Internal docs (pitch decks, demo scripts — not for public repo)
 docs/PITCH.md

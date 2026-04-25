@@ -1,0 +1,80 @@
+{
+  "timestamp": "2026-04-24T10:56:21.321Z",
+  "config": {
+    "task": "build a simple snake game in python",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777028184054-5lest2",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028184054-5lest2_research,research\", \"$0.040\")",
+          "txHash": "0xc699abb0c1bad7678242d7aa7aec5c5a84b14a1012c947bfcd3fdf6ebca73026",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xc699abb0c1bad7678242d7aa7aec5c5a84b14a1012c947bfcd3fdf6ebca73026",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028184054-5lest2_code\", \"$0.040\")",
+          "txHash": "0x20e98788339a0bf3b4147063d4d6dcc7dfb189280caf9bf2d981a4479d24f862",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x20e98788339a0bf3b4147063d4d6dcc7dfb189280caf9bf2d981a4479d24f862",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028184054-5lest2_test,test\", \"$0.040\")",
+          "txHash": "0xf112c05e24bc8ed75ea4b3290add99aae0f26bb4b0c8f6578e04fe6f441357c1",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf112c05e24bc8ed75ea4b3290add99aae0f26bb4b0c8f6578e04fe6f441357c1",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028184054-5lest2_review\", \"$0.040\")",
+          "txHash": "0x1f087e4f94ef9241461494a044bb284c5dc691f450396c08ca013e6fe5791a1a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x1f087e4f94ef9241461494a044bb284c5dc691f450396c08ca013e6fe5791a1a",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028184054-5lest2_code\", \"$0.040\")",
+          "txHash": "0x0b1cad206baf0d8aa51f377d362253b913a4aa5012efdee8d1da9cec7f87124f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x0b1cad206baf0d8aa51f377d362253b913a4aa5012efdee8d1da9cec7f87124f",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028184054-5lest2_test\", \"$0.040\")",
+          "txHash": "0x616c396fbfb6a0b75b729e988e22c035a3a42daf9428eff038b549bbb09d9545",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x616c396fbfb6a0b75b729e988e22c035a3a42daf9428eff038b549bbb09d9545",
+          "mock": false
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 6
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 6,
+    "allTxHashes": [
+      "0xc699abb0c1bad7678242d7aa7aec5c5a84b14a1012c947bfcd3fdf6ebca73026",
+      "0x20e98788339a0bf3b4147063d4d6dcc7dfb189280caf9bf2d981a4479d24f862",
+      "0xf112c05e24bc8ed75ea4b3290add99aae0f26bb4b0c8f6578e04fe6f441357c1",
+      "0x1f087e4f94ef9241461494a044bb284c5dc691f450396c08ca013e6fe5791a1a",
+      "0x0b1cad206baf0d8aa51f377d362253b913a4aa5012efdee8d1da9cec7f87124f",
+      "0x616c396fbfb6a0b75b729e988e22c035a3a42daf9428eff038b549bbb09d9545"
+    ]
+  }
+}

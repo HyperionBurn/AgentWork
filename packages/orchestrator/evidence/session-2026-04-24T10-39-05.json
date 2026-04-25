@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-04-24T10:36:24.056Z",
+  "config": {
+    "task": "build a simple game",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777026988336-kpx6de",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777026988336-kpx6de_research,research\", \"$0.035\")",
+          "txHash": "MOCK_0x1a04d12c5ec4881cdd0b8894160f0bb44b9576818a166f8bcdcea0c2f692f0d7",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x1a04d12c5ec4881cdd0b8894160f0bb44b9576818a166f8bcdcea0c2f692f0d7",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777026988336-kpx6de_code,code\", \"$0.035\")",
+          "txHash": "MOCK_0x7f720b73a641bef7c0341e6d44c87290a74e6be51527a5e4c06bee3f7d6876cc",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x7f720b73a641bef7c0341e6d44c87290a74e6be51527a5e4c06bee3f7d6876cc",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777026988336-kpx6de_test\", \"$0.035\")",
+          "txHash": "MOCK_0xfeddb89d711f1f68da06be632bd75e26916ccb3e0b1492a3f4cae45efdc7c4ed",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xfeddb89d711f1f68da06be632bd75e26916ccb3e0b1492a3f4cae45efdc7c4ed",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777026988336-kpx6de_review\", \"$0.035\")",
+          "txHash": "MOCK_0x82f50a281712ee781837b3ad86e272a7455981f2c8aa03de7aa64259d67a3afd",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x82f50a281712ee781837b3ad86e272a7455981f2c8aa03de7aa64259d67a3afd",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777026988336-kpx6de_code\", \"$0.035\")",
+          "txHash": "MOCK_0x4677e88cd470b221635ca9798a7f4f94173a0177735145670be4adabe7b8d29a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x4677e88cd470b221635ca9798a7f4f94173a0177735145670be4adabe7b8d29a",
+          "mock": true
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 5
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 5,
+    "allTxHashes": [
+      "MOCK_0x1a04d12c5ec4881cdd0b8894160f0bb44b9576818a166f8bcdcea0c2f692f0d7",
+      "MOCK_0x7f720b73a641bef7c0341e6d44c87290a74e6be51527a5e4c06bee3f7d6876cc",
+      "MOCK_0xfeddb89d711f1f68da06be632bd75e26916ccb3e0b1492a3f4cae45efdc7c4ed",
+      "MOCK_0x82f50a281712ee781837b3ad86e272a7455981f2c8aa03de7aa64259d67a3afd",
+      "MOCK_0x4677e88cd470b221635ca9798a7f4f94173a0177735145670be4adabe7b8d29a"
+    ]
+  }
+}

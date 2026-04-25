@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-04-24T12:48:00.904Z",
+  "config": {
+    "task": "make a simple unique python game\n",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777034885683-zbyooc",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777034885683-zbyooc_research,research\", \"$0.035\")",
+          "txHash": "MOCK_0x986d2bddda3a8d545837957ac4e399f77eb0f990c19a0156cd83b6338e56f5de",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x986d2bddda3a8d545837957ac4e399f77eb0f990c19a0156cd83b6338e56f5de",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777034885683-zbyooc_code,code\", \"$0.035\")",
+          "txHash": "MOCK_0xcfc47fc73c8efc3020cf5d55e0a9078fd3b2085fc8d55e4fa37daf3e9192c0fa",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xcfc47fc73c8efc3020cf5d55e0a9078fd3b2085fc8d55e4fa37daf3e9192c0fa",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777034885683-zbyooc_test\", \"$0.035\")",
+          "txHash": "MOCK_0x5b4d40244028edaf0793d2c8f0b8a5fabf9988a5b2e766e75314ad9cd940f3ca",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x5b4d40244028edaf0793d2c8f0b8a5fabf9988a5b2e766e75314ad9cd940f3ca",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777034885683-zbyooc_review\", \"$0.035\")",
+          "txHash": "MOCK_0x9ff3d3350b3fed7d11065c99e7ee2b2ed1ed5ef52d1287a41bf7c0e3e7a6e6e3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x9ff3d3350b3fed7d11065c99e7ee2b2ed1ed5ef52d1287a41bf7c0e3e7a6e6e3",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777034885683-zbyooc_code\", \"$0.035\")",
+          "txHash": "MOCK_0x8bd466fe4c752fd34e62ca3e6ae0fc4addcfe14d1f339640ebfd22a7141227bd",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x8bd466fe4c752fd34e62ca3e6ae0fc4addcfe14d1f339640ebfd22a7141227bd",
+          "mock": true
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 5
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 5,
+    "allTxHashes": [
+      "MOCK_0x986d2bddda3a8d545837957ac4e399f77eb0f990c19a0156cd83b6338e56f5de",
+      "MOCK_0xcfc47fc73c8efc3020cf5d55e0a9078fd3b2085fc8d55e4fa37daf3e9192c0fa",
+      "MOCK_0x5b4d40244028edaf0793d2c8f0b8a5fabf9988a5b2e766e75314ad9cd940f3ca",
+      "MOCK_0x9ff3d3350b3fed7d11065c99e7ee2b2ed1ed5ef52d1287a41bf7c0e3e7a6e6e3",
+      "MOCK_0x8bd466fe4c752fd34e62ca3e6ae0fc4addcfe14d1f339640ebfd22a7141227bd"
+    ]
+  }
+}

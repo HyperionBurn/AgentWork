@@ -1,0 +1,403 @@
+{
+  "timestamp": "2026-04-22T14:16:56.692Z",
+  "config": {
+    "task": "Code a simple python game\n",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776867438062-uzn9yx",
+      "results": [
+        {
+          "subtaskId": "task-1776867438062-uzn9yx-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Code a simple python game\n: convergent architecture with microservices",
+                "Secondary analysis of Code a simple python game\n: 3 major approaches documented in literature",
+                "Best practice for Code a simple python game\n: event-driven design with idempotent handlers",
+                "Risk assessment for Code a simple python game\n: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Code a simple python game\n"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Code a simple python game\n Approaches"
+                }
+              ],
+              "summary": "Comprehensive research analysis on 'Code a simple python game\n'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867438062-uzn9yx-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Prior research on 'Code a simple python game\n' completed — perform deeper follow-up analysis"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Follow-up: Code a simple python game\n: convergent architecture with microservices",
+                "Secondary analysis of Follow-up: Code a simple python game\n: 3 major approaches documented in literature",
+                "Best practice for Follow-up: Code a simple python game\n: event-driven design with idempotent handlers",
+                "Risk assessment for Follow-up: Code a simple python game\n: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Follow-up: Code a simple python game\n"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Follow-up: Code a simple python game\n Approaches"
+                }
+              ],
+              "summary": "Building on prior findings: Prior research on 'Code a simple python game\n' completed — perform deeper follow-up analysis. Comprehensive research analysis on 'Follow-up: Code a simple python game\n'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867438062-uzn9yx-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Research findings available for 'Code a simple python game\n' — implement based on research"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Code a simple python game\n\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Research findings available for 'Code a simple python game\n' — implement based on research. Generated REST API implementation for: Code a simple python game\n",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867438062-uzn9yx-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Initial code and follow-up research complete — fix and refine implementation"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Fix: Code a simple python game\n\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Initial code and follow-up research complete — fix and refine implementation. Generated REST API implementation for: Fix: Code a simple python game\n",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867438062-uzn9yx-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code generated for 'Code a simple python game\n' — write comprehensive test suite"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code generated for 'Code a simple python game\n' — write comprehensive test suite. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867438062-uzn9yx-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code fixes applied and initial tests written — validate and re-test"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code fixes applied and initial tests written — validate and re-test. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867438062-uzn9yx-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Review Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Implementation and tests finalized — perform quality review"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "approved": true,
+              "issues": [
+                {
+                  "description": "Missing type annotation on line 42",
+                  "severity": "minor"
+                },
+                {
+                  "description": "Consider using async for I/O operations",
+                  "severity": "suggestion"
+                },
+                {
+                  "description": "Magic number in config — extract to constant",
+                  "severity": "minor"
+                }
+              ],
+              "quality_score": 87,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Reviewing with context: Implementation and tests finalized — perform quality review. Quality review completed for: Code a simple python game\n"
+            },
+            "success": true
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867438062-uzn9yx_research\", \"$0.035\")",
+          "txHash": "0xf4984cd52ca1aee08e8e07cf5ffd19e53bbf75cb565a728af203013a6b3108b4",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf4984cd52ca1aee08e8e07cf5ffd19e53bbf75cb565a728af203013a6b3108b4",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867438062-uzn9yx_research\", \"$0.035\")",
+          "txHash": "0xf653f8a0e2c1356085f3df687d6142fb78d6473058265850ac1afe381d382aec",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf653f8a0e2c1356085f3df687d6142fb78d6473058265850ac1afe381d382aec",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867438062-uzn9yx_code\", \"$0.035\")",
+          "txHash": "0x1efc32fafa7695f845da4423b3ed66d74085fe34607f0746308efb821f179507",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x1efc32fafa7695f845da4423b3ed66d74085fe34607f0746308efb821f179507",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867438062-uzn9yx_code\", \"$0.035\")",
+          "txHash": "0x067ea1d5781325c2a565c6a43b48b7aedd055999cf85e30ab0de1a1aaf89f7eb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x067ea1d5781325c2a565c6a43b48b7aedd055999cf85e30ab0de1a1aaf89f7eb",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867438062-uzn9yx_test\", \"$0.035\")",
+          "txHash": "0x068d1ed33a0e330cf977a31c401af6d9f3da0883b2b437264c51914a6815c4d2",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x068d1ed33a0e330cf977a31c401af6d9f3da0883b2b437264c51914a6815c4d2",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867438062-uzn9yx_test\", \"$0.035\")",
+          "txHash": "0xb80b7676b131a22b2b58a0b18226455324c918b12ff0a183d13966b85757fbb2",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xb80b7676b131a22b2b58a0b18226455324c918b12ff0a183d13966b85757fbb2",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867438062-uzn9yx_review\", \"$0.035\")",
+          "txHash": "0x7a662067f684b35b8de6109a04c6a5eabfab2767921fc7da2aece4926edfe26e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x7a662067f684b35b8de6109a04c6a5eabfab2767921fc7da2aece4926edfe26e",
+          "mock": false
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867438062-uzn9yx\", \"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\")",
+          "txHash": "MOCK_0x4a969cd34e8e0a850f4e8f495c769fc33bf3617f408201aa1c395810371f3840",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x4a969cd34e8e0a850f4e8f495c769fc33bf3617f408201aa1c395810371f3840",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867438062-uzn9yx\", \"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\")",
+          "txHash": "MOCK_0x466d49160624447c0476fa4773a3e3afb3bdc5377bdcfd3412a0de3799056246",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x466d49160624447c0476fa4773a3e3afb3bdc5377bdcfd3412a0de3799056246",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867438062-uzn9yx\", \"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\")",
+          "txHash": "MOCK_0x976526bc560bbf3e8a3d5c952a2b39709640aab1e6444c93acf062d46f054978",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x976526bc560bbf3e8a3d5c952a2b39709640aab1e6444c93acf062d46f054978",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867438062-uzn9yx\", \"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\")",
+          "txHash": "MOCK_0x473375a17180ee67c57b421ab1363294ffde3d8b8b4d0ca6e30dccf83b1547e2",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x473375a17180ee67c57b421ab1363294ffde3d8b8b4d0ca6e30dccf83b1547e2",
+          "mock": true
+        },
+        {
+          "type": "escrow_complete",
+          "contractName": "AgentEscrow",
+          "functionCall": "approveCompletion(\"task-1776867438062-uzn9yx\")",
+          "txHash": "MOCK_0x45a2c8f065c3adc4b1f2e16715f9a7d08902599968475e5486416014aafdde64",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x45a2c8f065c3adc4b1f2e16715f9a7d08902599968475e5486416014aafdde64",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\", 98, \"Completed tasks on time with good quality\")",
+          "txHash": "0x074d36acbb6628a20f23a6137ff9fd837cccb7ed6598db9ca36da4ca3ba3f2f3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x074d36acbb6628a20f23a6137ff9fd837cccb7ed6598db9ca36da4ca3ba3f2f3",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\", 99, \"Completed tasks on time with good quality\")",
+          "txHash": "0xc1f8ba7ccc4cf89533e1369c7b190116c2f06f3bfbf8dbd3b6bc24a3cd05a3fb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xc1f8ba7ccc4cf89533e1369c7b190116c2f06f3bfbf8dbd3b6bc24a3cd05a3fb",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\", 93, \"Completed tasks on time with good quality\")",
+          "txHash": "0x40525eee5ea82ecb33715d12bdd069beac5c6d4c32a10a7028717a678362ea94",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x40525eee5ea82ecb33715d12bdd069beac5c6d4c32a10a7028717a678362ea94",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\", 86, \"Completed tasks on time with good quality\")",
+          "txHash": "0x72d95be6dcb5680c11014d67b62ca96e33ea286c1a3f71c849ea0e3f92569fac",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x72d95be6dcb5680c11014d67b62ca96e33ea286c1a3f71c849ea0e3f92569fac",
+          "mock": false
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 16
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 16,
+    "allTxHashes": [
+      "0xf4984cd52ca1aee08e8e07cf5ffd19e53bbf75cb565a728af203013a6b3108b4",
+      "0xf653f8a0e2c1356085f3df687d6142fb78d6473058265850ac1afe381d382aec",
+      "0x1efc32fafa7695f845da4423b3ed66d74085fe34607f0746308efb821f179507",
+      "0x067ea1d5781325c2a565c6a43b48b7aedd055999cf85e30ab0de1a1aaf89f7eb",
+      "0x068d1ed33a0e330cf977a31c401af6d9f3da0883b2b437264c51914a6815c4d2",
+      "0xb80b7676b131a22b2b58a0b18226455324c918b12ff0a183d13966b85757fbb2",
+      "0x7a662067f684b35b8de6109a04c6a5eabfab2767921fc7da2aece4926edfe26e",
+      "MOCK_0x4a969cd34e8e0a850f4e8f495c769fc33bf3617f408201aa1c395810371f3840",
+      "MOCK_0x466d49160624447c0476fa4773a3e3afb3bdc5377bdcfd3412a0de3799056246",
+      "MOCK_0x976526bc560bbf3e8a3d5c952a2b39709640aab1e6444c93acf062d46f054978",
+      "MOCK_0x473375a17180ee67c57b421ab1363294ffde3d8b8b4d0ca6e30dccf83b1547e2",
+      "MOCK_0x45a2c8f065c3adc4b1f2e16715f9a7d08902599968475e5486416014aafdde64",
+      "0x074d36acbb6628a20f23a6137ff9fd837cccb7ed6598db9ca36da4ca3ba3f2f3",
+      "0xc1f8ba7ccc4cf89533e1369c7b190116c2f06f3bfbf8dbd3b6bc24a3cd05a3fb",
+      "0x40525eee5ea82ecb33715d12bdd069beac5c6d4c32a10a7028717a678362ea94",
+      "0x72d95be6dcb5680c11014d67b62ca96e33ea286c1a3f71c849ea0e3f92569fac"
+    ]
+  }
+}

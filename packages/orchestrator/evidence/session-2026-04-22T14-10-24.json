@@ -1,0 +1,403 @@
+{
+  "timestamp": "2026-04-22T14:09:07.565Z",
+  "config": {
+    "task": "Yo",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776866968959-3eq216",
+      "results": [
+        {
+          "subtaskId": "task-1776866968959-3eq216-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Yo: convergent architecture with microservices",
+                "Secondary analysis of Yo: 3 major approaches documented in literature",
+                "Best practice for Yo: event-driven design with idempotent handlers",
+                "Risk assessment for Yo: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Yo"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Yo Approaches"
+                }
+              ],
+              "summary": "Comprehensive research analysis on 'Yo'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866968959-3eq216-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Prior research on 'Yo' completed — perform deeper follow-up analysis"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Follow-up: Yo: convergent architecture with microservices",
+                "Secondary analysis of Follow-up: Yo: 3 major approaches documented in literature",
+                "Best practice for Follow-up: Yo: event-driven design with idempotent handlers",
+                "Risk assessment for Follow-up: Yo: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Follow-up: Yo"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Follow-up: Yo Approaches"
+                }
+              ],
+              "summary": "Building on prior findings: Prior research on 'Yo' completed — perform deeper follow-up analysis. Comprehensive research analysis on 'Follow-up: Yo'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866968959-3eq216-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Research findings available for 'Yo' — implement based on research"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Yo\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Research findings available for 'Yo' — implement based on research. Generated REST API implementation for: Yo",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866968959-3eq216-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Initial code and follow-up research complete — fix and refine implementation"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Fix: Yo\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Initial code and follow-up research complete — fix and refine implementation. Generated REST API implementation for: Fix: Yo",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866968959-3eq216-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code generated for 'Yo' — write comprehensive test suite"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code generated for 'Yo' — write comprehensive test suite. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866968959-3eq216-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code fixes applied and initial tests written — validate and re-test"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code fixes applied and initial tests written — validate and re-test. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866968959-3eq216-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Review Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Implementation and tests finalized — perform quality review"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "approved": true,
+              "issues": [
+                {
+                  "description": "Missing type annotation on line 42",
+                  "severity": "minor"
+                },
+                {
+                  "description": "Consider using async for I/O operations",
+                  "severity": "suggestion"
+                },
+                {
+                  "description": "Magic number in config — extract to constant",
+                  "severity": "minor"
+                }
+              ],
+              "quality_score": 87,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Reviewing with context: Implementation and tests finalized — perform quality review. Quality review completed for: Yo"
+            },
+            "success": true
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866968959-3eq216_research\", \"$0.035\")",
+          "txHash": "0xf554fd69436b21e4da0ec41dd56a08b10e6318135892c10fc91075014e329133",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf554fd69436b21e4da0ec41dd56a08b10e6318135892c10fc91075014e329133",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866968959-3eq216_research\", \"$0.035\")",
+          "txHash": "0xa27474fc7c27b29bc8cf9f3ad341fcb8cf1c91d4036d71095f8c1a59ab970ae6",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xa27474fc7c27b29bc8cf9f3ad341fcb8cf1c91d4036d71095f8c1a59ab970ae6",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866968959-3eq216_code\", \"$0.035\")",
+          "txHash": "0xce814ddf19906dc8470ddb3f9d5f9136fb261ebcaeb1926ce4146e074b42fc23",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xce814ddf19906dc8470ddb3f9d5f9136fb261ebcaeb1926ce4146e074b42fc23",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866968959-3eq216_code\", \"$0.035\")",
+          "txHash": "0x34becc04287944df70ee94b99d5f075e532271ba367835a85ed236a18e351d14",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x34becc04287944df70ee94b99d5f075e532271ba367835a85ed236a18e351d14",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866968959-3eq216_test\", \"$0.035\")",
+          "txHash": "0xa7a7fe0a635af744e50a359e8d6c086699a497c34de3f628a1f2c0a601041ecb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xa7a7fe0a635af744e50a359e8d6c086699a497c34de3f628a1f2c0a601041ecb",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866968959-3eq216_test\", \"$0.035\")",
+          "txHash": "0x256c70c1a43584fc377f00ca3120f87b2fa8665229d985d1d71d952c09e758aa",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x256c70c1a43584fc377f00ca3120f87b2fa8665229d985d1d71d952c09e758aa",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866968959-3eq216_review\", \"$0.035\")",
+          "txHash": "0x902802342f7a65e87ae8dbfa925f7d552011d06de67bebf771875f50a16c8011",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x902802342f7a65e87ae8dbfa925f7d552011d06de67bebf771875f50a16c8011",
+          "mock": false
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866968959-3eq216\", \"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\")",
+          "txHash": "MOCK_0x2383e2f6c07003bd3dde0c8342e3530962c137eb4ff4493cebfd6873edd0f412",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x2383e2f6c07003bd3dde0c8342e3530962c137eb4ff4493cebfd6873edd0f412",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866968959-3eq216\", \"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\")",
+          "txHash": "MOCK_0x9df4d9f3c854a9e5bab935cc11b900aa47709b09d3f05a5d5db6db038308f105",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x9df4d9f3c854a9e5bab935cc11b900aa47709b09d3f05a5d5db6db038308f105",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866968959-3eq216\", \"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\")",
+          "txHash": "MOCK_0x803e15db3df7b4411e9540d103ccf8fc1ffd872bc80876425c5f7457be016baa",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x803e15db3df7b4411e9540d103ccf8fc1ffd872bc80876425c5f7457be016baa",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866968959-3eq216\", \"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\")",
+          "txHash": "MOCK_0xaf6dca28ce62e057885023c12a91cb38fb212f9c15c914be4525fab570b425e5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xaf6dca28ce62e057885023c12a91cb38fb212f9c15c914be4525fab570b425e5",
+          "mock": true
+        },
+        {
+          "type": "escrow_complete",
+          "contractName": "AgentEscrow",
+          "functionCall": "approveCompletion(\"task-1776866968959-3eq216\")",
+          "txHash": "MOCK_0xc88054641857fcda9caa7d8e905b35629f8ff353a444504020f670321b365d62",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xc88054641857fcda9caa7d8e905b35629f8ff353a444504020f670321b365d62",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\", 97, \"Completed tasks on time with good quality\")",
+          "txHash": "0x653b3c6dc084f1073d4e547baf9a87d7825ed29a7ad6bae6ea0665548db86fa4",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x653b3c6dc084f1073d4e547baf9a87d7825ed29a7ad6bae6ea0665548db86fa4",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\", 86, \"Completed tasks on time with good quality\")",
+          "txHash": "0xa70784900f202eb40a85be8fffa9e9e362e8ebd0123f1a745931428260142d15",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xa70784900f202eb40a85be8fffa9e9e362e8ebd0123f1a745931428260142d15",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\", 91, \"Completed tasks on time with good quality\")",
+          "txHash": "0x68459cb0dfdcaf01310789f9ad965315bdbfd534d9e067fd80e28de97a4c3da3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x68459cb0dfdcaf01310789f9ad965315bdbfd534d9e067fd80e28de97a4c3da3",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\", 94, \"Completed tasks on time with good quality\")",
+          "txHash": "0x0438dd34b0db1ce27a6a0bf530927385b45d25a03ca1da694493d079662b0429",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x0438dd34b0db1ce27a6a0bf530927385b45d25a03ca1da694493d079662b0429",
+          "mock": false
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 16
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 16,
+    "allTxHashes": [
+      "0xf554fd69436b21e4da0ec41dd56a08b10e6318135892c10fc91075014e329133",
+      "0xa27474fc7c27b29bc8cf9f3ad341fcb8cf1c91d4036d71095f8c1a59ab970ae6",
+      "0xce814ddf19906dc8470ddb3f9d5f9136fb261ebcaeb1926ce4146e074b42fc23",
+      "0x34becc04287944df70ee94b99d5f075e532271ba367835a85ed236a18e351d14",
+      "0xa7a7fe0a635af744e50a359e8d6c086699a497c34de3f628a1f2c0a601041ecb",
+      "0x256c70c1a43584fc377f00ca3120f87b2fa8665229d985d1d71d952c09e758aa",
+      "0x902802342f7a65e87ae8dbfa925f7d552011d06de67bebf771875f50a16c8011",
+      "MOCK_0x2383e2f6c07003bd3dde0c8342e3530962c137eb4ff4493cebfd6873edd0f412",
+      "MOCK_0x9df4d9f3c854a9e5bab935cc11b900aa47709b09d3f05a5d5db6db038308f105",
+      "MOCK_0x803e15db3df7b4411e9540d103ccf8fc1ffd872bc80876425c5f7457be016baa",
+      "MOCK_0xaf6dca28ce62e057885023c12a91cb38fb212f9c15c914be4525fab570b425e5",
+      "MOCK_0xc88054641857fcda9caa7d8e905b35629f8ff353a444504020f670321b365d62",
+      "0x653b3c6dc084f1073d4e547baf9a87d7825ed29a7ad6bae6ea0665548db86fa4",
+      "0xa70784900f202eb40a85be8fffa9e9e362e8ebd0123f1a745931428260142d15",
+      "0x68459cb0dfdcaf01310789f9ad965315bdbfd534d9e067fd80e28de97a4c3da3",
+      "0x0438dd34b0db1ce27a6a0bf530927385b45d25a03ca1da694493d079662b0429"
+    ]
+  }
+}

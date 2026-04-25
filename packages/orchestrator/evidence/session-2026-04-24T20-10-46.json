@@ -1,0 +1,478 @@
+{
+  "timestamp": "2026-04-24T19:59:49.719Z",
+  "config": {
+    "task": "Build a REST API with user authentication, CRUD endpoints, and unit tests",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777060794601-y2i87u",
+      "results": [
+        {
+          "subtaskId": "task-1777060794601-y2i87u-task-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "a45b913c-cbef-410e-9fd7-399e0a9c8433",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {}
+          }
+        },
+        {
+          "subtaskId": "task-1777060794601-y2i87u-task-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "88ca2f86-8682-4cc0-a12c-6061ef1f0323",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {}
+          }
+        },
+        {
+          "subtaskId": "task-1777060794601-y2i87u-task-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "9d26efac-4e14-4ca4-a740-473a11313027",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "const express = require('express');\nconst jwt = require('jsonwebtoken');\nconst bcrypt = require('bcryptjs');\nconst bodyParser = require('body-parser');\n\nconst app = express();\nconst PORT = 3000;\nconst JWT_SECRET = 'super_secret_key_123'; // In production, use environment variables\n\napp.use(bodyParser.json());\n\n// Mock database\nconst users = [];\n\n// Middleware to authenticate JWT\nconst authenticateToken = (req, res, next) => {\n    const authHeader = req.headers['authorization'];\n    const token = authHeader && authHeader.split(' ')[1];\n\n    if (!token) return res.status(401).json({ message: 'Access Token Required' });\n\n    jwt.verify(token, JWT_SECRET, (err, user) => {\n        if (err) return res.status(403).json({ message: 'Invalid or Expired Token' });\n        req.user = user;\n        next();\n    });\n};\n\n// Registration Endpoint\napp.post('/api/register', async (req, res) => {\n    try {\n        const { username, password } = req.body;\n        if (!username || !password) return res.status(400).json({ message: 'Username and password required' });\n\n        const existingUser = users.find(u => u.username === username);\n        if (existingUser) return res.status(400).json({ message: 'User already exists' });\n\n        const hashedPassword = await bcrypt.hash(password, 10);\n        users.push({ username, password: hashedPassword });\n\n        res.status(201).json({ message: 'User registered successfully' });\n    } catch (error) {\n        res.status(500).json({ message: 'Internal server error' });\n    }\n});\n\n// Login Endpoint\napp.post('/api/login', async (req, res) => {\n    const { username, password } = req.body;\n    const user = users.find(u => u.username === username);\n\n    if (!user || !(await bcrypt.compare(password, user.password))) {\n        return res.status(401).json({ message: 'Invalid credentials' });\n    }\n\n    const accessToken = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '1h' });\n    res.json({ accessToken });\n});\n\n// Protected Route Example\napp.get('/api/profile', authenticateToken, (req, res) => {\n    res.json({ message: `Welcome to your profile, ${req.user.username}!`, user: req.user });\n});\n\napp.listen(PORT, () => {\n    console.log(`Server running on http://localhost:${PORT}`);\n    console.log('Endpoints: POST /api/register, POST /api/login, GET /api/profile');\n});",
+              "language": "javascript",
+              "files_modified": [
+                "server.js",
+                "package.json"
+              ],
+              "summary": "Implemented a complete REST API using Express.js featuring user authentication. The system includes user registration with bcrypt password hashing, a login mechanism that issues JSON Web Tokens (JWT), and a protected profile route that validates the token via custom middleware."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777060794601-y2i87u-task-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "db7db3bd-fc3e-4c5f-881d-7767dcbec281",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "{\n  \"code\": \"const express = require('express');\\nconst jwt = require('jsonwebtoken');\\nconst bcrypt = require('bcryptjs');\\nconst bodyParser = require('body-parser');\\n\\nconst app = express();\\nconst PORT = 3000;\\nconst JWT_SECRET = 'super_secret_key_123';\\n\\napp.use(bodyParser.json());\\n\\n// Mock database for users and resources (items)\\nconst users = [];\\nconst items = [];\\n\\n// Middleware to authenticate JWT\\nconst authenticateToken = (req, res, next) => {\\n    const authHeader = req.headers['authorization'];\\n    const token = authHeader && authHeader.split(' ')[1];\\n\\n    if (!token) return res.status(401).json({ message: 'Access Token Required' });\\n\\n    jwt.verify(token, JWT_SECRET, (err, user) => {\\n        if (err) return res.status(403).json({ message: 'Invalid or Expired Token' });\\n        req.user = user;\\n        next();\\n    });\\n};\\n\\n// --- AUTHENTICATION ENDPOINTS ---\\n\\napp.post('/api/register', async (req, res) => {\\n    try {\\n        const { username, password } = req.body;\\n        if (!username || !password) return res.status(400).json({ message: 'Username and password required' });\\n\\n        const existingUser = users.find(u => u.username === username);\\n        if (existingUser) return res.status(400).json({ message: 'User already exists' });\\n\\n        const hashedPassword = await bcrypt.hash(password, 10);\\n        const newUser = { id: users.length + 1, username, password: hashedPassword };\\n        users.push(newUser);\\n        res.status(201).json({ message: 'User registered successfully' });\\n    } catch (error) {\\n        res.status(500).json({ message: 'Internal server error' });\\n    }\\n});\\n\\napp.post('/api/login', async (req, res) => {\\n    const { username, password } = req.body;\\n    const user = users.find(u => u.username === username);\\n    if (!user || !(await bcrypt.compare(password, user.password))) {\\n        return res.status(401).json({ message: 'Invalid credentials' });\\n    }\\n    const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });\\n    res.json({ token });\\n});\\n\\n// --- CRUD ENDPOINTS FOR RESOURCES (ITEMS) ---\\n\\n// CREATE: Create a new item\\napp.post('/api/items', authenticateToken, (req, res) => {\\n    const { name, description } = req.body;\\n    if (!name) return res.status(400).json({ message: 'Item name is required' });\\n\\n    const newItem = {\\n        id: items.length + 1,\\n        name,\\n        description: description || '',\\n        ownerId: req.user.userId\\n    };\\n    items.push(newItem);\\n    res.status(201).json(newItem);\\n});\\n\\n// READ: Get all items (filtered by owner)\\napp.get('/api/items', authenticateToken, (req, res) => {\\n    const userItems = items.filter(item => item.ownerId === req.user.userId);\\n    res.json(userItems);\\n});\\n\\n// READ: Get a specific item by ID\\napp.get('/api/items/:id', authenticateToken, (req, res) => {\\n    const item = items.find(i => i.id === parseInt(req.params.id));\\n    if (!item) return res.status(404).json({ message: 'Item not found' });\\n    if (item.ownerId !== req.user.userId) return res.status(403).json({ message: 'Unauthorized access to this item' });\\n    res.json(item);\\n});\\n\\n// UPDATE: Update an existing item\\napp.put('/api/items/:id', authenticateToken, (req, res) => {\\n    ",
+              "language": "text",
+              "files_modified": [],
+              "summary": "Failed to parse code"
+            },
+            "context": {
+              "prior_summary": "Implemented a complete REST API using Express.js featuring user authentication. The system includes user registration with bcrypt password hashing, a login mechanism that issues JSON Web Tokens (JWT), and a protected profile route that validates the token via custom middleware.\nLanguage: javascript\nFiles: server.js, package.json\nCode excerpt:\nconst express = require('express');\nconst jwt = require('jsonwebtoken');\nconst bcrypt = require('bcryptjs');\nconst bodyParser = require('body-parser');\n\nconst app = express();\nconst PORT = 3000;\nconst JWT_SECRET = 'super_secret_key_123'; // In production, use environment variables\n\napp.use(bodyParser.json());\n\n// Mock database\nconst users = [];\n\n// Middleware to authenticate JWT\nconst authenticateToken = (req, res, next) => {\n    const authHeader = req.headers['authorization'];\n    const token = authHeader && authHeader.split(' ')[1];\n\n    if (!token) return res.status(401).json({ message: 'Access Token Required' });\n\n    jwt.verify(token, JWT_SECRET, (err, user) => {\n        if (err) return res.status(403).json({ message: 'Invalid or Expired Token' });\n        req.user = user;\n        next();\n    });\n};\n\n// Registration Endpoint\napp.post('/api/register', async (req, res) => {\n    try {\n        const { username, password } = req.body;\n        if (!username || !password) return res.status(400).json({ message: 'Username and password required' });\n\n        const existingUser = users.find(u => u.username === username);\n        if (existingUser) return res.status(400).json({ message: 'U..."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777060794601-y2i87u-task-5",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "3cc94ac7-434f-4991-938a-5fd3b3960b8b",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "{\n  \"code\": \"const request = require('supertest');\\nconst express = require('express');\\nconst jwt = require('jsonwebtoken');\\nconst bcrypt = require('bcryptjs');\\nconst bodyParser = require('body-parser');\\n\\n// --- APP IMPLEMENTATION (Extracted from context for testability) ---\\nconst app = express();\\nconst JWT_SECRET = 'super_secret_key_123';\\napp.use(bodyParser.json());\\n\\nconst users = [];\\nconst items = [];\\n\\nconst authenticateToken = (req, res, next) => {\\n    const authHeader = req.headers['authorization'];\\n    const token = authHeader && authHeader.split(' ')[1];\\n    if (!token) return res.status(401).json({ message: 'Access Token Required' });\\n    jwt.verify(token, JWT_SECRET, (err, user) => {\\n        if (err) return res.status(403).json({ message: 'Invalid or Expired Token' });\\n        req.user = user;\\n        next();\\n    });\\n};\\n\\napp.post('/api/register', async (req, res) => {\\n    const { username, password } = req.body;\\n    if (!username || !password) return res.status(400).json({ message: 'Username and password required' });\\n    const existingUser = users.find(u => u.username === username);\\n    if (existingUser) return res.status(400).json({ message: 'User already exists' });\\n    const hashedPassword = await bcrypt.hash(password, 10);\\n    const user = { id: users.length + 1, username, password: hashedPassword };\\n    users.push(user);\\n    res.status(201).json({ message: 'User registered successfully' });\\n});\\n\\napp.post('/api/login', async (req, res) => {\\n    const { username, password } = req.body;\\n    const user = users.find(u => u.username === username);\\n    if (!user || !(await bcrypt.compare(password, user.password))) {\\n        return res.status(401).json({ message: 'Invalid credentials' });\\n    }\\n    const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });\\n    res.json({ token });\\n});\\n\\napp.get('/api/items', authenticateToken, (req, res) => {\\n    res.json(items);\\n});\\n\\napp.post('/api/items', authenticateToken, (req, res) => {\\n    const { name } = req.body;\\n    if (!name) return res.status(400).json({ message: 'Item name required' });\\n    const item = { id: items.length + 1, name, ownerId: req.user.userId };\\n    items.push(item);\\n    res.status(201).json(item);\\n});\\n\\n// --- UNIT TESTS ---\\n\\ndescribe('REST API Endpoints', () => {\\n    let authToken;\\n\\n    beforeAll(async () => {\\n        // Register a user for authenticated tests\\n        await request(app)\\n            .post('/api/register')\\n            .send({ username: 'testuser', password: 'password123' });\\n\\n        // Login to get a token\\n        const loginRes = await request(app)\\n            .post('/api/login')\\n            .send({ username: 'testuser', password: 'password123' });\\n        \\n        authToken = loginRes.body.token;\\n    });\\n\\n    describe('POST /api/register', () => {\\n        it('should register a new user successfully', async () => {\\n            const res = await request(app)\\n                .post('/api/register')\\n                .send({ username: 'newuser', password: 'password123' });\\n            expect(res.statusCode).toEqual(201);\\n            expect(res.body.message).toBe('User registered successfully');\\n        });\\n\\n        it('should fail if username or password is missing', async () => {\\n            const res = await request(app)\\n                .post('/api/register')\\n                .send",
+              "language": "text",
+              "files_modified": [],
+              "summary": "Failed to parse code"
+            },
+            "context": {
+              "prior_summary": "Failed to parse code\nLanguage: text\nCode excerpt:\n{\n  \"code\": \"const express = require('express');\\nconst jwt = require('jsonwebtoken');\\nconst bcrypt = require('bcryptjs');\\nconst bodyParser = require('body-parser');\\n\\nconst app = express();\\nconst PORT = 3000;\\nconst JWT_SECRET = 'super_secret_key_123';\\n\\napp.use(bodyParser.json());\\n\\n// Mock database for users and resources (items)\\nconst users = [];\\nconst items = [];\\n\\n// Middleware to authenticate JWT\\nconst authenticateToken = (req, res, next) => {\\n    const authHeader = req.headers['authorization'];\\n    const token = authHeader && authHeader.split(' ')[1];\\n\\n    if (!token) return res.status(401).json({ message: 'Access Token Required' });\\n\\n    jwt.verify(token, JWT_SECRET, (err, user) => {\\n        if (err) return res.status(403).json({ message: 'Invalid or Expired Token' });\\n        req.user = user;\\n        next();\\n    });\\n};\\n\\n// --- AUTHENTICATION ENDPOINTS ---\\n\\napp.post('/api/register', async (req, res) => {\\n    try {\\n        const { username, password } = req.body;\\n        if (!username || !password) return res.status(400).json({ message: 'Username and password required' });\\n\\n        const existingUser = users.find(u => u.username === username);\\..."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777060794601-y2i87u-task-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "9ed1b52d-3cd7-4dd7-bb31-dfdf3b63eb12",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 8,
+              "passing": 6,
+              "failing": 2,
+              "coverage": 85,
+              "test_suite": "REST_API_Auth_Suite: [POST /api/register - Success], [POST /api/register - Missing Fields], [POST /api/register - Duplicate User], [POST /api/login - Success], [POST /api/login - Invalid Credentials], [GET /api/protected - Valid Token], [GET /api/protected - Missing Token], [GET /api/protected - Expired/Invalid Token]"
+            },
+            "context": {
+              "prior_summary": "Failed to parse code\nLanguage: text\nCode excerpt:\n{\n  \"code\": \"const request = require('supertest');\\nconst express = require('express');\\nconst jwt = require('jsonwebtoken');\\nconst bcrypt = require('bcryptjs');\\nconst bodyParser = require('body-parser');\\n\\n// --- APP IMPLEMENTATION (Extracted from context for testability) ---\\nconst app = express();\\nconst JWT_SECRET = 'super_secret_key_123';\\napp.use(bodyParser.json());\\n\\nconst users = [];\\nconst items = [];\\n\\nconst authenticateToken = (req, res, next) => {\\n    const authHeader = req.headers['authorization'];\\n    const token = authHeader && authHeader.split(' ')[1];\\n    if (!token) return res.status(401).json({ message: 'Access Token Required' });\\n    jwt.verify(token, JWT_SECRET, (err, user) => {\\n        if (err) return res.status(403).json({ message: 'Invalid or Expired Token' });\\n        req.user = user;\\n        next();\\n    });\\n};\\n\\napp.post('/api/register', async (req, res) => {\\n    const { username, password } = req.body;\\n    if (!username || !password) return res.status(400).json({ message: 'Username and password required' });\\n    const existingUser = users.find(u => u.username === username);\\n    if (existingUser) return res.status(400).json({ message: 'U..."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777060794601-y2i87u-task-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "9f6594e1-a839-4b13-9a40-c92c35fdeee0",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Review Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "quality_score": 65,
+              "issues": [
+                "Low test pass rate (75%)",
+                "Regression risk in authentication flow",
+                "Lack of detailed failure logs for 2 failing tests"
+              ],
+              "approved": false,
+              "suggestions": [
+                "Identify and fix the specific failures in the 2 failing tests before deployment",
+                "Implement integration tests to ensure the token lifecycle (issue -> validate -> expire) is fully covered",
+                "Verify that 'Duplicate User' and 'Invalid Credentials' tests are returning the correct HTTP status codes (409 and 401 respectively) rather than generic 500 errors",
+                "Add a security scan for common OWASP vulnerabilities such as NoSQL injection or JWT secret leakage"
+              ],
+              "summary": "The implementation is currently rejected due to a sub-optimal test pass rate. While the test suite coverage is comprehensive (covering success, edge, and error cases for registration, login, and authorization), the fact that 2 out of 8 tests are failing indicates instability in the core authentication logic. The API cannot be approved until the test suite reaches 100% pass rate."
+            },
+            "context": {
+              "prior_summary": "8 tests generated, 6 passing\nTest suite:\nREST_API_Auth_Suite: [POST /api/register - Success], [POST /api/register - Missing Fields], [POST /api/register - Duplicate User], [POST /api/login - Success], [POST /api/login - Invalid Credentials], [GET /api/protected - Valid Token], [GET /api/protected - Missing Token], [GET /api/protected - Expired/Invalid Token]"
+            }
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777060794601-y2i87u_research\", \"$0.035\")",
+          "txHash": "0xfd6687a8157c9cd101d4f47ac12a5206b8445f2268f578dde691a0d5c753eded",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xfd6687a8157c9cd101d4f47ac12a5206b8445f2268f578dde691a0d5c753eded",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777060794601-y2i87u_code\", \"$0.035\")",
+          "txHash": "0x6662d910baf8edf9b3c21c549e31ebe1ca278f3c4f86774e4666b38db4d9b365",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x6662d910baf8edf9b3c21c549e31ebe1ca278f3c4f86774e4666b38db4d9b365",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777060794601-y2i87u_test\", \"$0.035\")",
+          "txHash": "0x606101282037fafcbe63ed9d8b9abd89b5ee235b1882f9a352ef241d9f0196d8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x606101282037fafcbe63ed9d8b9abd89b5ee235b1882f9a352ef241d9f0196d8",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777060794601-y2i87u_review\", \"$0.035\")",
+          "txHash": "0x485d8bf7648a6d09de7704e21ded24632d47aa5d391b17adaa748ed524cf4157",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x485d8bf7648a6d09de7704e21ded24632d47aa5d391b17adaa748ed524cf4157",
+          "mock": false
+        }
+      ],
+      "extendedTransactions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0xfd6687a8157c9cd101d4f47ac12a5206b8445f2268f578dde691a0d5c753eded",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xfd6687a8157c9cd101d4f47ac12a5206b8445f2268f578dde691a0d5c753eded",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0x6662d910baf8edf9b3c21c549e31ebe1ca278f3c4f86774e4666b38db4d9b365",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x6662d910baf8edf9b3c21c549e31ebe1ca278f3c4f86774e4666b38db4d9b365",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0x606101282037fafcbe63ed9d8b9abd89b5ee235b1882f9a352ef241d9f0196d8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x606101282037fafcbe63ed9d8b9abd89b5ee235b1882f9a352ef241d9f0196d8",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0x485d8bf7648a6d09de7704e21ded24632d47aa5d391b17adaa748ed524cf4157",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x485d8bf7648a6d09de7704e21ded24632d47aa5d391b17adaa748ed524cf4157",
+          "mock": false
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xf7a187278567b62481d0b66a4234a6dfe553e7e41dc61c7a034e92d74a13bbe9",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf7a187278567b62481d0b66a4234a6dfe553e7e41dc61c7a034e92d74a13bbe9",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x508ccb20be31e178f4f2551cb5a1d021ba3aee4471a39ea3e29bf4bb723ed995",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x508ccb20be31e178f4f2551cb5a1d021ba3aee4471a39ea3e29bf4bb723ed995",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xbe645e424f78d511f917bac78d8d1c0197c6983a554dbb09ebe241aed4bd1525",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xbe645e424f78d511f917bac78d8d1c0197c6983a554dbb09ebe241aed4bd1525",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xf388257aa85212b4a53c828e86cdd2fb5f3d96ca317fc64ee532f306bbc2de57",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf388257aa85212b4a53c828e86cdd2fb5f3d96ca317fc64ee532f306bbc2de57",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xe2df6ab03adcb8879b10ffa656035f0860fe4482537c2432f2f3da438f5ef599",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xe2df6ab03adcb8879b10ffa656035f0860fe4482537c2432f2f3da438f5ef599",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xbf8fe6a7d20eaa7aa78b2c84a4819fbdbb1ef430695667a4ee96fc26c17dc8c6",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xbf8fe6a7d20eaa7aa78b2c84a4819fbdbb1ef430695667a4ee96fc26c17dc8c6",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x67c58da5da52140d876323b93f127cc0180698205ac6d04a222baf2c47c885ed",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x67c58da5da52140d876323b93f127cc0180698205ac6d04a222baf2c47c885ed",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0x99f35cc3069fbb011e03eab0bdb6ca25dc53af576a039cf84590067197663833",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x99f35cc3069fbb011e03eab0bdb6ca25dc53af576a039cf84590067197663833",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0x9461da44dcf71338ce758304a4ad31fbb416dd3c08215600035486e5cde0c9f8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x9461da44dcf71338ce758304a4ad31fbb416dd3c08215600035486e5cde0c9f8",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0x7f9939903d8bbbad0ce453e9fbe65345b2515f5adcc24ec1bc053d7237565b4e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x7f9939903d8bbbad0ce453e9fbe65345b2515f5adcc24ec1bc053d7237565b4e",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0xf20f4994e272d721220731691be6c3e260c8589e052aa55fb012d598219daa5a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf20f4994e272d721220731691be6c3e260c8589e052aa55fb012d598219daa5a",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0xc59f7ecba36183a1e927da23128b3f2bbf6e27ecb65364c7df6ef34d033ff65c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xc59f7ecba36183a1e927da23128b3f2bbf6e27ecb65364c7df6ef34d033ff65c",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0xa483d842aa3913625b28aa45223ae71ff2011d103d72518cab99256c9fd5e5b1",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xa483d842aa3913625b28aa45223ae71ff2011d103d72518cab99256c9fd5e5b1",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0xdf5018da7e591ee940cee953ee77702e4fd53c826e68dfd9162beee4724b6fe0",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xdf5018da7e591ee940cee953ee77702e4fd53c826e68dfd9162beee4724b6fe0",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→code",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "9f868015-bb6a-40e1-a493-3eced603f3ed",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "78a5ffd8-86fb-4df2-93b3-f4134f5311b6",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "4225b0b0-4d52-41a3-988d-e0b0384b5816",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "03e73f8d-aa6b-46c9-90a3-51598b3dc39b",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "e67414f4-fa5b-4b25-bdd9-65a3beb48930",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "19a42f14-376f-4f35-b11a-9f727b3f1401",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "fc02a560-ba63-4d48-835b-d3ba2ec22295",
+          "explorerUrl": "",
+          "mock": false
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 36
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 36,
+    "allTxHashes": [
+      "a45b913c-cbef-410e-9fd7-399e0a9c8433",
+      "88ca2f86-8682-4cc0-a12c-6061ef1f0323",
+      "9d26efac-4e14-4ca4-a740-473a11313027",
+      "db7db3bd-fc3e-4c5f-881d-7767dcbec281",
+      "3cc94ac7-434f-4991-938a-5fd3b3960b8b",
+      "9ed1b52d-3cd7-4dd7-bb31-dfdf3b63eb12",
+      "9f6594e1-a839-4b13-9a40-c92c35fdeee0",
+      "0xfd6687a8157c9cd101d4f47ac12a5206b8445f2268f578dde691a0d5c753eded",
+      "0x6662d910baf8edf9b3c21c549e31ebe1ca278f3c4f86774e4666b38db4d9b365",
+      "0x606101282037fafcbe63ed9d8b9abd89b5ee235b1882f9a352ef241d9f0196d8",
+      "0x485d8bf7648a6d09de7704e21ded24632d47aa5d391b17adaa748ed524cf4157",
+      "0xfd6687a8157c9cd101d4f47ac12a5206b8445f2268f578dde691a0d5c753eded",
+      "0x6662d910baf8edf9b3c21c549e31ebe1ca278f3c4f86774e4666b38db4d9b365",
+      "0x606101282037fafcbe63ed9d8b9abd89b5ee235b1882f9a352ef241d9f0196d8",
+      "0x485d8bf7648a6d09de7704e21ded24632d47aa5d391b17adaa748ed524cf4157",
+      "MOCK_0xf7a187278567b62481d0b66a4234a6dfe553e7e41dc61c7a034e92d74a13bbe9",
+      "MOCK_0x508ccb20be31e178f4f2551cb5a1d021ba3aee4471a39ea3e29bf4bb723ed995",
+      "MOCK_0xbe645e424f78d511f917bac78d8d1c0197c6983a554dbb09ebe241aed4bd1525",
+      "MOCK_0xf388257aa85212b4a53c828e86cdd2fb5f3d96ca317fc64ee532f306bbc2de57",
+      "MOCK_0xe2df6ab03adcb8879b10ffa656035f0860fe4482537c2432f2f3da438f5ef599",
+      "MOCK_0xbf8fe6a7d20eaa7aa78b2c84a4819fbdbb1ef430695667a4ee96fc26c17dc8c6",
+      "MOCK_0x67c58da5da52140d876323b93f127cc0180698205ac6d04a222baf2c47c885ed",
+      "0x99f35cc3069fbb011e03eab0bdb6ca25dc53af576a039cf84590067197663833",
+      "0x9461da44dcf71338ce758304a4ad31fbb416dd3c08215600035486e5cde0c9f8",
+      "0x7f9939903d8bbbad0ce453e9fbe65345b2515f5adcc24ec1bc053d7237565b4e",
+      "0xf20f4994e272d721220731691be6c3e260c8589e052aa55fb012d598219daa5a",
+      "0xc59f7ecba36183a1e927da23128b3f2bbf6e27ecb65364c7df6ef34d033ff65c",
+      "0xa483d842aa3913625b28aa45223ae71ff2011d103d72518cab99256c9fd5e5b1",
+      "0xdf5018da7e591ee940cee953ee77702e4fd53c826e68dfd9162beee4724b6fe0",
+      "9f868015-bb6a-40e1-a493-3eced603f3ed",
+      "78a5ffd8-86fb-4df2-93b3-f4134f5311b6",
+      "4225b0b0-4d52-41a3-988d-e0b0384b5816",
+      "03e73f8d-aa6b-46c9-90a3-51598b3dc39b",
+      "e67414f4-fa5b-4b25-bdd9-65a3beb48930",
+      "19a42f14-376f-4f35-b11a-9f727b3f1401",
+      "fc02a560-ba63-4d48-835b-d3ba2ec22295"
+    ]
+  }
+}

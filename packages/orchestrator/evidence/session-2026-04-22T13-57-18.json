@@ -1,0 +1,403 @@
+{
+  "timestamp": "2026-04-22T13:56:03.789Z",
+  "config": {
+    "task": "Execute deep research on AI",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776866185436-kv3v0w",
+      "results": [
+        {
+          "subtaskId": "task-1776866185436-kv3v0w-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Execute deep research on AI: convergent architecture with microservices",
+                "Secondary analysis of Execute deep research on AI: 3 major approaches documented in literature",
+                "Best practice for Execute deep research on AI: event-driven design with idempotent handlers",
+                "Risk assessment for Execute deep research on AI: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Execute deep research on AI"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Execute deep research on AI Approaches"
+                }
+              ],
+              "summary": "Comprehensive research analysis on 'Execute deep research on AI'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866185436-kv3v0w-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Prior research on 'Execute deep research on AI' completed — perform deeper follow-up analysis"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Follow-up: Execute deep research on AI: convergent architecture with microservices",
+                "Secondary analysis of Follow-up: Execute deep research on AI: 3 major approaches documented in literature",
+                "Best practice for Follow-up: Execute deep research on AI: event-driven design with idempotent handlers",
+                "Risk assessment for Follow-up: Execute deep research on AI: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Follow-up: Execute deep research on AI"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Follow-up: Execute deep research on AI Approaches"
+                }
+              ],
+              "summary": "Building on prior findings: Prior research on 'Execute deep research on AI' completed — perform deeper follow-up analysis. Comprehensive research analysis on 'Follow-up: Execute deep research on AI'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866185436-kv3v0w-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Research findings available for 'Execute deep research on AI' — implement based on research"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Execute deep research on AI\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Research findings available for 'Execute deep research on AI' — implement based on research. Generated REST API implementation for: Execute deep research on AI",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866185436-kv3v0w-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Initial code and follow-up research complete — fix and refine implementation"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Fix: Execute deep research on AI\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Initial code and follow-up research complete — fix and refine implementation. Generated REST API implementation for: Fix: Execute deep research on AI",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866185436-kv3v0w-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code generated for 'Execute deep research on AI' — write comprehensive test suite"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code generated for 'Execute deep research on AI' — write comprehensive test suite. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866185436-kv3v0w-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code fixes applied and initial tests written — validate and re-test"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code fixes applied and initial tests written — validate and re-test. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776866185436-kv3v0w-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Review Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Implementation and tests finalized — perform quality review"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "approved": true,
+              "issues": [
+                {
+                  "description": "Missing type annotation on line 42",
+                  "severity": "minor"
+                },
+                {
+                  "description": "Consider using async for I/O operations",
+                  "severity": "suggestion"
+                },
+                {
+                  "description": "Magic number in config — extract to constant",
+                  "severity": "minor"
+                }
+              ],
+              "quality_score": 87,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Reviewing with context: Implementation and tests finalized — perform quality review. Quality review completed for: Execute deep research on AI"
+            },
+            "success": true
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866185436-kv3v0w_research\", \"$0.035\")",
+          "txHash": "0x30ba6c2638cc01154110df991a331c84458a2169716bdce0ec77e2b1c8eaf7a5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x30ba6c2638cc01154110df991a331c84458a2169716bdce0ec77e2b1c8eaf7a5",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866185436-kv3v0w_research\", \"$0.035\")",
+          "txHash": "0x327d84a6dcb981ce77f2e4aa85bcaf56aba2531d0c297fa609d6f0ccb97125f6",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x327d84a6dcb981ce77f2e4aa85bcaf56aba2531d0c297fa609d6f0ccb97125f6",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866185436-kv3v0w_code\", \"$0.035\")",
+          "txHash": "0x2f2f5652585d70ef597c0f735b94e58b7fb11dabdf4176e493ff34165c2d3087",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x2f2f5652585d70ef597c0f735b94e58b7fb11dabdf4176e493ff34165c2d3087",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866185436-kv3v0w_code\", \"$0.035\")",
+          "txHash": "0x46ea303126c389dec957f640c3e93ee58905df3f628108254e0ecda4f2845b6b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x46ea303126c389dec957f640c3e93ee58905df3f628108254e0ecda4f2845b6b",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866185436-kv3v0w_test\", \"$0.035\")",
+          "txHash": "0x6739a715446341f5c42148a92b61cb8ce9de14e847462f67f0bab2d1d3176acb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x6739a715446341f5c42148a92b61cb8ce9de14e847462f67f0bab2d1d3176acb",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866185436-kv3v0w_test\", \"$0.035\")",
+          "txHash": "0x4196b0abf1f2d6d6370f1ad78d5d81b800ca8ca67ee1b227f4cafba46afe689b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x4196b0abf1f2d6d6370f1ad78d5d81b800ca8ca67ee1b227f4cafba46afe689b",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776866185436-kv3v0w_review\", \"$0.035\")",
+          "txHash": "0xf00cf4cf90fc1180b9aac22efbc8a405f80aab7012ebf76ad2baa8dfbb707042",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf00cf4cf90fc1180b9aac22efbc8a405f80aab7012ebf76ad2baa8dfbb707042",
+          "mock": false
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866185436-kv3v0w\", \"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\")",
+          "txHash": "MOCK_0x43953253a69dcf7da17db2c4231b88294f70e24008198bbd26fa8210004adaa4",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x43953253a69dcf7da17db2c4231b88294f70e24008198bbd26fa8210004adaa4",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866185436-kv3v0w\", \"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\")",
+          "txHash": "MOCK_0x882dae567e6e2e6d14c8b5c6267801efb302825bdbbf75ac57c380036a4250d4",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x882dae567e6e2e6d14c8b5c6267801efb302825bdbbf75ac57c380036a4250d4",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866185436-kv3v0w\", \"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\")",
+          "txHash": "MOCK_0xcb887d346280cbcf116d7d5388bc3a367bfafc73587631763f720585fdaa4cc8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xcb887d346280cbcf116d7d5388bc3a367bfafc73587631763f720585fdaa4cc8",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776866185436-kv3v0w\", \"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\")",
+          "txHash": "MOCK_0x618a98d92746f0954fbd64ac6e1dbf470dfa16b14ddc207485421a329d1fa1e9",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x618a98d92746f0954fbd64ac6e1dbf470dfa16b14ddc207485421a329d1fa1e9",
+          "mock": true
+        },
+        {
+          "type": "escrow_complete",
+          "contractName": "AgentEscrow",
+          "functionCall": "approveCompletion(\"task-1776866185436-kv3v0w\")",
+          "txHash": "MOCK_0x5cb48fcdb874cefd37f0c64db60b001d3a282a2e76be9c88c7db23466039d068",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x5cb48fcdb874cefd37f0c64db60b001d3a282a2e76be9c88c7db23466039d068",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\", 96, \"Completed tasks on time with good quality\")",
+          "txHash": "0x8ba0339f57449cb3a53e43699588c98c833506f076d7ef4ab404c25621665ef3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x8ba0339f57449cb3a53e43699588c98c833506f076d7ef4ab404c25621665ef3",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\", 96, \"Completed tasks on time with good quality\")",
+          "txHash": "0x1f1a508459f2e44743942bad5348cf5c5bf05bd8b9ed5418d62cff551989db65",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x1f1a508459f2e44743942bad5348cf5c5bf05bd8b9ed5418d62cff551989db65",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\", 92, \"Completed tasks on time with good quality\")",
+          "txHash": "0xe0cadfb0684b941e88bcb7574b968cb3f68824fb1f254e572a81a9e6692f34cb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xe0cadfb0684b941e88bcb7574b968cb3f68824fb1f254e572a81a9e6692f34cb",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\", 97, \"Completed tasks on time with good quality\")",
+          "txHash": "0xf16e9e20fb3dcc7fbe7dc99011a5761aa5f693637bf0c91b0abd5a4ff9cc122b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf16e9e20fb3dcc7fbe7dc99011a5761aa5f693637bf0c91b0abd5a4ff9cc122b",
+          "mock": false
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 16
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 16,
+    "allTxHashes": [
+      "0x30ba6c2638cc01154110df991a331c84458a2169716bdce0ec77e2b1c8eaf7a5",
+      "0x327d84a6dcb981ce77f2e4aa85bcaf56aba2531d0c297fa609d6f0ccb97125f6",
+      "0x2f2f5652585d70ef597c0f735b94e58b7fb11dabdf4176e493ff34165c2d3087",
+      "0x46ea303126c389dec957f640c3e93ee58905df3f628108254e0ecda4f2845b6b",
+      "0x6739a715446341f5c42148a92b61cb8ce9de14e847462f67f0bab2d1d3176acb",
+      "0x4196b0abf1f2d6d6370f1ad78d5d81b800ca8ca67ee1b227f4cafba46afe689b",
+      "0xf00cf4cf90fc1180b9aac22efbc8a405f80aab7012ebf76ad2baa8dfbb707042",
+      "MOCK_0x43953253a69dcf7da17db2c4231b88294f70e24008198bbd26fa8210004adaa4",
+      "MOCK_0x882dae567e6e2e6d14c8b5c6267801efb302825bdbbf75ac57c380036a4250d4",
+      "MOCK_0xcb887d346280cbcf116d7d5388bc3a367bfafc73587631763f720585fdaa4cc8",
+      "MOCK_0x618a98d92746f0954fbd64ac6e1dbf470dfa16b14ddc207485421a329d1fa1e9",
+      "MOCK_0x5cb48fcdb874cefd37f0c64db60b001d3a282a2e76be9c88c7db23466039d068",
+      "0x8ba0339f57449cb3a53e43699588c98c833506f076d7ef4ab404c25621665ef3",
+      "0x1f1a508459f2e44743942bad5348cf5c5bf05bd8b9ed5418d62cff551989db65",
+      "0xe0cadfb0684b941e88bcb7574b968cb3f68824fb1f254e572a81a9e6692f34cb",
+      "0xf16e9e20fb3dcc7fbe7dc99011a5761aa5f693637bf0c91b0abd5a4ff9cc122b"
+    ]
+  }
+}

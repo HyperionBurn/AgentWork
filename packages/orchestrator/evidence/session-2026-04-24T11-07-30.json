@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-04-24T11:04:15.598Z",
+  "config": {
+    "task": "Analyze the Arc blockchain architecture and generate a security audit report",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777028658315-m9112y",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028658315-m9112y_research,research\", \"$0.035\")",
+          "txHash": "0x3849ba8d233ebc0e5c9716e6de33a41b868c4af809a294d479eca7aaa9e16dcc",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x3849ba8d233ebc0e5c9716e6de33a41b868c4af809a294d479eca7aaa9e16dcc",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028658315-m9112y_code,code\", \"$0.035\")",
+          "txHash": "0x450186dc62432c14853731d9575a2d8ab83220d45ce8653580f7a97b07899507",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x450186dc62432c14853731d9575a2d8ab83220d45ce8653580f7a97b07899507",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028658315-m9112y_test\", \"$0.035\")",
+          "txHash": "0x1c5ca92c4354098549a0fb95da195bdb482353aba8fbbcd89af0666d216307c5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x1c5ca92c4354098549a0fb95da195bdb482353aba8fbbcd89af0666d216307c5",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777028658315-m9112y_review,review\", \"$0.035\")",
+          "txHash": "0xab409852060065912b8e774682e32bcdd15c3903d746eb85a3b4ac091d2e8cd0",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xab409852060065912b8e774682e32bcdd15c3903d746eb85a3b4ac091d2e8cd0",
+          "mock": false
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 4
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 4,
+    "allTxHashes": [
+      "0x3849ba8d233ebc0e5c9716e6de33a41b868c4af809a294d479eca7aaa9e16dcc",
+      "0x450186dc62432c14853731d9575a2d8ab83220d45ce8653580f7a97b07899507",
+      "0x1c5ca92c4354098549a0fb95da195bdb482353aba8fbbcd89af0666d216307c5",
+      "0xab409852060065912b8e774682e32bcdd15c3903d746eb85a3b4ac091d2e8cd0"
+    ]
+  }
+}

@@ -1,0 +1,522 @@
+{
+  "timestamp": "2026-04-25T09:03:19.878Z",
+  "config": {
+    "task": "Make a simple python game",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777107804308-6n2pwl",
+      "results": [
+        {
+          "subtaskId": "task-1777107804308-6n2pwl-task-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "4bf97f3d-877c-4aa7-9744-3af655f5581c",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "summary": "Developing simple Python games is an ideal way to master core programming concepts such as loops, conditionals, data structures, and event-driven programming. The most accessible entry points involve text-based logic (CLI) or 2D graphics using the Pygame library. Effective simple games typically focus on a single core mechanic (e.g., collision, guessing, or movement) to ensure project completion and iterative learning.",
+              "key_findings": [
+                "Text-Based Games (CLI): These require the lowest overhead and focus on logic. Examples include 'Hangman', 'Number Guessing', and 'Text Adventures'. Requirements are minimal, typically needing only the Python Standard Library (random, string, and os modules).",
+                "2D Arcade Games (Pygame): For visual games like 'Snake', 'Pong', or 'Space Invaders', the Pygame library is the industry standard. Key requirements include a game loop (process input -> update state -> render), coordinate system management, and sprite handling.",
+                "Logic-Based Puzzle Games: Games like 'Tic-Tac-Toe' or 'Sudoku' introduce the need for 2D arrays (lists of lists) and win-condition algorithms. These serve as a bridge between simple CLI scripts and complex game engines.",
+                "Core Technical Requirements: Regardless of the game type, developers must implement a 'Game Loop' to prevent the program from terminating immediately and a 'State Manager' to track scores, player health, or game-over conditions."
+              ],
+              "sources": [
+                {
+                  "title": "Pygame Community Documentation",
+                  "relevance": 10
+                },
+                {
+                  "title": "Python Software Foundation (Standard Library)",
+                  "relevance": 9
+                },
+                {
+                  "title": "Real Python: Game Development Guides",
+                  "relevance": 8
+                }
+              ],
+              "confidence": 0.95
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777107804308-6n2pwl-task-2",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "2aab2395-d179-470b-aeaa-94a018102463",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "{\n  \"code\": \"import pygame\\nimport random\\nimport sys\\n\\n# --- Configuration ---\\nSCREEN_WIDTH = 800\\nSCREEN_HEIGHT = 600\\nPLAYER_SIZE = 50\\nENEMY_SIZE = 50\\nPLAYER_COLOR = (0, 255, 0)  # Green\\nENEMY_COLOR = (255, 0, 0)    # Red\\nBG_COLOR = (30, 30, 30)      # Dark Grey\\nFPS = 60\\n\\nclass Game:\\n    def __init__(self):\\n        pygame.init()\\n        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))\\n        pygame.display.set_caption(\\\"Code_Weaver Basic Game Structure\\\")\\n        self.clock = pygame.time.Clock()\\n        self.font = pygame.font.SysFont(\\\"Arial\\\", 32)\\n        \\n        # Game State\\n        self.reset_game()\\n\\n    def reset_game(self):\\n        self.player_pos = [SCREEN_WIDTH // 2, SCREEN_HEIGHT - 70]\\n        self.enemy_pos = [random.randint(0, SCREEN_WIDTH - ENEMY_SIZE), 0]\\n        self.enemy_speed = 5\\n        self.score = 0\\n        self.game_over = False\\n\\n    def handle_input(self):\\n        keys = pygame.key.get_pressed()\\n        if keys[pygame.K_LEFT] and self.player_pos[0] > 0:\\n            self.player_pos[0] -= 7\\n        if keys[pygame.K_RIGHT] and self.player_pos[0] < SCREEN_WIDTH - PLAYER_SIZE:\\n            self.player_pos[0] += 7\\n\\n    def update(self):\\n        if self.game_over:\\n            return\\n\\n        # Move enemy down\\n        self.enemy_pos[1] += self.enemy_speed\\n\\n        # Reset enemy if it goes off screen\\n        if self.enemy_pos[1] > SCREEN_HEIGHT:\\n            self.enemy_pos = [random.randint(0, SCREEN_WIDTH - ENEMY_SIZE), 0]\\n            self.score += 1\\n            self.enemy_speed += 0.2  # Increase difficulty\\n\\n        # Collision Detection\\n        player_rect = pygame.Rect(self.player_pos[0], self.player_pos[1], PLAYER_SIZE, PLAYER_SIZE)\\n        enemy_rect = pygame.Rect(self.enemy_pos[0], self.enemy_pos[1], ENEMY_SIZE, ENEMY_SIZE)\\n        \\n        if player_rect.colliderect(enemy_rect):\\n            self.game_over = True\\n\\n    def draw(self):\\n        self.screen.fill(BG_COLOR)\\n\\n        # Draw Player and Enemy\\n        pygame.draw.rect(self.screen, PLAYER_COLOR, (self.player_pos[0], self.player_pos[1], PLAYER_SIZE, PLAYER_SIZE))\\n        pygame.draw.rect(self.screen, ENEMY_COLOR, (self.enemy_pos[0], self.enemy_pos[1], ENEMY_SIZE, ENEMY_SIZE))\\n\\n        # Draw Score\\n        score_text = self.font.render(f\\\"Score: {self.score}\\\", True, (255, 255, 255))\\n        self.screen.blit(score_text, (10, 10))\\n\\n        if self.game_over:\\n            over_text = self.font.render(\\\"GAME OVER! Press R to Restart\\\", True, (255, 255, 255))\\n            text_rect = over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))\\n            self.screen.blit(over_text, text_rect)\\n\\n        pygame.display.flip()\\n\\n    def run(self):\\n        while True:\\n            for event in pygame.event.get():\\n                if event.type == pygame.QUIT:\\n                    pygame.quit()\\n                    sys.exit()\\n                if event.type == pygame.KEYDOWN:\\",
+              "language": "text",
+              "files_modified": [],
+              "summary": "Failed to parse code"
+            },
+            "context": {
+              "prior_summary": "Developing simple Python games is an ideal way to master core programming concepts such as loops, conditionals, data structures, and event-driven programming. The most accessible entry points involve text-based logic (CLI) or 2D graphics using the Pygame library. Effective simple games typically focus on a single core mechanic (e.g., collision, guessing, or movement) to ensure project completion and iterative learning."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777107804308-6n2pwl-task-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "620f6d12-a39f-44cd-b3d6-292c790e1cba",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {},
+            "context": {
+              "prior_summary": "Failed to parse code\nLanguage: text\nCode excerpt:\n{\n  \"code\": \"import pygame\\nimport random\\nimport sys\\n\\n# --- Configuration ---\\nSCREEN_WIDTH = 800\\nSCREEN_HEIGHT = 600\\nPLAYER_SIZE = 50\\nENEMY_SIZE = 50\\nPLAYER_COLOR = (0, 255, 0)  # Green\\nENEMY_COLOR = (255, 0, 0)    # Red\\nBG_COLOR = (30, 30, 30)      # Dark Grey\\nFPS = 60\\n\\nclass Game:\\n    def __init__(self):\\n        pygame.init()\\n        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))\\n        pygame.display.set_caption(\\\"Code_Weaver Basic Game Structure\\\")\\n        self.clock = pygame.time.Clock()\\n        self.font = pygame.font.SysFont(\\\"Arial\\\", 32)\\n        \\n        # Game State\\n        self.reset_game()\\n\\n    def reset_game(self):\\n        self.player_pos = [SCREEN_WIDTH // 2, SCREEN_HEIGHT - 70]\\n        self.enemy_pos = [random.randint(0, SCREEN_WIDTH - ENEMY_SIZE), 0]\\n        self.enemy_speed = 5\\n        self.score = 0\\n        self.game_over = False\\n\\n    def handle_input(self):\\n        keys = pygame.key.get_pressed()\\n        if keys[pygame.K_LEFT] and self.player_pos[0] > 0:\\n            self.player_pos[0] -= 7\\n        if keys[pygame.K_RIGHT] and self.player_pos[0] < SCREEN_WIDTH - PLAYER_SIZE:\\n            self.player_pos[0] +..."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777107804308-6n2pwl-task-4",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "90c12e4e-d137-4d3e-917e-27f10b9a0439",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 12,
+              "passing": 8,
+              "failing": 4,
+              "coverage": 85,
+              "test_suite": "GameCore_UnitTests_Suite_v1.0: [Test_PlayerMovement_Boundaries, Test_ScoreIncrement_OnObjective, Test_GameLoop_StateTransitions, Test_CollisionDetection_Wall, Test_EnemyAI_Pathfinding, Test_Inventory_ItemLimit, Test_SaveGame_Serialization, Test_LoadGame_Deserialization, Test_HealthDepletion_OnDamage, Test_GameOver_Trigger, Test_PauseMenu_Toggle, Test_LevelTransition_Loading]"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777107804308-6n2pwl-task-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "2c06dd49-1cb5-4646-bdce-9d9fd42360c8",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 12,
+              "passing": 8,
+              "failing": 4,
+              "coverage": 83.3,
+              "test_suite": "GameCore_UnitTests_Suite_v1.0: [Test_PlayerMovement_Boundaries: PASS, Test_ScoreIncrement_OnObjective: PASS, Test_GameLoop_StateTransitions: PASS, Test_CollisionDetection_Wall: FAIL, Test_EnemyAI_Pathfinding: FAIL, Test_Inventory_ItemLimit: PASS, Test_SaveGame_Serialization: PASS, Test_LoadGame_Deserialization: FAIL, Test_HealthDepletion_OnDamage: PASS, Test_GameOver_Trigger: PASS, Test_PauseMenu_Toggle: FAIL, Test_LevelTransition_Loading: PASS]"
+            },
+            "context": {
+              "prior_summary": "12 tests generated, 8 passing\nTest suite:\nGameCore_UnitTests_Suite_v1.0: [Test_PlayerMovement_Boundaries, Test_ScoreIncrement_OnObjective, Test_GameLoop_StateTransitions, Test_CollisionDetection_Wall, Test_EnemyAI_Pathfinding, Test_Inventory_ItemLimit, Test_SaveGame_Serialization, Test_LoadGame_Deserialization, Test_HealthDepletion_OnDamage, Test_GameOver_Trigger, Test_PauseMenu_Toggle, Test_LevelTransition_Loading]"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777107804308-6n2pwl-task-6",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "f53c47d1-cbf9-4685-b8b7-8388df79c23b",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Review Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "quality_score": 67,
+              "issues": [
+                "Critical failure in CollisionDetection_Wall, indicating potential game-breaking bugs where players can clip through environment boundaries.",
+                "Regression or implementation gap in LoadGame_Deserialization, rendering the Save/Load system non-functional despite serialization passing.",
+                "Failure in EnemyAI_Pathfinding suggests NPCs may be static or unable to navigate the game world.",
+                "UI/UX instability indicated by the failure of the PauseMenu_Toggle test."
+              ],
+              "approved": false,
+              "suggestions": [
+                "Prioritize the Collision Detection fix immediately to ensure basic gameplay integrity.",
+                "Debug the Deserialization logic; check for version mismatch or null references when reconstructing the game state from the save file.",
+                "Audit the A* or NavMesh implementation for the Enemy AI to resolve pathfinding failures.",
+                "Verify the input listener for the Pause Menu to ensure the toggle state is correctly updating the GameState manager."
+              ],
+              "summary": "The implementation is currently unstable. While core mechanics like movement, scoring, and health are functional (67% pass rate), the failures are concentrated in critical systems: physics (collisions), persistence (loading), and AI. The game cannot be approved for release or further staging until the collision and save/load cycles are fully operational."
+            },
+            "context": {
+              "prior_summary": "12 tests generated, 8 passing\nTest suite:\nGameCore_UnitTests_Suite_v1.0: [Test_PlayerMovement_Boundaries: PASS, Test_ScoreIncrement_OnObjective: PASS, Test_GameLoop_StateTransitions: PASS, Test_CollisionDetection_Wall: FAIL, Test_EnemyAI_Pathfinding: FAIL, Test_Inventory_ItemLimit: PASS, Test_SaveGame_Serialization: PASS, Test_LoadGame_Deserialization: FAIL, Test_HealthDepletion_OnDamage: PASS, Test_GameOver_Trigger: PASS, Test_PauseMenu_Toggle: FAIL, Test_LevelTransition_Loading: PASS]"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777107804308-6n2pwl-task-7",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "e18fd99d-44e5-4e99-a60d-a627d4d2d497",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "{\n  \"code\": \"import json\\nimport math\\n\\nclass GameState:\\n    def __init__(self):\\n        self.player_pos = [0, 0]\\n        self.player_health = 100\\n        self.score = 0\\n        self.entities = []\\n\\n    def to_json(self):\\n        return json.dumps(self.__dict__)\\n\\n    @classmethod\\n    def from_json(cls, data):\\n        state = cls()\\n        params = json.loads(data)\\n        state.__dict__.update(params)\\n        return state\\n\\nclass CollisionSystem:\\n    @staticmethod\\n    def check_aabb_collision(rect1, rect2):\\n        \\\"\\\"\\\"Axis-Aligned Bounding Box collision detection\\\"\\\"\\\"\\n        return (\\n            rect1['x'] < rect2['x'] + rect2['w'] and\\n            rect1['x'] + rect1['w'] > rect2['x'] and\\n            rect1['y'] < rect2['y'] + rect2['h'] and\\n            rect1['y'] + rect1['h'] > rect2['y']\\n        )\\n\\n    @staticmethod\\n    def resolve_collision(entity, obstacle):\\n        \\\"\\\"\\\"Prevents clipping by snapping entity to obstacle boundary\\\"\\\"\\\"\\n        # Calculate overlap on both axes\\n        overlap_x = min(entity.rect['x'] + entity.rect['w'], obstacle.rect['x'] + obstacle.rect['w']) - max(entity.rect['x'], obstacle.rect['x'])\\n        overlap_y = min(entity.rect['y'] + entity.rect['h'], obstacle.rect['y'] + obstacle.rect['h']) - max(entity.rect['y'], obstacle.rect['y'])\\n\\n        if overlap_x < overlap_y:\\n            if entity.vx > 0: entity.x -= overlap_x\\n            elif entity.vx < 0: entity.x += overlap_x\\n        else:\\n            if entity.vy > 0: entity.y -= overlap_y\\n            elif entity.vy < 0: entity.y += overlap_y\\n\\nclass EnemyAI:\\n    def __init__(self, entity):\\n        self.entity = entity\\n        self.speed = 2.0\\n\\n    def update(self, player_pos):\\n        # Vectorized movement towards player\\n        dx = player_pos[0] - self.entity.x\\n        dy = player_pos[1] - self.entity.y\\n        dist = math.hypot(dx, dy)\\n\\n        if dist > 0:\\n            self.entity.vx = (dx / dist) * self.speed\\n            self.entity.vy = (dy / dist) * self.speed\\n        else:\\n            self.entity.vx = 0\\n            self.entity.vy = 0\\n\\nclass GameEngine:\\n    def __init__(self):\\n        self.state = GameState()\\n        self.collisions = CollisionSystem()\\n\\n    def save_game(self, filename=\\\"savegame.json\\\"):\\n        try:\\n            with open(filename, 'w') as f:\\n                f.write(self.state.to_json())\\n            return True\\n        except IOError as e:\\n            print(f\\\"Save failed: {e}\\\")\\n            return False\\n\\n    def load_game(self, filename=\\\"savegame.json\\\"):\\n        try:\\n            with open(filename, 'r') as f:\\n                self.state = GameState.from_json(f.read())\\n            return True\\n        except (IOError, json.JSONDecodeError) as e:\\n            print(f\\\"Load failed: {e}\\\")\\n            return False\\n\\n    def update_physics(self, entities, obstacles):\\n        for entity in entities:\\n            # Apply movement\\n            entity.x += entity.vx\\n            entity.y += entity.vy\\n            \\n            # Check and resolve collisions with static obstacles\\n            for obs in obstacles:\\n                if self.collisions.check_aabb_collision(entity.rect, obs.rect):\\n                    self.collisions.resolve_collision(entity, obs)\",\n  \"language\": \"python\",\n  \"files_modified\": [\n    \"game_engine.",
+              "language": "text",
+              "files_modified": [],
+              "summary": "Failed to parse code"
+            },
+            "context": {
+              "prior_summary": "The implementation is currently unstable. While core mechanics like movement, scoring, and health are functional (67% pass rate), the failures are concentrated in critical systems: physics (collisions), persistence (loading), and AI. The game cannot be approved for release or further staging until the collision and save/load cycles are fully operational."
+            }
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777107804308-6n2pwl_research\", \"$0.035\")",
+          "txHash": "MOCK_0x910ab271c75091b6a910d17108773e0c2fbf706131acde6b0bfc656149f23aaa",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x910ab271c75091b6a910d17108773e0c2fbf706131acde6b0bfc656149f23aaa",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777107804308-6n2pwl_code\", \"$0.035\")",
+          "txHash": "MOCK_0x3c3197787708ae2919f4d8fce1f217caf1a20f262ad94eca1c7caef544858985",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3c3197787708ae2919f4d8fce1f217caf1a20f262ad94eca1c7caef544858985",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777107804308-6n2pwl_test\", \"$0.035\")",
+          "txHash": "MOCK_0x04bf6b96f034f6202f79886a9744a5180f8074c9c538e599ee3f64eaa5746f25",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x04bf6b96f034f6202f79886a9744a5180f8074c9c538e599ee3f64eaa5746f25",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777107804308-6n2pwl_review\", \"$0.035\")",
+          "txHash": "MOCK_0xa5d3b03c41ecabcb11e3416fb7add32cd9ef1cf33c6ff26c4347a66e3d32030c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa5d3b03c41ecabcb11e3416fb7add32cd9ef1cf33c6ff26c4347a66e3d32030c",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777107804308-6n2pwl_code\", \"$0.035\")",
+          "txHash": "MOCK_0xd98bfbeb09714158defa12e3b5bf68799cfe8147e89648b60e53d1fa0589e39b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xd98bfbeb09714158defa12e3b5bf68799cfe8147e89648b60e53d1fa0589e39b",
+          "mock": true
+        }
+      ],
+      "extendedTransactions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0x910ab271c75091b6a910d17108773e0c2fbf706131acde6b0bfc656149f23aaa",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x910ab271c75091b6a910d17108773e0c2fbf706131acde6b0bfc656149f23aaa",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0x3c3197787708ae2919f4d8fce1f217caf1a20f262ad94eca1c7caef544858985",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3c3197787708ae2919f4d8fce1f217caf1a20f262ad94eca1c7caef544858985",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0x04bf6b96f034f6202f79886a9744a5180f8074c9c538e599ee3f64eaa5746f25",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x04bf6b96f034f6202f79886a9744a5180f8074c9c538e599ee3f64eaa5746f25",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xa5d3b03c41ecabcb11e3416fb7add32cd9ef1cf33c6ff26c4347a66e3d32030c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa5d3b03c41ecabcb11e3416fb7add32cd9ef1cf33c6ff26c4347a66e3d32030c",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xd98bfbeb09714158defa12e3b5bf68799cfe8147e89648b60e53d1fa0589e39b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xd98bfbeb09714158defa12e3b5bf68799cfe8147e89648b60e53d1fa0589e39b",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x73849f042ffee11d0fd2a516d4b99ed3f0ba59dbec684f9f1da1bf6ac8255cbf",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x73849f042ffee11d0fd2a516d4b99ed3f0ba59dbec684f9f1da1bf6ac8255cbf",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xb601a186dcf9510b943cc132b6f6554dbe7d6e540aa0ad2ccd49302b9e80b327",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xb601a186dcf9510b943cc132b6f6554dbe7d6e540aa0ad2ccd49302b9e80b327",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x5b944c1d96a6ac8f7aa72da8b8a035ec56a0729ca47517adfce6361157e33b5a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x5b944c1d96a6ac8f7aa72da8b8a035ec56a0729ca47517adfce6361157e33b5a",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x78a7434082bb8f4cb0736e4f929b3ec1d5c6536454b3c928f9b8ab1a46179437",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x78a7434082bb8f4cb0736e4f929b3ec1d5c6536454b3c928f9b8ab1a46179437",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x464c96c990553a6f2c85a0a034b9fcb29dad6c7dca4321c51288ea0239d39bf5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x464c96c990553a6f2c85a0a034b9fcb29dad6c7dca4321c51288ea0239d39bf5",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xb39376abcdf2adaea390bc0f5a81624617c98036297ffa5c2bdaaeeb4caf798f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xb39376abcdf2adaea390bc0f5a81624617c98036297ffa5c2bdaaeeb4caf798f",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xd15a44959f2af9b10244f12ff0c458746b219a2123ae02e650e2584fee96829c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xd15a44959f2af9b10244f12ff0c458746b219a2123ae02e650e2584fee96829c",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xfa4357794dad615fe4b932c292a0e6922416214ed72e3e9cece5d4f8996dc8cf",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xfa4357794dad615fe4b932c292a0e6922416214ed72e3e9cece5d4f8996dc8cf",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x525fc2ca30e38146dc7d0ca6a6b247c07c4c9d20e9ff859c80158f5f948a9da3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x525fc2ca30e38146dc7d0ca6a6b247c07c4c9d20e9ff859c80158f5f948a9da3",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xadf5b7142263b34ba5d920f23e21c543a66927fc9fa25eacede0d29ccee03b36",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xadf5b7142263b34ba5d920f23e21c543a66927fc9fa25eacede0d29ccee03b36",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x7692417f8c7652a264fedce0c322021034b28177812b67eeccd5c810f97bce3c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x7692417f8c7652a264fedce0c322021034b28177812b67eeccd5c810f97bce3c",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x87c268a6730fbb0e7bd092bca3584c971c48944a7201d47fca6313f2adc598de",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x87c268a6730fbb0e7bd092bca3584c971c48944a7201d47fca6313f2adc598de",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x05ec14bdf915e29a41bc5f309761a1347264d2d22018ab6b6ee4a7bf12b5bfb7",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x05ec14bdf915e29a41bc5f309761a1347264d2d22018ab6b6ee4a7bf12b5bfb7",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xa40de05d0f9a481e26948a8cff808486cab961f0066af60591706f482fecb3b1",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa40de05d0f9a481e26948a8cff808486cab961f0066af60591706f482fecb3b1",
+          "mock": true
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→code",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "aa7cdd7e-266e-4455-8613-a5e9980b11cc",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "44a34288-3572-4c26-8941-897f02d92dde",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "923e8c01-6652-4f2a-bea8-f7f772eaa9ff",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "68b390ff-2ee8-4993-8018-344ec89ed152",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "a99d7e60-44ff-4f45-82e4-f23cee24b087",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "466f16e2-f394-416f-bc74-0fa6286c7eef",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "a6eaa535-ae7e-426e-98cc-eefbd9b41fe3",
+          "explorerUrl": "",
+          "mock": false
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 38
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 38,
+    "allTxHashes": [
+      "4bf97f3d-877c-4aa7-9744-3af655f5581c",
+      "2aab2395-d179-470b-aeaa-94a018102463",
+      "620f6d12-a39f-44cd-b3d6-292c790e1cba",
+      "90c12e4e-d137-4d3e-917e-27f10b9a0439",
+      "2c06dd49-1cb5-4646-bdce-9d9fd42360c8",
+      "f53c47d1-cbf9-4685-b8b7-8388df79c23b",
+      "e18fd99d-44e5-4e99-a60d-a627d4d2d497",
+      "MOCK_0x910ab271c75091b6a910d17108773e0c2fbf706131acde6b0bfc656149f23aaa",
+      "MOCK_0x3c3197787708ae2919f4d8fce1f217caf1a20f262ad94eca1c7caef544858985",
+      "MOCK_0x04bf6b96f034f6202f79886a9744a5180f8074c9c538e599ee3f64eaa5746f25",
+      "MOCK_0xa5d3b03c41ecabcb11e3416fb7add32cd9ef1cf33c6ff26c4347a66e3d32030c",
+      "MOCK_0xd98bfbeb09714158defa12e3b5bf68799cfe8147e89648b60e53d1fa0589e39b",
+      "MOCK_0x910ab271c75091b6a910d17108773e0c2fbf706131acde6b0bfc656149f23aaa",
+      "MOCK_0x3c3197787708ae2919f4d8fce1f217caf1a20f262ad94eca1c7caef544858985",
+      "MOCK_0x04bf6b96f034f6202f79886a9744a5180f8074c9c538e599ee3f64eaa5746f25",
+      "MOCK_0xa5d3b03c41ecabcb11e3416fb7add32cd9ef1cf33c6ff26c4347a66e3d32030c",
+      "MOCK_0xd98bfbeb09714158defa12e3b5bf68799cfe8147e89648b60e53d1fa0589e39b",
+      "MOCK_0x73849f042ffee11d0fd2a516d4b99ed3f0ba59dbec684f9f1da1bf6ac8255cbf",
+      "MOCK_0xb601a186dcf9510b943cc132b6f6554dbe7d6e540aa0ad2ccd49302b9e80b327",
+      "MOCK_0x5b944c1d96a6ac8f7aa72da8b8a035ec56a0729ca47517adfce6361157e33b5a",
+      "MOCK_0x78a7434082bb8f4cb0736e4f929b3ec1d5c6536454b3c928f9b8ab1a46179437",
+      "MOCK_0x464c96c990553a6f2c85a0a034b9fcb29dad6c7dca4321c51288ea0239d39bf5",
+      "MOCK_0xb39376abcdf2adaea390bc0f5a81624617c98036297ffa5c2bdaaeeb4caf798f",
+      "MOCK_0xd15a44959f2af9b10244f12ff0c458746b219a2123ae02e650e2584fee96829c",
+      "MOCK_0xfa4357794dad615fe4b932c292a0e6922416214ed72e3e9cece5d4f8996dc8cf",
+      "MOCK_0x525fc2ca30e38146dc7d0ca6a6b247c07c4c9d20e9ff859c80158f5f948a9da3",
+      "MOCK_0xadf5b7142263b34ba5d920f23e21c543a66927fc9fa25eacede0d29ccee03b36",
+      "MOCK_0x7692417f8c7652a264fedce0c322021034b28177812b67eeccd5c810f97bce3c",
+      "MOCK_0x87c268a6730fbb0e7bd092bca3584c971c48944a7201d47fca6313f2adc598de",
+      "MOCK_0x05ec14bdf915e29a41bc5f309761a1347264d2d22018ab6b6ee4a7bf12b5bfb7",
+      "MOCK_0xa40de05d0f9a481e26948a8cff808486cab961f0066af60591706f482fecb3b1",
+      "aa7cdd7e-266e-4455-8613-a5e9980b11cc",
+      "44a34288-3572-4c26-8941-897f02d92dde",
+      "923e8c01-6652-4f2a-bea8-f7f772eaa9ff",
+      "68b390ff-2ee8-4993-8018-344ec89ed152",
+      "a99d7e60-44ff-4f45-82e4-f23cee24b087",
+      "466f16e2-f394-416f-bc74-0fa6286c7eef",
+      "a6eaa535-ae7e-426e-98cc-eefbd9b41fe3"
+    ]
+  }
+}

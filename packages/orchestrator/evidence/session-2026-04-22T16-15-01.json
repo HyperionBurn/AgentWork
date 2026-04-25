@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-04-22T16:14:18.102Z",
+  "config": {
+    "task": "Build a REST API with user authentication, CRUD endpoints, and unit tests",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776874461126-kfpnzj",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776874461126-kfpnzj_research: Research best practices for REST API design and security\", \"$0.035\")",
+          "txHash": "MOCK_0xf29e2c2a129816087191d0b86ce3840793c556c601e0f6ab722d074bcfdded73",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf29e2c2a129816087191d0b86ce3840793c556c601e0f6ab722d074bcfdded73",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776874461126-kfpnzj_research: Research user authentication methods for REST APIs\", \"$0.035\")",
+          "txHash": "MOCK_0x3dd92fd71893c426d929ce13e20a1bac472f339845ccae6ea6db5482c004515e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3dd92fd71893c426d929ce13e20a1bac472f339845ccae6ea6db5482c004515e",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776874461126-kfpnzj_code: Design and implement user authentication system\", \"$0.035\")",
+          "txHash": "MOCK_0xa7469a92939706e7461581e47c3fca149c0010c6fcca1d691ac563d3214d86f8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa7469a92939706e7461581e47c3fca149c0010c6fcca1d691ac563d3214d86f8",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776874461126-kfpnzj_code: Implement CRUD endpoints for the REST API\", \"$0.035\")",
+          "txHash": "MOCK_0x30dd0b31317e781f490a0aa2eb04ea8cbf43273d7a022588b1cb89667fef2666",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x30dd0b31317e781f490a0aa2eb04ea8cbf43273d7a022588b1cb89667fef2666",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776874461126-kfpnzj_code: Write unit tests for the REST API endpoints\", \"$0.035\")",
+          "txHash": "MOCK_0x00656c960c555e2ddad3a803c4f2ef483af76f62c0963be22d1689cb84d6ad60",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x00656c960c555e2ddad3a803c4f2ef483af76f62c0963be22d1689cb84d6ad60",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776874461126-kfpnzj_test: Run unit tests for the REST API endpoints\", \"$0.035\")",
+          "txHash": "MOCK_0x6879af22732f3a6312e4f0ad896c100647d95324f345447eace1d377336b2274",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x6879af22732f3a6312e4f0ad896c100647d95324f345447eace1d377336b2274",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776874461126-kfpnzj_review: Review the REST API design, implementation, and test coverage\", \"$0.035\")",
+          "txHash": "MOCK_0xa6e380b6c068361b6ba45655d7caddb8e580d258eb7061487e62c9e9e559433a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa6e380b6c068361b6ba45655d7caddb8e580d258eb7061487e62c9e9e559433a",
+          "mock": true
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 7
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 7,
+    "allTxHashes": [
+      "MOCK_0xf29e2c2a129816087191d0b86ce3840793c556c601e0f6ab722d074bcfdded73",
+      "MOCK_0x3dd92fd71893c426d929ce13e20a1bac472f339845ccae6ea6db5482c004515e",
+      "MOCK_0xa7469a92939706e7461581e47c3fca149c0010c6fcca1d691ac563d3214d86f8",
+      "MOCK_0x30dd0b31317e781f490a0aa2eb04ea8cbf43273d7a022588b1cb89667fef2666",
+      "MOCK_0x00656c960c555e2ddad3a803c4f2ef483af76f62c0963be22d1689cb84d6ad60",
+      "MOCK_0x6879af22732f3a6312e4f0ad896c100647d95324f345447eace1d377336b2274",
+      "MOCK_0xa6e380b6c068361b6ba45655d7caddb8e580d258eb7061487e62c9e9e559433a"
+    ]
+  }
+}

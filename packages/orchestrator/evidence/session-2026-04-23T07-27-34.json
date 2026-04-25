@@ -1,0 +1,193 @@
+{
+  "timestamp": "2026-04-23T07:18:57.388Z",
+  "config": {
+    "task": "Yo",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776928739418-sl7ojw",
+      "results": [
+        {
+          "subtaskId": "task-1776928739418-sl7ojw-task-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "ec32d94e-6204-4053-bf2c-34d5b117135e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/ec32d94e-6204-4053-bf2c-34d5b117135e",
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "summary": "Comprehensive research analysis on 'Understand the meaning of 'Yo''",
+              "key_findings": [
+                "Primary pattern identified in Understand the meaning of 'Yo': convergent architecture with microservices",
+                "Secondary analysis of Understand the meaning of 'Yo': 3 major approaches documented in literature",
+                "Best practice for Understand the meaning of 'Yo': event-driven design with idempotent handlers",
+                "Risk assessment for Understand the meaning of 'Yo': moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "title": "Primary Analysis: Understand the meaning of 'Yo'",
+                  "relevance": 0.95
+                },
+                {
+                  "title": "Supporting Evidence: Architecture Patterns",
+                  "relevance": 0.87
+                },
+                {
+                  "title": "Background Context: Industry Standards",
+                  "relevance": 0.82
+                },
+                {
+                  "title": "Comparative Study: Understand the meaning of 'Yo' Approaches",
+                  "relevance": 0.79
+                }
+              ],
+              "confidence": 0.91
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776928739418-sl7ojw-task-2",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "2afc0c8e-ee18-49e2-aa9c-af6fe9cbe59a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/2afc0c8e-ee18-49e2-aa9c-af6fe9cbe59a",
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "# Auto-generated implementation for: Generate a response to 'Yo'\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "language": "python",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "test_coverage": 0.87,
+              "summary": "Generated REST API implementation for: Generate a response to 'Yo'"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776928739418-sl7ojw-task-3",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "fb3a7f8d-05f5-4826-893d-9bb31d824f94",
+          "explorerUrl": "https://testnet.arcscan.io/tx/fb3a7f8d-05f5-4826-893d-9bb31d824f94",
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 6,
+              "passing": 5,
+              "failing": 1,
+              "coverage": 0.87,
+              "test_suite": "test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776928739418-sl7ojw-task-4",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "67e1e933-5192-46d8-b1f5-59aaebb43ebf",
+          "explorerUrl": "https://testnet.arcscan.io/tx/67e1e933-5192-46d8-b1f5-59aaebb43ebf",
+          "response": {
+            "success": true,
+            "agent": "Review Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "quality_score": 87,
+              "issues": [
+                {
+                  "severity": "minor",
+                  "description": "Missing type annotation on line 42"
+                },
+                {
+                  "severity": "suggestion",
+                  "description": "Consider using async for I/O operations"
+                },
+                {
+                  "severity": "minor",
+                  "description": "Magic number in config — extract to constant"
+                }
+              ],
+              "approved": true,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Quality review completed for: Review the response to 'Yo'"
+            }
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776928739418-sl7ojw_research\", \"$0.020\")",
+          "txHash": "0x6d72379dfcbc461da454264cfbd0bd8135b94d5be5b979316145a4ab7a30ff01",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x6d72379dfcbc461da454264cfbd0bd8135b94d5be5b979316145a4ab7a30ff01",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776928739418-sl7ojw_code\", \"$0.020\")",
+          "txHash": "0x04381f1865dd9c94e9071ba889a4b0456bda7ab6df93136ae7d5c9c77b41152c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x04381f1865dd9c94e9071ba889a4b0456bda7ab6df93136ae7d5c9c77b41152c",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776928739418-sl7ojw_test\", \"$0.020\")",
+          "txHash": "0x70183165ae333b85c2d048d18ebe9d57e1ef55753b132ceb752402f235c185dc",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x70183165ae333b85c2d048d18ebe9d57e1ef55753b132ceb752402f235c185dc",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776928739418-sl7ojw_review\", \"$0.020\")",
+          "txHash": "0x939c7ac694e1606da0a10c700ef153864cfa90d19e19fdc2c044e186732b3590",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x939c7ac694e1606da0a10c700ef153864cfa90d19e19fdc2c044e186732b3590",
+          "mock": false
+        }
+      ],
+      "cost": "$0.020",
+      "transactionCount": 8
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 4,
+    "totalFailed": 0,
+    "totalCost": 0.02,
+    "totalTransactions": 8,
+    "allTxHashes": [
+      "ec32d94e-6204-4053-bf2c-34d5b117135e",
+      "2afc0c8e-ee18-49e2-aa9c-af6fe9cbe59a",
+      "fb3a7f8d-05f5-4826-893d-9bb31d824f94",
+      "67e1e933-5192-46d8-b1f5-59aaebb43ebf",
+      "0x6d72379dfcbc461da454264cfbd0bd8135b94d5be5b979316145a4ab7a30ff01",
+      "0x04381f1865dd9c94e9071ba889a4b0456bda7ab6df93136ae7d5c9c77b41152c",
+      "0x70183165ae333b85c2d048d18ebe9d57e1ef55753b132ceb752402f235c185dc",
+      "0x939c7ac694e1606da0a10c700ef153864cfa90d19e19fdc2c044e186732b3590"
+    ]
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "timestamp": "2026-04-23T09:03:57.926Z",
+  "config": {
+    "task": "build a cute python game",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776935042432-0ft7tk",
+      "results": [
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "15f47209-76ed-40d7-b568-34d172142eaf",
+          "explorerUrl": "https://testnet.arcscan.io/tx/15f47209-76ed-40d7-b568-34d172142eaf",
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "summary": "Comprehensive research analysis on 'Research popular cute game ideas'",
+              "key_findings": [
+                "Primary pattern identified in Research popular cute game ideas: convergent architecture with microservices",
+                "Secondary analysis of Research popular cute game ideas: 3 major approaches documented in literature",
+                "Best practice for Research popular cute game ideas: event-driven design with idempotent handlers",
+                "Risk assessment for Research popular cute game ideas: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "title": "Primary Analysis: Research popular cute game ideas",
+                  "relevance": 0.95
+                },
+                {
+                  "title": "Supporting Evidence: Architecture Patterns",
+                  "relevance": 0.87
+                },
+                {
+                  "title": "Background Context: Industry Standards",
+                  "relevance": 0.82
+                },
+                {
+                  "title": "Comparative Study: Research popular cute game ideas Approaches",
+                  "relevance": 0.79
+                }
+              ],
+              "confidence": 0.91
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "f2b85216-926b-4f07-a9fd-9b59dd1ad39a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/f2b85216-926b-4f07-a9fd-9b59dd1ad39a",
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "summary": "Comprehensive research analysis on 'Research Python game development libraries'",
+              "key_findings": [
+                "Primary pattern identified in Research Python game development libraries: convergent architecture with microservices",
+                "Secondary analysis of Research Python game development libraries: 3 major approaches documented in literature",
+                "Best practice for Research Python game development libraries: event-driven design with idempotent handlers",
+                "Risk assessment for Research Python game development libraries: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "title": "Primary Analysis: Research Python game development libraries",
+                  "relevance": 0.95
+                },
+                {
+                  "title": "Supporting Evidence: Architecture Patterns",
+                  "relevance": 0.87
+                },
+                {
+                  "title": "Background Context: Industry Standards",
+                  "relevance": 0.82
+                },
+                {
+                  "title": "Comparative Study: Research Python game development libraries Approaches",
+                  "relevance": 0.79
+                }
+              ],
+              "confidence": 0.91
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "00eed6fa-d032-408a-b62c-c0258e7fa8ed",
+          "explorerUrl": "https://testnet.arcscan.io/tx/00eed6fa-d032-408a-b62c-c0258e7fa8ed",
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "# Auto-generated implementation for: Create a new Python project with a game development library\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "language": "python",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "test_coverage": 0.87,
+              "summary": "Generated REST API implementation for: Create a new Python project with a game development library"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "27cf04ae-764d-4d46-a22b-58a8b9836a1b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/27cf04ae-764d-4d46-a22b-58a8b9836a1b",
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "# Auto-generated implementation for: Implement game logic and features\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "language": "python",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "test_coverage": 0.87,
+              "summary": "Generated REST API implementation for: Implement game logic and features"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "9852307e-26ae-44b9-85bb-6b2871297944",
+          "explorerUrl": "https://testnet.arcscan.io/tx/9852307e-26ae-44b9-85bb-6b2871297944",
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 6,
+              "passing": 5,
+              "failing": 1,
+              "coverage": 0.87,
+              "test_suite": "test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "c94ef4c1-88e3-4154-96f7-e17b031073a1",
+          "explorerUrl": "https://testnet.arcscan.io/tx/c94ef4c1-88e3-4154-96f7-e17b031073a1",
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 6,
+              "passing": 5,
+              "failing": 1,
+              "coverage": 0.87,
+              "test_suite": "test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "87256741-736f-407a-a3fd-400f03a42a17",
+          "explorerUrl": "https://testnet.arcscan.io/tx/87256741-736f-407a-a3fd-400f03a42a17",
+          "response": {
+            "success": true,
+            "agent": "Review Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "quality_score": 87,
+              "issues": [
+                {
+                  "severity": "minor",
+                  "description": "Missing type annotation on line 42"
+                },
+                {
+                  "severity": "suggestion",
+                  "description": "Consider using async for I/O operations"
+                },
+                {
+                  "severity": "minor",
+                  "description": "Magic number in config — extract to constant"
+                }
+              ],
+              "approved": true,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Quality review completed for: Review the game for cuteness and overall quality"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776935042432-0ft7tk-task-8",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "10cb3609-77ff-45ca-8bb5-d7a7b6a214b9",
+          "explorerUrl": "https://testnet.arcscan.io/tx/10cb3609-77ff-45ca-8bb5-d7a7b6a214b9",
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "# Auto-generated implementation for: Refactor and polish the game based on review feedback\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "language": "python",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "test_coverage": 0.87,
+              "summary": "Generated REST API implementation for: Refactor and polish the game based on review feedback"
+            }
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_research\", \"$0.040\")",
+          "txHash": "0x5479da37cf73d4c0c4f75d435c84bff3f1e7fa9c7027ac07bc73611283d18468",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x5479da37cf73d4c0c4f75d435c84bff3f1e7fa9c7027ac07bc73611283d18468",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_research\", \"$0.040\")",
+          "txHash": "0xb86a0a5a191e8e1206b6ce9988d99e3fa4819ae4e4dfb211bbd348809f89f0c6",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xb86a0a5a191e8e1206b6ce9988d99e3fa4819ae4e4dfb211bbd348809f89f0c6",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_code\", \"$0.040\")",
+          "txHash": "0xd5690bf0e08fee31843ae4aa934c29274032a21d40001ba98c0be636f7882e6e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xd5690bf0e08fee31843ae4aa934c29274032a21d40001ba98c0be636f7882e6e",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_code\", \"$0.040\")",
+          "txHash": "0xb573bfff5f12178288238ffb8c7a96b2392b1bffde7e5612a8a5cc1f78a847bb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xb573bfff5f12178288238ffb8c7a96b2392b1bffde7e5612a8a5cc1f78a847bb",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_test\", \"$0.040\")",
+          "txHash": "0x25f980a89b1d1a42f8846bd3544d4273d27c478676ec19651ffb85d4a7165450",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x25f980a89b1d1a42f8846bd3544d4273d27c478676ec19651ffb85d4a7165450",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_test\", \"$0.040\")",
+          "txHash": "0x295627737fc6826d11f9b4deb07511cdc992ce5c32b2fdb4a08e755ea246dc51",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x295627737fc6826d11f9b4deb07511cdc992ce5c32b2fdb4a08e755ea246dc51",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_review\", \"$0.040\")",
+          "txHash": "0xae45ce2dd49ebd4534b5edc3503b2a0ef7303c2d1f94b6cb7c9d3ceadb9a7b7d",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xae45ce2dd49ebd4534b5edc3503b2a0ef7303c2d1f94b6cb7c9d3ceadb9a7b7d",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776935042432-0ft7tk_code\", \"$0.040\")",
+          "txHash": "0xcd6b41197e2c7ddc43fdfdf36791627215b15c62b3a660279cb97e81ab3455e7",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xcd6b41197e2c7ddc43fdfdf36791627215b15c62b3a660279cb97e81ab3455e7",
+          "mock": false
+        }
+      ],
+      "cost": "$0.040",
+      "transactionCount": 16
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 8,
+    "totalFailed": 0,
+    "totalCost": 0.04,
+    "totalTransactions": 16,
+    "allTxHashes": [
+      "15f47209-76ed-40d7-b568-34d172142eaf",
+      "f2b85216-926b-4f07-a9fd-9b59dd1ad39a",
+      "00eed6fa-d032-408a-b62c-c0258e7fa8ed",
+      "27cf04ae-764d-4d46-a22b-58a8b9836a1b",
+      "9852307e-26ae-44b9-85bb-6b2871297944",
+      "c94ef4c1-88e3-4154-96f7-e17b031073a1",
+      "87256741-736f-407a-a3fd-400f03a42a17",
+      "10cb3609-77ff-45ca-8bb5-d7a7b6a214b9",
+      "0x5479da37cf73d4c0c4f75d435c84bff3f1e7fa9c7027ac07bc73611283d18468",
+      "0xb86a0a5a191e8e1206b6ce9988d99e3fa4819ae4e4dfb211bbd348809f89f0c6",
+      "0xd5690bf0e08fee31843ae4aa934c29274032a21d40001ba98c0be636f7882e6e",
+      "0xb573bfff5f12178288238ffb8c7a96b2392b1bffde7e5612a8a5cc1f78a847bb",
+      "0x25f980a89b1d1a42f8846bd3544d4273d27c478676ec19651ffb85d4a7165450",
+      "0x295627737fc6826d11f9b4deb07511cdc992ce5c32b2fdb4a08e755ea246dc51",
+      "0xae45ce2dd49ebd4534b5edc3503b2a0ef7303c2d1f94b6cb7c9d3ceadb9a7b7d",
+      "0xcd6b41197e2c7ddc43fdfdf36791627215b15c62b3a660279cb97e81ab3455e7"
+    ]
+  }
+}

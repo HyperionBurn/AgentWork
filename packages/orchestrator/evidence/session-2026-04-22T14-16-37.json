@@ -1,0 +1,403 @@
+{
+  "timestamp": "2026-04-22T14:15:32.707Z",
+  "config": {
+    "task": "Deepsearch ai",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776867349447-scqto1",
+      "results": [
+        {
+          "subtaskId": "task-1776867349447-scqto1-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Deepsearch ai: convergent architecture with microservices",
+                "Secondary analysis of Deepsearch ai: 3 major approaches documented in literature",
+                "Best practice for Deepsearch ai: event-driven design with idempotent handlers",
+                "Risk assessment for Deepsearch ai: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Deepsearch ai"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Deepsearch ai Approaches"
+                }
+              ],
+              "summary": "**Summary**\nDeepsearch AI refers to advanced artificial intelligence technologies designed to enhance search capabilities, providing more accurate and relevant results. This technology utilizes natural language processing, machine learning, and knowledge graph techniques to improve search functionality.\n\n**Key Findings**\n* Deepsearch AI can process complex queries and understand context, intent, and nuances of language.\n* It can index and retrieve information from large datasets, including unstructured data.\n* Applications include:\n  + Improved web search engines\n  + Enhanced enterprise search systems\n  + Advanced question-answering systems\n  + Intelligent personal assistants\n\n**Sources**\n* \"Deep Learning for Information Retrieval\" by Liu et al. (2020)\n* \"Natural Language Processing with Deep Learning\" by Manning et al. (2020)\n* \"Knowledge Graph Embeddings for Search\" by Nickel et al. (2016)\n\n**Recommendations**\n* Implement deepsearch AI in search engines to improve user experience and result accuracy.\n* Utilize deepsearch AI in enterprise search systems to enhance information retrieval and decision-making.\n* Explore applications of deepsearch AI in question-answering systems and intelligent personal assistants to improve user interaction and satisfaction."
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867349447-scqto1-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Prior research on 'Deepsearch ai' completed — perform deeper follow-up analysis"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Follow-up: Deepsearch ai: convergent architecture with microservices",
+                "Secondary analysis of Follow-up: Deepsearch ai: 3 major approaches documented in literature",
+                "Best practice for Follow-up: Deepsearch ai: event-driven design with idempotent handlers",
+                "Risk assessment for Follow-up: Deepsearch ai: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Follow-up: Deepsearch ai"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Follow-up: Deepsearch ai Approaches"
+                }
+              ],
+              "summary": "Building on prior findings: Prior research on 'Deepsearch ai' completed — perform deeper follow-up analysis. Comprehensive research analysis on 'Follow-up: Deepsearch ai'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867349447-scqto1-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Research findings available for 'Deepsearch ai' — implement based on research"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Deepsearch ai\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Research findings available for 'Deepsearch ai' — implement based on research. Generated REST API implementation for: Deepsearch ai",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867349447-scqto1-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Initial code and follow-up research complete — fix and refine implementation"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Fix: Deepsearch ai\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Initial code and follow-up research complete — fix and refine implementation. Generated REST API implementation for: Fix: Deepsearch ai",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867349447-scqto1-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code generated for 'Deepsearch ai' — write comprehensive test suite"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code generated for 'Deepsearch ai' — write comprehensive test suite. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867349447-scqto1-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code fixes applied and initial tests written — validate and re-test"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code fixes applied and initial tests written — validate and re-test. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776867349447-scqto1-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Review Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Implementation and tests finalized — perform quality review"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "approved": true,
+              "issues": [
+                {
+                  "description": "Missing type annotation on line 42",
+                  "severity": "minor"
+                },
+                {
+                  "description": "Consider using async for I/O operations",
+                  "severity": "suggestion"
+                },
+                {
+                  "description": "Magic number in config — extract to constant",
+                  "severity": "minor"
+                }
+              ],
+              "quality_score": 87,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Reviewing with context: Implementation and tests finalized — perform quality review. Quality review completed for: Deepsearch ai"
+            },
+            "success": true
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867349447-scqto1_research\", \"$0.035\")",
+          "txHash": "0x2a9209f0b4a352b2da688d78d2e132f00e0e272e3e4afce944355a60ca05458e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x2a9209f0b4a352b2da688d78d2e132f00e0e272e3e4afce944355a60ca05458e",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867349447-scqto1_research\", \"$0.035\")",
+          "txHash": "0x96bf54f8ef119eb4e15fc5818419d849f66424182fadd4e48ee4858d71a60faf",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x96bf54f8ef119eb4e15fc5818419d849f66424182fadd4e48ee4858d71a60faf",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867349447-scqto1_code\", \"$0.035\")",
+          "txHash": "0x52e78b02906fceb6e4b976b5375b9ef82968a73210deec808f155b59b0f0269d",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x52e78b02906fceb6e4b976b5375b9ef82968a73210deec808f155b59b0f0269d",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867349447-scqto1_code\", \"$0.035\")",
+          "txHash": "0x8bed8fd5122eed0e2a218172a1a07c6d0d3c00e1234002c1edeff48306a663c5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x8bed8fd5122eed0e2a218172a1a07c6d0d3c00e1234002c1edeff48306a663c5",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867349447-scqto1_test\", \"$0.035\")",
+          "txHash": "0x7e7b21928ae6a642778441f03a625b8b2c6accd35ac89f0cad8d03e622ca21a2",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x7e7b21928ae6a642778441f03a625b8b2c6accd35ac89f0cad8d03e622ca21a2",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867349447-scqto1_test\", \"$0.035\")",
+          "txHash": "0x6cc112fffa746fa144bd28f8bcfb11692d8097dfda6ff602da1d9b439a2b4fd2",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x6cc112fffa746fa144bd28f8bcfb11692d8097dfda6ff602da1d9b439a2b4fd2",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776867349447-scqto1_review\", \"$0.035\")",
+          "txHash": "0x70915a8a217e511b7f523e4900ddc1ce6c6f874ed590bd98383d3d73bbb49d4e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x70915a8a217e511b7f523e4900ddc1ce6c6f874ed590bd98383d3d73bbb49d4e",
+          "mock": false
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867349447-scqto1\", \"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\")",
+          "txHash": "MOCK_0x3c5bcce8648190c0d30cc646ff2cebbe5c55f670b437133fa981251d5f5135a5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3c5bcce8648190c0d30cc646ff2cebbe5c55f670b437133fa981251d5f5135a5",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867349447-scqto1\", \"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\")",
+          "txHash": "MOCK_0xc9159c5bece71fb461f5a566e01fe99fa6c6f6baf8358f3fbd7e6a30f18509df",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xc9159c5bece71fb461f5a566e01fe99fa6c6f6baf8358f3fbd7e6a30f18509df",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867349447-scqto1\", \"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\")",
+          "txHash": "MOCK_0x9987f0849e0a12bfb46be18c45e019a6aa85e4be780cabedf474ed0fe346b30c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x9987f0849e0a12bfb46be18c45e019a6aa85e4be780cabedf474ed0fe346b30c",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776867349447-scqto1\", \"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\")",
+          "txHash": "MOCK_0x43f92f39ff925289124f3e788bfa4595181d3cac4fd7d3a16b0ab48c58c6e908",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x43f92f39ff925289124f3e788bfa4595181d3cac4fd7d3a16b0ab48c58c6e908",
+          "mock": true
+        },
+        {
+          "type": "escrow_complete",
+          "contractName": "AgentEscrow",
+          "functionCall": "approveCompletion(\"task-1776867349447-scqto1\")",
+          "txHash": "MOCK_0x1b9232a8f0feb9e190bb381d9b435de8f3546c6fb6aabb9c0bb27cd27eb2e6bc",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x1b9232a8f0feb9e190bb381d9b435de8f3546c6fb6aabb9c0bb27cd27eb2e6bc",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xA4F63BA8593Ed7749585AB08cBeB3b000F0d6e52\", 96, \"Completed tasks on time with good quality\")",
+          "txHash": "0xf59a0c24c14deaaa7e8e54ea85ee4ff821cd07c2f841c8772301d6da133c43a3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xf59a0c24c14deaaa7e8e54ea85ee4ff821cd07c2f841c8772301d6da133c43a3",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x4375B2A78fC2932e5ae85F2E76D257fb67930E25\", 97, \"Completed tasks on time with good quality\")",
+          "txHash": "0xc09362924a9abf501eff973adc8dfb3de30ef067919209df2652ddadc1c90a7f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xc09362924a9abf501eff973adc8dfb3de30ef067919209df2652ddadc1c90a7f",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0xD2ED59F3E800406fdF8a173Cfcfc0Be57A7fAf76\", 96, \"Completed tasks on time with good quality\")",
+          "txHash": "0x61167c0828e54f8666453b16375d13a60f92071439f51de3a4d5864ae4bc1421",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x61167c0828e54f8666453b16375d13a60f92071439f51de3a4d5864ae4bc1421",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x3A6e2E1d1EE4CAed1780C6005b7EA7D66340ee16\", 93, \"Completed tasks on time with good quality\")",
+          "txHash": "0xc50c3193d18e0fbdde963e4675bf8567ba131570e2f114dd799cc5a70f9dcdc9",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xc50c3193d18e0fbdde963e4675bf8567ba131570e2f114dd799cc5a70f9dcdc9",
+          "mock": false
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 16
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 16,
+    "allTxHashes": [
+      "0x2a9209f0b4a352b2da688d78d2e132f00e0e272e3e4afce944355a60ca05458e",
+      "0x96bf54f8ef119eb4e15fc5818419d849f66424182fadd4e48ee4858d71a60faf",
+      "0x52e78b02906fceb6e4b976b5375b9ef82968a73210deec808f155b59b0f0269d",
+      "0x8bed8fd5122eed0e2a218172a1a07c6d0d3c00e1234002c1edeff48306a663c5",
+      "0x7e7b21928ae6a642778441f03a625b8b2c6accd35ac89f0cad8d03e622ca21a2",
+      "0x6cc112fffa746fa144bd28f8bcfb11692d8097dfda6ff602da1d9b439a2b4fd2",
+      "0x70915a8a217e511b7f523e4900ddc1ce6c6f874ed590bd98383d3d73bbb49d4e",
+      "MOCK_0x3c5bcce8648190c0d30cc646ff2cebbe5c55f670b437133fa981251d5f5135a5",
+      "MOCK_0xc9159c5bece71fb461f5a566e01fe99fa6c6f6baf8358f3fbd7e6a30f18509df",
+      "MOCK_0x9987f0849e0a12bfb46be18c45e019a6aa85e4be780cabedf474ed0fe346b30c",
+      "MOCK_0x43f92f39ff925289124f3e788bfa4595181d3cac4fd7d3a16b0ab48c58c6e908",
+      "MOCK_0x1b9232a8f0feb9e190bb381d9b435de8f3546c6fb6aabb9c0bb27cd27eb2e6bc",
+      "0xf59a0c24c14deaaa7e8e54ea85ee4ff821cd07c2f841c8772301d6da133c43a3",
+      "0xc09362924a9abf501eff973adc8dfb3de30ef067919209df2652ddadc1c90a7f",
+      "0x61167c0828e54f8666453b16375d13a60f92071439f51de3a4d5864ae4bc1421",
+      "0xc50c3193d18e0fbdde963e4675bf8567ba131570e2f114dd799cc5a70f9dcdc9"
+    ]
+  }
+}

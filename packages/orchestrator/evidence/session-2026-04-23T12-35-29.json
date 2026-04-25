@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-04-23T12:32:39.176Z",
+  "config": {
+    "task": "make a simple python game",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776947561878-nk3s9w",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776947561878-nk3s9w_research,research\", \"$0.040\")",
+          "txHash": "0x5ea5baf82fe6cc88d1858686d0c532cf29966952b433293f7c0a501a4e06745a",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x5ea5baf82fe6cc88d1858686d0c532cf29966952b433293f7c0a501a4e06745a",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776947561878-nk3s9w_code,code\", \"$0.040\")",
+          "txHash": "0xaf9e9be258edb5d7b7be64d0c144acf84519605bfeba4065d5cd6b16c62b0763",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xaf9e9be258edb5d7b7be64d0c144acf84519605bfeba4065d5cd6b16c62b0763",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776947561878-nk3s9w_test,test\", \"$0.040\")",
+          "txHash": "0xb7e4676a5f939802142e831998ba526f3b3e2b359d0c8a7583993460e1a0b301",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xb7e4676a5f939802142e831998ba526f3b3e2b359d0c8a7583993460e1a0b301",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776947561878-nk3s9w_review,review\", \"$0.040\")",
+          "txHash": "0xd6ef31eed6dc2b84f9a1aeb3aa91e2f91ea40e6528e13c2bcd8535f44948adaf",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xd6ef31eed6dc2b84f9a1aeb3aa91e2f91ea40e6528e13c2bcd8535f44948adaf",
+          "mock": false
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 4
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 4,
+    "allTxHashes": [
+      "0x5ea5baf82fe6cc88d1858686d0c532cf29966952b433293f7c0a501a4e06745a",
+      "0xaf9e9be258edb5d7b7be64d0c144acf84519605bfeba4065d5cd6b16c62b0763",
+      "0xb7e4676a5f939802142e831998ba526f3b3e2b359d0c8a7583993460e1a0b301",
+      "0xd6ef31eed6dc2b84f9a1aeb3aa91e2f91ea40e6528e13c2bcd8535f44948adaf"
+    ]
+  }
+}

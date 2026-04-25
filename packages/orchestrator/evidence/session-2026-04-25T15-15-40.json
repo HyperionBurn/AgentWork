@@ -1,0 +1,174 @@
+{
+  "timestamp": "2026-04-25T15:11:31.517Z",
+  "config": {
+    "task": "Create a simple ai python game",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777129894694-62kwzm",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777129894694-62kwzm_research,research\", \"$0.035\")",
+          "txHash": "0xb0bbd98ab42f00500bf4671d9083d566f1baec9c37b9e2442c91af292646efe8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xb0bbd98ab42f00500bf4671d9083d566f1baec9c37b9e2442c91af292646efe8",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777129894694-62kwzm_code,code\", \"$0.035\")",
+          "txHash": "0xd79ee75ac967194864754bf59e292a43efec74bbb4294ffc2460fb4f72f2132f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xd79ee75ac967194864754bf59e292a43efec74bbb4294ffc2460fb4f72f2132f",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777129894694-62kwzm_test,test\", \"$0.035\")",
+          "txHash": "0xad32ec2d7466a1777aea2a3e03af00ada6d51b1db0de9fd6d6734df3731d05a5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xad32ec2d7466a1777aea2a3e03af00ada6d51b1db0de9fd6d6734df3731d05a5",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777129894694-62kwzm_review\", \"$0.035\")",
+          "txHash": "0x5a9380e80ec00fc5dd7bf238ca11864db833c709ff4631f2d3e725f82d785b52",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x5a9380e80ec00fc5dd7bf238ca11864db833c709ff4631f2d3e725f82d785b52",
+          "mock": false
+        }
+      ],
+      "extendedTransactions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0xb0bbd98ab42f00500bf4671d9083d566f1baec9c37b9e2442c91af292646efe8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xb0bbd98ab42f00500bf4671d9083d566f1baec9c37b9e2442c91af292646efe8",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0xd79ee75ac967194864754bf59e292a43efec74bbb4294ffc2460fb4f72f2132f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xd79ee75ac967194864754bf59e292a43efec74bbb4294ffc2460fb4f72f2132f",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0xad32ec2d7466a1777aea2a3e03af00ada6d51b1db0de9fd6d6734df3731d05a5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xad32ec2d7466a1777aea2a3e03af00ada6d51b1db0de9fd6d6734df3731d05a5",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "0x5a9380e80ec00fc5dd7bf238ca11864db833c709ff4631f2d3e725f82d785b52",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x5a9380e80ec00fc5dd7bf238ca11864db833c709ff4631f2d3e725f82d785b52",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→code",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "e8073347-1d32-4b74-b1d7-4be462e68c89",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "b002fe5f-e62f-444c-b475-77a007795b2d",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "d7552dcb-4989-4c51-924a-1e8fdd41b69f",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "f505325c-3cba-4ac8-a487-97fd1a8a9252",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "1ca45df1-2e91-45bc-aa0e-4ce45041ef97",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "6ac3284e-6e8d-43a1-9661-11f191617f9e",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "a6d87814-49b8-45ba-a4c9-6047422bedd5",
+          "explorerUrl": "",
+          "mock": false
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 15
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 15,
+    "allTxHashes": [
+      "0xb0bbd98ab42f00500bf4671d9083d566f1baec9c37b9e2442c91af292646efe8",
+      "0xd79ee75ac967194864754bf59e292a43efec74bbb4294ffc2460fb4f72f2132f",
+      "0xad32ec2d7466a1777aea2a3e03af00ada6d51b1db0de9fd6d6734df3731d05a5",
+      "0x5a9380e80ec00fc5dd7bf238ca11864db833c709ff4631f2d3e725f82d785b52",
+      "0xb0bbd98ab42f00500bf4671d9083d566f1baec9c37b9e2442c91af292646efe8",
+      "0xd79ee75ac967194864754bf59e292a43efec74bbb4294ffc2460fb4f72f2132f",
+      "0xad32ec2d7466a1777aea2a3e03af00ada6d51b1db0de9fd6d6734df3731d05a5",
+      "0x5a9380e80ec00fc5dd7bf238ca11864db833c709ff4631f2d3e725f82d785b52",
+      "e8073347-1d32-4b74-b1d7-4be462e68c89",
+      "b002fe5f-e62f-444c-b475-77a007795b2d",
+      "d7552dcb-4989-4c51-924a-1e8fdd41b69f",
+      "f505325c-3cba-4ac8-a487-97fd1a8a9252",
+      "1ca45df1-2e91-45bc-aa0e-4ce45041ef97",
+      "6ac3284e-6e8d-43a1-9661-11f191617f9e",
+      "a6d87814-49b8-45ba-a4c9-6047422bedd5"
+    ]
+  }
+}

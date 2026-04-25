@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-04-22T17:58:40.920Z",
+  "config": {
+    "task": "Execute research on food",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776880726219-lb8nro",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776880726219-lb8nro_research: Identify areas of food research\", \"$0.035\")",
+          "txHash": "0x8fddeb6c35d7e5dcc67ce9815d724503aecf7a66ac584580061327bf322051b0",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x8fddeb6c35d7e5dcc67ce9815d724503aecf7a66ac584580061327bf322051b0",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776880726219-lb8nro_research: Gather information on nutrition and dietetics\", \"$0.035\")",
+          "txHash": "0x44c3a0c4e60eb06fc2894e20de2dd517671611c28aef50cec389b266cb85abc5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x44c3a0c4e60eb06fc2894e20de2dd517671611c28aef50cec389b266cb85abc5",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776880726219-lb8nro_research: Investigate food trends and culinary arts\", \"$0.035\")",
+          "txHash": "0xe6e95ad480f129cfd84ed11d7b2cb3666d17c43e154f2787b3501ccce7aafec3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xe6e95ad480f129cfd84ed11d7b2cb3666d17c43e154f2787b3501ccce7aafec3",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776880726219-lb8nro_review: Review and validate research findings\", \"$0.035\")",
+          "txHash": "0x0ee76843e60702c6e2d54f99d783af66483c0bd4d3bfe5329eb22d462a80c008",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x0ee76843e60702c6e2d54f99d783af66483c0bd4d3bfe5329eb22d462a80c008",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776880726219-lb8nro_code: Develop a data model for food research data\", \"$0.035\")",
+          "txHash": "0xe6ddbfa1b7d9ee508aac0e9f437f79317b45647a4c282df0cba2f6f8c3b87268",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xe6ddbfa1b7d9ee508aac0e9f437f79317b45647a4c282df0cba2f6f8c3b87268",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776880726219-lb8nro_test: Test data model with sample food research data\", \"$0.035\")",
+          "txHash": "0x9e1bb22b3b7c82d5808085acad156cc7e4f526d1869a28b1ec3e90382f60896b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x9e1bb22b3b7c82d5808085acad156cc7e4f526d1869a28b1ec3e90382f60896b",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776880726219-lb8nro_review: Review and refine the final research report\", \"$0.035\")",
+          "txHash": "0x662d00d6de11d6384617e92a99a3d4510d67aeaa7f9dcff7c48297348bb36553",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x662d00d6de11d6384617e92a99a3d4510d67aeaa7f9dcff7c48297348bb36553",
+          "mock": false
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 7
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 7,
+    "allTxHashes": [
+      "0x8fddeb6c35d7e5dcc67ce9815d724503aecf7a66ac584580061327bf322051b0",
+      "0x44c3a0c4e60eb06fc2894e20de2dd517671611c28aef50cec389b266cb85abc5",
+      "0xe6e95ad480f129cfd84ed11d7b2cb3666d17c43e154f2787b3501ccce7aafec3",
+      "0x0ee76843e60702c6e2d54f99d783af66483c0bd4d3bfe5329eb22d462a80c008",
+      "0xe6ddbfa1b7d9ee508aac0e9f437f79317b45647a4c282df0cba2f6f8c3b87268",
+      "0x9e1bb22b3b7c82d5808085acad156cc7e4f526d1869a28b1ec3e90382f60896b",
+      "0x662d00d6de11d6384617e92a99a3d4510d67aeaa7f9dcff7c48297348bb36553"
+    ]
+  }
+}

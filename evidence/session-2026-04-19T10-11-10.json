@@ -1,0 +1,371 @@
+{
+  "timestamp": "2026-04-19T10:11:07.122Z",
+  "config": {
+    "task": "Build a REST API with user authentication, CRUD endpoints, and unit tests",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776593467839-foq3g3",
+      "results": [
+        {
+          "subtaskId": "task-1776593467839-foq3g3-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Build a REST API with user authentication, CRUD endpoints, and unit tests: convergent architecture with microservices",
+                "Secondary analysis of Build a REST API with user authentication, CRUD endpoints, and unit tests: 3 major approaches documented in literature",
+                "Best practice for Build a REST API with user authentication, CRUD endpoints, and unit tests: event-driven design with idempotent handlers",
+                "Risk assessment for Build a REST API with user authentication, CRUD endpoints, and unit tests: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Build a REST API with user authentication, CRUD endpoints, and unit tests"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Build a REST API with user authentication, CRUD endpoints, and unit tests Approaches"
+                }
+              ],
+              "summary": "Comprehensive research analysis on 'Build a REST API with user authentication, CRUD endpoints, and unit tests'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776593467839-foq3g3-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Prior research on 'Build a REST API with user authentication, CRUD endpoints, and unit tests' completed — perform deeper follow-up analysis"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: convergent architecture with microservices",
+                "Secondary analysis of Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: 3 major approaches documented in literature",
+                "Best practice for Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: event-driven design with idempotent handlers",
+                "Risk assessment for Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests Approaches"
+                }
+              ],
+              "summary": "Building on prior findings: Prior research on 'Build a REST API with user authentication, CRUD endpoints, and unit tests' completed — perform deeper follow-up analysis. Comprehensive research analysis on 'Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests'"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776593467839-foq3g3-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Research findings available for 'Build a REST API with user authentication, CRUD endpoints, and unit tests' — implement based on research"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Build a REST API with user authentication, CRUD endpoints, and unit tests\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Research findings available for 'Build a REST API with user authentication, CRUD endpoints, and unit tests' — implement based on research. Generated REST API implementation for: Build a REST API with user authentication, CRUD endpoints, and unit tests",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776593467839-foq3g3-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Initial code and follow-up research complete — fix and refine implementation"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Fix: Build a REST API with user authentication, CRUD endpoints, and unit tests\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "Based on research: Initial code and follow-up research complete — fix and refine implementation. Generated REST API implementation for: Fix: Build a REST API with user authentication, CRUD endpoints, and unit tests",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776593467839-foq3g3-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code generated for 'Build a REST API with user authentication, CRUD endpoints, and unit tests' — write comprehensive test suite"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code generated for 'Build a REST API with user authentication, CRUD endpoints, and unit tests' — write comprehensive test suite. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776593467839-foq3g3-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code fixes applied and initial tests written — validate and re-test"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "Testing code from: Code fixes applied and initial tests written — validate and re-test. test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776593467839-foq3g3-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Review Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Implementation and tests finalized — perform quality review"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "approved": true,
+              "issues": [
+                {
+                  "description": "Missing type annotation on line 42",
+                  "severity": "minor"
+                },
+                {
+                  "description": "Consider using async for I/O operations",
+                  "severity": "suggestion"
+                },
+                {
+                  "description": "Magic number in config — extract to constant",
+                  "severity": "minor"
+                }
+              ],
+              "quality_score": 87,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Reviewing with context: Implementation and tests finalized — perform quality review. Quality review completed for: Build a REST API with user authentication, CRUD endpoints, and unit tests"
+            },
+            "success": true
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776593467839-foq3g3\", \"$0.035\")",
+          "txHash": "MOCK_0xe990669a8e8a00bcfe78f6f9d60d4f49e8f787a80027c170abd9270a03d534c6",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xe990669a8e8a00bcfe78f6f9d60d4f49e8f787a80027c170abd9270a03d534c6"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776593467839-foq3g3\", \"0x_AGENT_RESEARCH\")",
+          "txHash": "MOCK_0x2d8cced9df6f9d6f00d75f27bfd09dae13cbc73d9729d17562bc25a936a6689e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x2d8cced9df6f9d6f00d75f27bfd09dae13cbc73d9729d17562bc25a936a6689e"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776593467839-foq3g3\", \"Mock result from research agent — completed succes...\")",
+          "txHash": "MOCK_0xc94dc4c3036b5507cce3a3afbf3f84f8e206e24e4e7fca2fe8dad282f18dea0e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xc94dc4c3036b5507cce3a3afbf3f84f8e206e24e4e7fca2fe8dad282f18dea0e"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776593467839-foq3g3\", \"0x_AGENT_CODE\")",
+          "txHash": "MOCK_0xe8127688aad244594d6fc9c86f7903322b9279886f4f59ccd378bcc641d90087",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xe8127688aad244594d6fc9c86f7903322b9279886f4f59ccd378bcc641d90087"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776593467839-foq3g3\", \"Mock result from code agent — completed successful...\")",
+          "txHash": "MOCK_0xb1eafde6b39d8b9cd8ec6fef9037b15645854a99c07f538ffd5538a03e054eb8",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xb1eafde6b39d8b9cd8ec6fef9037b15645854a99c07f538ffd5538a03e054eb8"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776593467839-foq3g3\", \"0x_AGENT_TEST\")",
+          "txHash": "MOCK_0xdfd5ff5be874b2f13059d81b8cf8c64b67c9206f840bd39253f70a23193da37f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xdfd5ff5be874b2f13059d81b8cf8c64b67c9206f840bd39253f70a23193da37f"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776593467839-foq3g3\", \"Mock result from test agent — completed successful...\")",
+          "txHash": "MOCK_0x3b4e373532749090926435a4ab14075b8a548ee438d83a4a62eba636b0f0bf2f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3b4e373532749090926435a4ab14075b8a548ee438d83a4a62eba636b0f0bf2f"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776593467839-foq3g3\", \"0x_AGENT_REVIEW\")",
+          "txHash": "MOCK_0x42134bbd19c496fcf06b558a79e9413d91c3825b517fd7d0759093fbd6cae2b7",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x42134bbd19c496fcf06b558a79e9413d91c3825b517fd7d0759093fbd6cae2b7"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776593467839-foq3g3\", \"Mock result from review agent — completed successf...\")",
+          "txHash": "MOCK_0x20c4034eb9fa620d15e62a80639aede720be08487f8e0aaa0db0810b4150e2a2",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x20c4034eb9fa620d15e62a80639aede720be08487f8e0aaa0db0810b4150e2a2"
+        },
+        {
+          "type": "escrow_complete",
+          "contractName": "AgentEscrow",
+          "functionCall": "approveCompletion(\"task-1776593467839-foq3g3\")",
+          "txHash": "MOCK_0xab92a68074484c26430abd6bd5a4a3c2e4238f604035d97fb05e95a09e1adeb6",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xab92a68074484c26430abd6bd5a4a3c2e4238f604035d97fb05e95a09e1adeb6"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_RESEARCH\", 85, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x4fe9f12de4499bd30699c72c0d051a57bceea888a2d2c1c70197845fbb14dc5e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x4fe9f12de4499bd30699c72c0d051a57bceea888a2d2c1c70197845fbb14dc5e"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_CODE\", 90, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0xbeaa059566441598871e7d3349b62ef38019e66870c0e0a70b3c32ccfb8fb6bb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xbeaa059566441598871e7d3349b62ef38019e66870c0e0a70b3c32ccfb8fb6bb"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_TEST\", 97, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x5ba8ed6828e56f6e05156e86df9171a31ff552b36ddd60ae5a099bb218224f71",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x5ba8ed6828e56f6e05156e86df9171a31ff552b36ddd60ae5a099bb218224f71"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_REVIEW\", 93, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x0b82f06f8b4974767c83ceedfbc53459b9d434cce50a1284cb6e651b1740b800",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x0b82f06f8b4974767c83ceedfbc53459b9d434cce50a1284cb6e651b1740b800"
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 14
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 14,
+    "allTxHashes": [
+      "MOCK_0xe990669a8e8a00bcfe78f6f9d60d4f49e8f787a80027c170abd9270a03d534c6",
+      "MOCK_0x2d8cced9df6f9d6f00d75f27bfd09dae13cbc73d9729d17562bc25a936a6689e",
+      "MOCK_0xc94dc4c3036b5507cce3a3afbf3f84f8e206e24e4e7fca2fe8dad282f18dea0e",
+      "MOCK_0xe8127688aad244594d6fc9c86f7903322b9279886f4f59ccd378bcc641d90087",
+      "MOCK_0xb1eafde6b39d8b9cd8ec6fef9037b15645854a99c07f538ffd5538a03e054eb8",
+      "MOCK_0xdfd5ff5be874b2f13059d81b8cf8c64b67c9206f840bd39253f70a23193da37f",
+      "MOCK_0x3b4e373532749090926435a4ab14075b8a548ee438d83a4a62eba636b0f0bf2f",
+      "MOCK_0x42134bbd19c496fcf06b558a79e9413d91c3825b517fd7d0759093fbd6cae2b7",
+      "MOCK_0x20c4034eb9fa620d15e62a80639aede720be08487f8e0aaa0db0810b4150e2a2",
+      "MOCK_0xab92a68074484c26430abd6bd5a4a3c2e4238f604035d97fb05e95a09e1adeb6",
+      "MOCK_0x4fe9f12de4499bd30699c72c0d051a57bceea888a2d2c1c70197845fbb14dc5e",
+      "MOCK_0xbeaa059566441598871e7d3349b62ef38019e66870c0e0a70b3c32ccfb8fb6bb",
+      "MOCK_0x5ba8ed6828e56f6e05156e86df9171a31ff552b36ddd60ae5a099bb218224f71",
+      "MOCK_0x0b82f06f8b4974767c83ceedfbc53459b9d434cce50a1284cb6e651b1740b800"
+    ]
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "timestamp": "2026-04-22T17:24:02.816Z",
+  "config": {
+    "task": "Execute research on food",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776878648629-y7echp",
+      "results": [
+        {
+          "subtaskId": "task-1776878648629-y7echp-task-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "bf3a69eb-1495-464e-b534-42a18ecbe49e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/bf3a69eb-1495-464e-b534-42a18ecbe49e",
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "# Auto-generated implementation for: Develop a data structure to store food research data\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "language": "python",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "test_coverage": 0.87,
+              "summary": "Generated REST API implementation for: Develop a data structure to store food research data"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776878648629-y7echp-task-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "504818ea-5b8e-4076-a819-f761f60dcbbb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/504818ea-5b8e-4076-a819-f761f60dcbbb",
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 6,
+              "passing": 5,
+              "failing": 1,
+              "coverage": 0.87,
+              "test_suite": "test_main.py::test_user_creation PASSED\ntest_main.py::test_user_validation PASSED\ntest_main.py::test_api_get_users PASSED\ntest_main.py::test_api_create_user PASSED\ntest_main.py::test_api_update_user PASSED\ntest_main.py::test_api_delete_user FAILED (assert 404 == 200)"
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1776878648629-y7echp-task-6",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "f26a514c-56ec-4f9a-952b-0ba41a11c7b3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/f26a514c-56ec-4f9a-952b-0ba41a11c7b3",
+          "response": {
+            "success": true,
+            "agent": "Review Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "quality_score": 87,
+              "issues": [
+                {
+                  "severity": "minor",
+                  "description": "Missing type annotation on line 42"
+                },
+                {
+                  "severity": "suggestion",
+                  "description": "Consider using async for I/O operations"
+                },
+                {
+                  "severity": "minor",
+                  "description": "Magic number in config — extract to constant"
+                }
+              ],
+              "approved": true,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "Quality review completed for: Review the research findings and data structure for accuracy"
+            }
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776878648629-y7echp_research1\", \"$0.030\")",
+          "txHash": "0x7fb091ddf85968945f3d6e875435d4b4b9b892ada86eabb0d32db52f9ba1f3c0",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x7fb091ddf85968945f3d6e875435d4b4b9b892ada86eabb0d32db52f9ba1f3c0",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776878648629-y7echp_research2\", \"$0.030\")",
+          "txHash": "0xbda37240f8e7860eb810d463b788498512d775095b471e0b81a5d5fce49aa0c3",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0xbda37240f8e7860eb810d463b788498512d775095b471e0b81a5d5fce49aa0c3",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776878648629-y7echp_research3\", \"$0.030\")",
+          "txHash": "0x8afccd1e490f9a9a04b2439038e12651587f1de7a45488ccec7af6ebd0aaa38f",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x8afccd1e490f9a9a04b2439038e12651587f1de7a45488ccec7af6ebd0aaa38f",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776878648629-y7echp_code\", \"$0.030\")",
+          "txHash": "0x896a3965c4a5f45e84cefa21051048fba62e02d93403f856d1f6544e0629b5d4",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x896a3965c4a5f45e84cefa21051048fba62e02d93403f856d1f6544e0629b5d4",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776878648629-y7echp_test\", \"$0.030\")",
+          "txHash": "0x1cb06159374db0f91e831c2f7cfc10d7ea072d695e3a408b8c3ce0e96ab777bf",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x1cb06159374db0f91e831c2f7cfc10d7ea072d695e3a408b8c3ce0e96ab777bf",
+          "mock": false
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776878648629-y7echp_review\", \"$0.030\")",
+          "txHash": "0x7a198dd295a59e8348c3ab278f61b76b33d0e61b146ed5c62c28343c8783f502",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x7a198dd295a59e8348c3ab278f61b76b33d0e61b146ed5c62c28343c8783f502",
+          "mock": false
+        }
+      ],
+      "cost": "$0.015",
+      "transactionCount": 9
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 3,
+    "totalFailed": 0,
+    "totalCost": 0.015,
+    "totalTransactions": 9,
+    "allTxHashes": [
+      "bf3a69eb-1495-464e-b534-42a18ecbe49e",
+      "504818ea-5b8e-4076-a819-f761f60dcbbb",
+      "f26a514c-56ec-4f9a-952b-0ba41a11c7b3",
+      "0x7fb091ddf85968945f3d6e875435d4b4b9b892ada86eabb0d32db52f9ba1f3c0",
+      "0xbda37240f8e7860eb810d463b788498512d775095b471e0b81a5d5fce49aa0c3",
+      "0x8afccd1e490f9a9a04b2439038e12651587f1de7a45488ccec7af6ebd0aaa38f",
+      "0x896a3965c4a5f45e84cefa21051048fba62e02d93403f856d1f6544e0629b5d4",
+      "0x1cb06159374db0f91e831c2f7cfc10d7ea072d695e3a408b8c3ce0e96ab777bf",
+      "0x7a198dd295a59e8348c3ab278f61b76b33d0e61b146ed5c62c28343c8783f502"
+    ]
+  }
+}

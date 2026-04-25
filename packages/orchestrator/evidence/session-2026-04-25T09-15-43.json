@@ -1,0 +1,174 @@
+{
+  "timestamp": "2026-04-25T09:12:10.124Z",
+  "config": {
+    "task": "Build a REST API with user authentication, CRUD endpoints, and unit tests",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777108332874-cs0fbb",
+      "results": [],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777108332874-cs0fbb_research,research\", \"$0.035\")",
+          "txHash": "MOCK_0xf6340eef12c0049fb308716d92d3c5cd3c92e872e009748fe30389864dd21550",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf6340eef12c0049fb308716d92d3c5cd3c92e872e009748fe30389864dd21550",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777108332874-cs0fbb_code,code,code\", \"$0.035\")",
+          "txHash": "MOCK_0xf284d7102f963cc7e2d6c297850c9fb39f2ba7467d5d2cfd692c1b65a15f8944",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf284d7102f963cc7e2d6c297850c9fb39f2ba7467d5d2cfd692c1b65a15f8944",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777108332874-cs0fbb_test\", \"$0.035\")",
+          "txHash": "MOCK_0xf8b16191a93ef267978d1aa0e8664ea150eb0e000d3fca200eebfeb2a1f31014",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf8b16191a93ef267978d1aa0e8664ea150eb0e000d3fca200eebfeb2a1f31014",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777108332874-cs0fbb_review\", \"$0.035\")",
+          "txHash": "MOCK_0x6e5b53565d4d24de2cd4779aebf62150da58ce5a8f853a6a2ef20098534c61a5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x6e5b53565d4d24de2cd4779aebf62150da58ce5a8f853a6a2ef20098534c61a5",
+          "mock": true
+        }
+      ],
+      "extendedTransactions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xf6340eef12c0049fb308716d92d3c5cd3c92e872e009748fe30389864dd21550",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf6340eef12c0049fb308716d92d3c5cd3c92e872e009748fe30389864dd21550",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xf284d7102f963cc7e2d6c297850c9fb39f2ba7467d5d2cfd692c1b65a15f8944",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf284d7102f963cc7e2d6c297850c9fb39f2ba7467d5d2cfd692c1b65a15f8944",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xf8b16191a93ef267978d1aa0e8664ea150eb0e000d3fca200eebfeb2a1f31014",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf8b16191a93ef267978d1aa0e8664ea150eb0e000d3fca200eebfeb2a1f31014",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0x6e5b53565d4d24de2cd4779aebf62150da58ce5a8f853a6a2ef20098534c61a5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x6e5b53565d4d24de2cd4779aebf62150da58ce5a8f853a6a2ef20098534c61a5",
+          "mock": true
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→code",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "999ed14e-24c6-4a53-b78f-f9680d71dbad",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "f20f0d55-d8d9-4b86-abb4-68fa73ca7e6d",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "7bded568-80e7-415c-8915-019f925c03ba",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "e428c217-df64-464f-9878-89409057f3ae",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "520d1511-fb64-4dc1-bcec-d638e2c896d5",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "dad03d3f-9a5e-4abe-ad70-3b8eeeb9f544",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "bdd70337-d529-4742-8545-a833ed20a24b",
+          "explorerUrl": "",
+          "mock": false
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 15
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 0,
+    "totalCost": 0,
+    "totalTransactions": 15,
+    "allTxHashes": [
+      "MOCK_0xf6340eef12c0049fb308716d92d3c5cd3c92e872e009748fe30389864dd21550",
+      "MOCK_0xf284d7102f963cc7e2d6c297850c9fb39f2ba7467d5d2cfd692c1b65a15f8944",
+      "MOCK_0xf8b16191a93ef267978d1aa0e8664ea150eb0e000d3fca200eebfeb2a1f31014",
+      "MOCK_0x6e5b53565d4d24de2cd4779aebf62150da58ce5a8f853a6a2ef20098534c61a5",
+      "MOCK_0xf6340eef12c0049fb308716d92d3c5cd3c92e872e009748fe30389864dd21550",
+      "MOCK_0xf284d7102f963cc7e2d6c297850c9fb39f2ba7467d5d2cfd692c1b65a15f8944",
+      "MOCK_0xf8b16191a93ef267978d1aa0e8664ea150eb0e000d3fca200eebfeb2a1f31014",
+      "MOCK_0x6e5b53565d4d24de2cd4779aebf62150da58ce5a8f853a6a2ef20098534c61a5",
+      "999ed14e-24c6-4a53-b78f-f9680d71dbad",
+      "f20f0d55-d8d9-4b86-abb4-68fa73ca7e6d",
+      "7bded568-80e7-415c-8915-019f925c03ba",
+      "e428c217-df64-464f-9878-89409057f3ae",
+      "520d1511-fb64-4dc1-bcec-d638e2c896d5",
+      "dad03d3f-9a5e-4abe-ad70-3b8eeeb9f544",
+      "bdd70337-d529-4742-8545-a833ed20a24b"
+    ]
+  }
+}

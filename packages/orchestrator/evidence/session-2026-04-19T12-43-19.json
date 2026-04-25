@@ -1,0 +1,371 @@
+{
+  "timestamp": "2026-04-19T12:43:06.526Z",
+  "config": {
+    "task": "Build a REST API with user authentication, CRUD endpoints, and unit tests",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776602587240-43hx9r",
+      "results": [
+        {
+          "subtaskId": "task-1776602587240-43hx9r-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Build a REST API with user authentication, CRUD endpoints, and unit tests: convergent architecture with microservices",
+                "Secondary analysis of Build a REST API with user authentication, CRUD endpoints, and unit tests: 3 major approaches documented in literature",
+                "Best practice for Build a REST API with user authentication, CRUD endpoints, and unit tests: event-driven design with idempotent handlers",
+                "Risk assessment for Build a REST API with user authentication, CRUD endpoints, and unit tests: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Build a REST API with user authentication, CRUD endpoints, and unit tests"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Build a REST API with user authentication, CRUD endpoints, and unit tests Approaches"
+                }
+              ],
+              "summary": "**Summary**\nThis research brief outlines the process of building a REST API with user authentication, CRUD (Create, Read, Update, Delete) endpoints, and unit tests. The goal is to create a secure and functional API that can be used for data management.\n\n**Key Findings**\n* **User Authentication**: Implementing authentication using JSON Web Tokens (JWT) or OAuth can secure the API.\n* **CRUD Endpoints**: Creating endpoints for CRUD operations using HTTP methods (POST, GET, PUT, DELETE) enables data management.\n* **Unit Tests**: Using frameworks like Jest or Pytest to write unit tests ensures the API's functionality and reliability.\n* **API Frameworks**: Popular frameworks like Express.js (Node.js) or Flask (Python) can be used to build the REST API.\n* **Database Integration**: Integrating a database like MongoDB or PostgreSQL to store and manage data is essential.\n\n**Sources**\n* \"RESTful Web APIs\" by Leonard Richardson, Mike Amundsen, and Sam Ruby\n* \"Node.js Design Patterns\" by Mario Casciaro\n* \"Flask Web Development\" by Miguel Grinberg\n* API documentation for Express.js, Flask, and JWT\n\n**Recommendations**\n* Use a framework like Express.js or Flask to build the REST API.\n* Implement user authentication using JWT or OAuth.\n* Create CRUD endpoints using HTTP methods.\n* Write unit tests using Jest or Pytest.\n* Integrate a database like MongoDB or PostgreSQL.\n* Follow best practices for API design and security."
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776602587240-43hx9r-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Research Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Prior research on 'Build a REST API with user authentication, CRUD endpoints, and unit tests' completed — perform deeper follow-up analysis"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "confidence": 0.91,
+              "key_findings": [
+                "Primary pattern identified in Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: convergent architecture with microservices",
+                "Secondary analysis of Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: 3 major approaches documented in literature",
+                "Best practice for Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: event-driven design with idempotent handlers",
+                "Risk assessment for Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests: moderate complexity, high maintainability potential"
+              ],
+              "sources": [
+                {
+                  "relevance": 0.95,
+                  "title": "Primary Analysis: Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests"
+                },
+                {
+                  "relevance": 0.87,
+                  "title": "Supporting Evidence: Architecture Patterns"
+                },
+                {
+                  "relevance": 0.82,
+                  "title": "Background Context: Industry Standards"
+                },
+                {
+                  "relevance": 0.79,
+                  "title": "Comparative Study: Follow-up: Build a REST API with user authentication, CRUD endpoints, and unit tests Approaches"
+                }
+              ],
+              "summary": "**Summary**\nThis research brief outlines the process of building a REST API with user authentication, CRUD (Create, Read, Update, Delete) endpoints, and unit tests. The goal is to create a secure and functional API that allows users to interact with data.\n\n**Key Findings**\n* **User Authentication**: Implementing authentication using JSON Web Tokens (JWT) or OAuth can secure the API.\n* **CRUD Endpoints**: Creating endpoints for CRUD operations allows users to manage data, such as:\n\t+ POST: Create new data\n\t+ GET: Read existing data\n\t+ PUT/PATCH: Update existing data\n\t+ DELETE: Delete existing data\n* **Unit Tests**: Writing unit tests using frameworks like Jest or Pytest ensures the API's functionality and catches bugs early.\n* **API Frameworks**: Using frameworks like Express.js (Node.js) or Django Rest Framework (Python) can simplify the development process.\n\n**Sources**\n* \"RESTful Web APIs\" by Leonard Richardson, Mike Amundsen, and Sam Ruby\n* \"JSON Web Tokens\" by Auth0\n* \"OAuth 2.0\" by IETF\n* \"Jest Documentation\" by Facebook\n* \"Pytest Documentation\" by Pytest\n\n**Recommendations**\n* Use a established API framework to simplify development\n* Implement user authentication using a widely-adopted standard (e.g., JWT or OAuth)\n* Write comprehensive unit tests to ensure API functionality\n* Follow RESTful API design principles for endpoint structure and naming conventions\n* Consider using a library or module for CRUD operations to reduce boilerplate code"
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776602587240-43hx9r-3",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Research findings available for 'Build a REST API with user authentication, CRUD endpoints, and unit tests' — implement based on research"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Build a REST API with user authentication, CRUD endpoints, and unit tests\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "### Project Overview\nThis project uses Flask, a micro web framework for Python, to build a REST API with user authentication and CRUD endpoints. It also includes unit tests for validation.\n\n### Requirements\n- Python 3.8+\n- Flask\n- Flask-JWT-Extended\n- Flask-SQLAlchemy\n- Pytest\n\n### Code\n\n#### `app.py`\n```python\nfrom flask import Flask, jsonify, request\nfrom flask_jwt_extended import JWTManager, jwt_required, create_access_token\nfrom flask_sqlalchemy import SQLAlchemy\nfrom werkzeug.security import generate_password_hash, check_password_hash\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False\napp.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this in production\ndb = SQLAlchemy(app)\njwt = JWTManager(app)\n\nclass User(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(80), unique=True, nullable=False)\n    password = db.Column(db.String(120), nullable=False)\n\n    def __init__(self, username, password):\n        self.username = username\n        self.password = generate_password_hash(password)\n\n    def check_password(self, password):\n        return check_password_hash(self.password, password)\n\n@app.route('/register', methods=['POST'])\ndef register():\n    username = request.json.get('username')\n    password = request.json.get('password')\n    if not username or not password:\n        return jsonify({'msg': 'Missing username or password'}), 400\n    if User.query.filter_by(username=username).first():\n        return jsonify({'msg': 'Username already exists'}), 400\n    user = User(username, password)\n    db.session.add(user)\n    db.session.commit()\n    return jsonify({'msg': 'User created successfully'}), 201\n\n@app.route('/login', methods=['POST'])\ndef login():\n    username = request.json.get('username')\n    password = request.json.get('password')\n    if not username or not password:\n        return jsonify({'msg': 'Missing username or password'}), 400\n    user = User.query.filter_by(username=username).first()\n    if not user or not user.check_password(password):\n        return jsonify({'msg': 'Invalid username or password'}), 401\n    access_token = create_access_token(identity=username)\n    return jsonify(access_token=access_token),",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776602587240-43hx9r-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Code Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Initial code and follow-up research complete — fix and refine implementation"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "code": "# Auto-generated implementation for: Fix: Build a REST API with user authentication, CRUD endpoints, and unit tests\nfrom typing import Optional\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n\nclass UserService:\n    def __init__(self):\n        self._users = {}\n\n    def create(self, name: str, email: str) -> User:\n        user = User(id=len(self._users) + 1, name=name, email=email)\n        self._users[user.id] = user\n        return user\n",
+              "files_modified": [
+                "src/models/user.py",
+                "src/services/user_service.py",
+                "src/api/routes.py"
+              ],
+              "language": "python",
+              "summary": "### REST API with User Authentication and CRUD Endpoints\n\nBelow is an example implementation using Node.js, Express.js, and MongoDB.\n\n#### Dependencies\n\n* `express`: Web framework for Node.js\n* `mongoose`: MongoDB object modeling tool\n* `bcryptjs`: Library for hashing and verifying passwords\n* `jsonwebtoken`: Library for generating and verifying JSON Web Tokens\n* `jest`: JavaScript testing framework\n\n#### Setup\n\n```bash\nnpm init -y\nnpm install express mongoose bcryptjs jsonwebtoken jest\n```\n\n#### User Model\n\n```javascript\n// models/User.js\nconst mongoose = require('mongoose');\nconst bcrypt = require('bcryptjs');\n\nconst userSchema = new mongoose.Schema({\n  name: { type: String, required: true },\n  email: { type: String, required: true, unique: true },\n  password: { type: String, required: true },\n});\n\nuserSchema.pre('save', async function(next) {\n  if (!this.isModified('password')) return next();\n  this.password = await bcrypt.hash(this.password, 10);\n  next();\n});\n\nconst User = mongoose.model('User', userSchema);\nmodule.exports = User;\n```\n\n#### Authentication Controller\n\n```javascript\n// controllers/AuthController.js\nconst jwt = require('jsonwebtoken');\nconst bcrypt = require('bcryptjs');\nconst User = require('../models/User');\n\nconst login = async (req, res) => {\n  try {\n    const { email, password } = req.body;\n    const user = await User.findOne({ email });\n    if (!user) return res.status(401).send({ message: 'Invalid email or password' });\n\n    const isValidPassword = await bcrypt.compare(password, user.password);\n    if (!isValidPassword) return res.status(401).send({ message: 'Invalid email or password' });\n\n    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });\n    res.send({ token });\n  } catch (error) {\n    res.status(500).send({ message: error.message });\n  }\n};\n\nconst register = async (req, res) => {\n  try {\n    const { name, email, password } = req.body;\n    const user = new User({ name, email, password });\n    await user.save();\n    res.send({ message: 'User created successfully' });\n  } catch (error) {\n    res.status(500).send({ message: error.message",
+              "test_coverage": 0.87
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776602587240-43hx9r-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code generated for 'Build a REST API with user authentication, CRUD endpoints, and unit tests' — write comprehensive test suite"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "**Test Scenarios and Suite Generation**\n\n### Test Scenarios\n\n1. **Happy Path:**\n\t* Successful user registration\n\t* Successful user login\n\t* Successful CRUD (Create, Read, Update, Delete) operations\n2. **Edge Cases:**\n\t* Duplicate user registration\n\t* Invalid user login credentials\n\t* Unauthorized access to CRUD operations\n\t* Invalid or missing input for CRUD operations\n\n### Unit Tests\n\n```python\nimport unittest\nfrom unittest.mock import Mock\nfrom your_api import app, User, db\n\nclass TestUserAuthentication(unittest.TestCase):\n    def setUp(self):\n        self.app = app.test_client()\n        self.app.testing = True\n\n    def test_user_registration(self):\n        # Test successful user registration\n        response = self.app.post('/register', json={'username': 'test', 'password': 'password'})\n        self.assertEqual(response.status_code, 201)\n        self.assertIn('User created successfully', response.json['message'])\n\n    def test_duplicate_user_registration(self):\n        # Test duplicate user registration\n        self.app.post('/register', json={'username': 'test', 'password': 'password'})\n        response = self.app.post('/register', json={'username': 'test', 'password': 'password'})\n        self.assertEqual(response.status_code, 400)\n        self.assertIn('Username already exists', response.json['message'])\n\n    def test_user_login(self):\n        # Test successful user login\n        self.app.post('/register', json={'username': 'test', 'password': 'password'})\n        response = self.app.post('/login', json={'username': 'test', 'password': 'password'})\n        self.assertEqual(response.status_code, 200)\n        self.assertIn('Logged in successfully', response.json['message'])\n\n    def test_invalid_user_login(self):\n        # Test invalid user login credentials\n        response = self.app.post('/login', json={'username': 'test', 'password': 'wrong_password'})\n        self.assertEqual(response.status_code, 401)\n        self.assertIn('Invalid credentials', response.json['message'])\n\nclass TestCRUDOperations(unittest.TestCase):\n    def setUp(self):\n        self.app = app.test_client()\n        self.app.testing = True\n        self.app.post('/register', json={'username': 'test', 'password': 'password'})\n        self.token = self.app.post('/login', json={'username': 'test', 'password': 'password'}).json['token']\n\n    def test_create_resource(self):\n       ",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776602587240-43hx9r-6",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Test Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Code fixes applied and initial tests written — validate and re-test"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "coverage": 0.87,
+              "failing": 1,
+              "passing": 5,
+              "test_suite": "### Test Scenarios\n#### Happy Path\n1. **Successful User Registration**: Test registration with valid credentials.\n2. **Successful User Login**: Test login with valid credentials.\n3. **Get User Profile**: Test retrieving user profile after successful login.\n4. **Create Resource**: Test creating a new resource with valid data.\n5. **Read Resource**: Test retrieving a resource by ID.\n6. **Update Resource**: Test updating an existing resource with valid data.\n7. **Delete Resource**: Test deleting a resource by ID.\n\n#### Edge Cases\n1. **Invalid User Registration**: Test registration with invalid credentials (e.g., missing fields, weak password).\n2. **Invalid User Login**: Test login with invalid credentials (e.g., incorrect username or password).\n3. **Get Non-Existent User Profile**: Test retrieving a non-existent user profile.\n4. **Create Resource with Invalid Data**: Test creating a resource with invalid data (e.g., missing fields, invalid format).\n5. **Read Non-Existent Resource**: Test retrieving a non-existent resource.\n6. **Update Non-Existent Resource**: Test updating a non-existent resource.\n7. **Delete Non-Existent Resource**: Test deleting a non-existent resource.\n\n### Unit Tests\n```python\nimport unittest\nfrom your_api import app, db\n\nclass TestUserAuthentication(unittest.TestCase):\n    def test_successful_user_registration(self):\n        # Register a new user with valid credentials\n        user_data = {'username': 'test_user', 'password': 'strong_password'}\n        response = app.test_client().post('/register', json=user_data)\n        self.assertEqual(response.status_code, 201)\n        self.assertIn('user_id', response.json)\n\n    def test_successful_user_login(self):\n        # Login with valid credentials\n        user_data = {'username': 'test_user', 'password': 'strong_password'}\n        response = app.test_client().post('/login', json=user_data)\n        self.assertEqual(response.status_code, 200)\n        self.assertIn('token', response.json)\n\n    def test_get_user_profile(self):\n        # Retrieve user profile after successful login\n        user_data = {'username': 'test_user', 'password': 'strong_password'}\n        login_response = app.test_client().post('/login', json=user_data)\n        token = login_response.json['token']\n        response = app.test_client().get('/profile', headers={'Authorization': f'Bearer {token}'})\n        self.assertEqual(response.status_code",
+              "tests_generated": 6
+            },
+            "success": true
+          }
+        },
+        {
+          "subtaskId": "task-1776602587240-43hx9r-7",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "",
+          "explorerUrl": "https://testnet.arcscan.io/tx/",
+          "response": {
+            "agent": "Review Agent",
+            "amount": "$0.005",
+            "context": {
+              "prior_summary": "Implementation and tests finalized — perform quality review"
+            },
+            "paid_by": "0x_passthrough",
+            "result": {
+              "approved": true,
+              "issues": [
+                {
+                  "description": "Missing type annotation on line 42",
+                  "severity": "minor"
+                },
+                {
+                  "description": "Consider using async for I/O operations",
+                  "severity": "suggestion"
+                },
+                {
+                  "description": "Magic number in config — extract to constant",
+                  "severity": "minor"
+                }
+              ],
+              "quality_score": 87,
+              "suggestions": [
+                "Add input validation on public API endpoints",
+                "Consider using dependency injection for testability",
+                "Add structured logging with correlation IDs"
+              ],
+              "summary": "**Code Review**\n\nAssuming a basic Node.js implementation using Express.js, here's a concise review:\n\n### Code Correctness and Style\n\n* The code follows standard Node.js and Express.js conventions.\n* However, there are areas for improvement:\n\t+ Inconsistent naming conventions (e.g., camelCase and underscore notation).\n\t+ Lack of comments and documentation for functions and endpoints.\n\n### Potential Bugs and Security Issues\n\n* **Insecure password storage**: Passwords are stored in plain text. Consider using a library like bcrypt to hash and compare passwords.\n* **Missing input validation**: User input is not validated, making the API vulnerable to SQL injection and cross-site scripting (XSS) attacks.\n* **Inadequate error handling**: Error handling is incomplete, which can lead to crashes and reveal sensitive information.\n\n### Suggested Improvements\n\n* Implement secure password storage using bcrypt:\n```javascript\nconst bcrypt = require('bcrypt');\n// ...\nconst hashedPassword = await bcrypt.hash(password, 10);\n```\n* Add input validation using a library like Joi:\n```javascript\nconst Joi = require('joi');\n// ...\nconst schema = Joi.object().keys({\n  username: Joi.string().required(),\n  password: Joi.string().required()\n});\n```\n* Enhance error handling using try-catch blocks and error middleware:\n```javascript\napp.use((err, req, res, next) => {\n  console.error(err);\n  res.status(500).send('Internal Server Error');\n});\n```\n\n### Unit Tests\n\n* The code includes basic unit tests using Jest and Supertest.\n* However, more tests are needed to cover all endpoints and scenarios.\n\n### Overall Quality Score: 6/10\n\nThe code provides a basic REST API with user authentication and CRUD endpoints. However, it lacks proper security measures, input validation, and error handling. With the suggested improvements, the code can be more robust, secure, and maintainable. \n\n**Recommendations**:\n\n1. Implement secure password storage and input validation.\n2. Enhance error handling and logging.\n3. Add more unit tests to cover all endpoints and scenarios.\n4. Refactor the code to follow consistent naming conventions and add comments and documentation."
+            },
+            "success": true
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776602587240-43hx9r\", \"$0.035\")",
+          "txHash": "MOCK_0xa3bea16d147fd52bc7ca26100a28733e457c6f7e712fbf435ef2d019a3ec462e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa3bea16d147fd52bc7ca26100a28733e457c6f7e712fbf435ef2d019a3ec462e"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776602587240-43hx9r\", \"0x_AGENT_RESEARCH\")",
+          "txHash": "MOCK_0x748361b0239f5c4f16e68108623c525f930031813baf9b54d748fc3dc3e764da",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x748361b0239f5c4f16e68108623c525f930031813baf9b54d748fc3dc3e764da"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776602587240-43hx9r\", \"Mock result from research agent — completed succes...\")",
+          "txHash": "MOCK_0x9251650b809810ab82d5c8daef4f7b3b05becb105e7e2cbf91e5bb671255f192",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x9251650b809810ab82d5c8daef4f7b3b05becb105e7e2cbf91e5bb671255f192"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776602587240-43hx9r\", \"0x_AGENT_CODE\")",
+          "txHash": "MOCK_0x92f6646648b57039f762744979854fa53667db08cfe9fe904bc75084aceb6c42",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x92f6646648b57039f762744979854fa53667db08cfe9fe904bc75084aceb6c42"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776602587240-43hx9r\", \"Mock result from code agent — completed successful...\")",
+          "txHash": "MOCK_0x5ba984013b05906cc3fcb21a9c8c4f4059456c31e8a5e8de7862563e61ad5875",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x5ba984013b05906cc3fcb21a9c8c4f4059456c31e8a5e8de7862563e61ad5875"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776602587240-43hx9r\", \"0x_AGENT_TEST\")",
+          "txHash": "MOCK_0x3ab2b3b3850a03e820cf02b9007fed957ad9c222b37463bd0fc5e0e113b3448b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3ab2b3b3850a03e820cf02b9007fed957ad9c222b37463bd0fc5e0e113b3448b"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776602587240-43hx9r\", \"Mock result from test agent — completed successful...\")",
+          "txHash": "MOCK_0x28bfa32d7cee155168266da7b5da6c677233d8af1e5db87065804b45141d9898",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x28bfa32d7cee155168266da7b5da6c677233d8af1e5db87065804b45141d9898"
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "functionCall": "claimTask(\"task-1776602587240-43hx9r\", \"0x_AGENT_REVIEW\")",
+          "txHash": "MOCK_0xdb3dd649bb8cd654c08bbe5c72723c32d76098f87a0e180c834e4d6ad8c67d9d",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xdb3dd649bb8cd654c08bbe5c72723c32d76098f87a0e180c834e4d6ad8c67d9d"
+        },
+        {
+          "type": "escrow_submit_result",
+          "contractName": "AgentEscrow",
+          "functionCall": "submitResult(\"task-1776602587240-43hx9r\", \"Mock result from review agent — completed successf...\")",
+          "txHash": "MOCK_0xf2033d13069a5c3a9e433ee6106a8522b6d2687dbf7ab7d5c3086986f7203608",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf2033d13069a5c3a9e433ee6106a8522b6d2687dbf7ab7d5c3086986f7203608"
+        },
+        {
+          "type": "escrow_complete",
+          "contractName": "AgentEscrow",
+          "functionCall": "approveCompletion(\"task-1776602587240-43hx9r\")",
+          "txHash": "MOCK_0x4f3800df9652f6b118637fcfd9af767eaf85a1f070ddf11fc6c6d44be3bf6e64",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x4f3800df9652f6b118637fcfd9af767eaf85a1f070ddf11fc6c6d44be3bf6e64"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_RESEARCH\", 88, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0xffbd62532c720a1b3f99ba0ac93e5d7c0481107891789d767a44cd3b441670d7",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xffbd62532c720a1b3f99ba0ac93e5d7c0481107891789d767a44cd3b441670d7"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_CODE\", 90, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x4a7bfb7ae50f10a49e8f4d3f049af9c681bf5a607e09181bf2aebd28a49521f0",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x4a7bfb7ae50f10a49e8f4d3f049af9c681bf5a607e09181bf2aebd28a49521f0"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_TEST\", 98, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x44698375b1b4f625a7cf22322c05b86b37884a528f495d5d7e4d9bc51ecc2905",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x44698375b1b4f625a7cf22322c05b86b37884a528f495d5d7e4d9bc51ecc2905"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_REVIEW\", 88, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0xd483bd9eeeb6adab69112b1c765f4250c673c134e57152bae4c84151ba2cecfe",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xd483bd9eeeb6adab69112b1c765f4250c673c134e57152bae4c84151ba2cecfe"
+        }
+      ],
+      "cost": "$0.035",
+      "transactionCount": 14
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 7,
+    "totalFailed": 0,
+    "totalCost": 0.035,
+    "totalTransactions": 14,
+    "allTxHashes": [
+      "MOCK_0xa3bea16d147fd52bc7ca26100a28733e457c6f7e712fbf435ef2d019a3ec462e",
+      "MOCK_0x748361b0239f5c4f16e68108623c525f930031813baf9b54d748fc3dc3e764da",
+      "MOCK_0x9251650b809810ab82d5c8daef4f7b3b05becb105e7e2cbf91e5bb671255f192",
+      "MOCK_0x92f6646648b57039f762744979854fa53667db08cfe9fe904bc75084aceb6c42",
+      "MOCK_0x5ba984013b05906cc3fcb21a9c8c4f4059456c31e8a5e8de7862563e61ad5875",
+      "MOCK_0x3ab2b3b3850a03e820cf02b9007fed957ad9c222b37463bd0fc5e0e113b3448b",
+      "MOCK_0x28bfa32d7cee155168266da7b5da6c677233d8af1e5db87065804b45141d9898",
+      "MOCK_0xdb3dd649bb8cd654c08bbe5c72723c32d76098f87a0e180c834e4d6ad8c67d9d",
+      "MOCK_0xf2033d13069a5c3a9e433ee6106a8522b6d2687dbf7ab7d5c3086986f7203608",
+      "MOCK_0x4f3800df9652f6b118637fcfd9af767eaf85a1f070ddf11fc6c6d44be3bf6e64",
+      "MOCK_0xffbd62532c720a1b3f99ba0ac93e5d7c0481107891789d767a44cd3b441670d7",
+      "MOCK_0x4a7bfb7ae50f10a49e8f4d3f049af9c681bf5a607e09181bf2aebd28a49521f0",
+      "MOCK_0x44698375b1b4f625a7cf22322c05b86b37884a528f495d5d7e4d9bc51ecc2905",
+      "MOCK_0xd483bd9eeeb6adab69112b1c765f4250c673c134e57152bae4c84151ba2cecfe"
+    ]
+  }
+}

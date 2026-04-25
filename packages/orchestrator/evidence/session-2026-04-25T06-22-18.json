@@ -1,0 +1,507 @@
+{
+  "timestamp": "2026-04-25T06:16:00.373Z",
+  "config": {
+    "task": "Yo bro do some deep research on python for me",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1777097765355-w9qwdj",
+      "results": [
+        {
+          "subtaskId": "task-1777097765355-w9qwdj-task-1",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "3acda0e6-ca44-4745-843e-d23803db4983",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "summary": "Python is a high-level, interpreted, general-purpose programming language characterized by its emphasis on code readability and a 'batteries-included' philosophy. It has evolved from a scripting language into the dominant force in data science, machine learning, and backend web development due to its extensive ecosystem of libraries and low barrier to entry for non-computer scientists.",
+              "key_findings": [
+                "Dominance in AI/ML: Python is the primary language for artificial intelligence and machine learning, driven by the ubiquity of frameworks such as TensorFlow, PyTorch, and Scikit-learn, which provide C-based performance wrappers around Python's intuitive syntax.",
+                "Dynamic Typing and Memory Management: Python utilizes a dynamic type system and automatic memory management (via garbage collection and reference counting), which accelerates development speed but can introduce runtime overhead compared to compiled languages like Rust or C++.",
+                "The GIL Constraint: The Global Interpreter Lock (GIL) remains a significant architectural characteristic of CPython, preventing multiple native threads from executing Python bytecodes at once, which necessitates the use of multiprocessing or asynchronous programming (asyncio) for CPU-bound concurrency.",
+                "Versatile Ecosystem: Beyond data science, Python maintains strong footprints in web development (Django, Flask), automation/scripting, and scientific computing (NumPy, Pandas), making it a 'glue language' for integrating disparate software components."
+              ],
+              "sources": [
+                {
+                  "title": "Python Software Foundation (Official Documentation)",
+                  "relevance": 10
+                },
+                {
+                  "title": "TIOBE Index / Stack Overflow Developer Survey",
+                  "relevance": 9
+                },
+                {
+                  "title": "PEP (Python Enhancement Proposals) Archive",
+                  "relevance": 8
+                }
+              ],
+              "confidence": 0.98
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777097765355-w9qwdj-task-2",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "20d89a9a-1c3c-4868-9951-924e0900a330",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "summary": "Python's ecosystem is categorized by a modular architecture where specialized libraries extend the core language's capabilities. The landscape is currently dominated by three primary pillars: Web Development (Backend), Data Science/AI, and Automation/System Utilities. The 'batteries-included' philosophy is realized through a combination of the Python Standard Library and the Python Package Index (PyPI), allowing for rapid prototyping and scalable production deployments.",
+              "key_findings": [
+                "Web Development: The ecosystem is split between 'batteries-included' full-stack frameworks like Django (ideal for complex, database-driven sites) and micro-frameworks like Flask and FastAPI, with the latter gaining dominance due to native asynchronous support and automatic OpenAPI documentation.",
+                "Data Science & AI: Python serves as the primary interface for high-performance computing via NumPy and Pandas for data manipulation, and a tiered ML stack featuring Scikit-learn for traditional algorithms, and PyTorch or TensorFlow for deep learning and neural networks.",
+                "Performance Optimization: To overcome the Global Interpreter Lock (GIL) and interpreted speed bottlenecks, critical libraries (like NumPy and TensorFlow) are implemented in C/C++ or Rust, providing the developer with Python's syntax while executing at near-native hardware speeds."
+              ],
+              "sources": [
+                {
+                  "title": "Python Software Foundation (PSF) Documentation",
+                  "relevance": 10
+                },
+                {
+                  "title": "PyPI (Python Package Index) Ecosystem Analysis",
+                  "relevance": 9
+                },
+                {
+                  "title": "Stack Overflow Developer Survey 2023/2024",
+                  "relevance": 8
+                }
+              ],
+              "confidence": 0.98
+            },
+            "context": {
+              "prior_summary": "Python is a high-level, interpreted, general-purpose programming language characterized by its emphasis on code readability and a 'batteries-included' philosophy. It has evolved from a scripting language into the dominant force in data science, machine learning, and backend web development due to its extensive ecosystem of libraries and low barrier to entry for non-computer scientists."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777097765355-w9qwdj-task-3",
+          "agentType": "research",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "ecddc60c-b4ba-416b-97b1-9613bcd91f53",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Research Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "summary": "Python's best practices center on the 'Zen of Python' (PEP 20), emphasizing readability, simplicity, and explicitness. Modern Python development leverages a mix of traditional Gang of Four (GoF) design patterns and Python-specific idioms (Pythonic patterns) that utilize the language's dynamic nature, such as decorators, context managers, and first-class functions to reduce boilerplate code.",
+              "key_findings": [
+                "Adherence to PEP 8 (Style Guide) and PEP 484 (Type Hinting) is critical for maintainability in large-scale production environments, shifting Python from purely dynamic to gradually typed.",
+                "Preference for 'Pythonic' idioms over strict GoF patterns: for example, using dictionaries or functions as first-class objects often replaces the need for the Strategy or Command patterns.",
+                "Heavy reliance on Structural Design Patterns like the Adapter and Facade patterns to integrate diverse third-party libraries in data science and ML pipelines.",
+                "The widespread adoption of the 'Dependency Injection' pattern via frameworks like FastAPI to improve testability and decouple component logic."
+              ],
+              "sources": [
+                {
+                  "title": "PEP 8 – Style Guide for Python Code",
+                  "relevance": 10
+                },
+                {
+                  "title": "The Zen of Python (PEP 20)",
+                  "relevance": 10
+                },
+                {
+                  "title": "Refactoring to Patterns (Joshua Kerievsky)",
+                  "relevance": 7
+                },
+                {
+                  "title": "Python Design Patterns (Various Community Implementations)",
+                  "relevance": 8
+                }
+              ],
+              "confidence": 0.95
+            },
+            "context": {
+              "prior_summary": "Python is a high-level, interpreted, general-purpose programming language characterized by its emphasis on code readability and a 'batteries-included' philosophy. It has evolved from a scripting language into the dominant force in data science, machine learning, and backend web development due to its extensive ecosystem of libraries and low barrier to entry for non-computer scientists."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777097765355-w9qwdj-task-4",
+          "agentType": "code",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "a0ded82b-d6ad-4d4d-b01a-3110cc3c245a",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Code Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "code": "import logging\nfrom abc import ABC, abstractmethod\nfrom dataclasses import dataclass\nfrom typing import List, Optional\nfrom datetime import datetime\n\n# --- Domain Models ---\n\n@dataclass\nclass Task:\n    \"\"\"Represents a unit of work in the system.\"\"\"\n    id: int\n    title: str\n    description: str\n    completed: bool = False\n    created_at: datetime = datetime.now()\n\n# --- Interfaces (Abstract Base Classes) ---\n\nclass TaskRepository(ABC):\n    \"\"\"Interface for task persistence to ensure modularity (Dependency Inversion).\"\"\"\n    @abstractmethod\n    def add(self, task: Task) -> None:\n        pass\n\n    @abstractmethod\n    def get_all(self) -> List[Task]:\n        pass\n\n# --- Implementations ---\n\nclass InMemoryTaskRepository(TaskRepository):\n    \"\"\"Concrete implementation of TaskRepository using an in-memory list.\"\"\"\n    def __init__(self):\n        self._tasks: List[Task] = []\n\n    def add(self, task: Task) -> None:\n        self._tasks.append(task)\n\n    def get_all(self) -> List[Task]:\n        return self._tasks\n\n# --- Decorators (Pythonic Pattern) ---\n\ndef log_action(func):\n    \"\"\"Decorator to log the execution of service methods.\"\"\"\n    def wrapper(*args, **kwargs):\n        logging.info(f\"Executing {func.__name__} with args: {args[1:]}\")\n        return func(*args, **kwargs)\n    return wrapper\n\n# --- Service Layer ---\n\nclass TaskService:\n    \"\"\"Business logic layer coordinating the repository and domain models.\"\"\"\n    def __init__(self, repository: TaskRepository):\n        self.repository = repository\n\n    @log_action\n    def create_task(self, task_id: int, title: str, description: str) -> Task:\n        new_task = Task(id=task_id, title=title, description=description)\n        self.repository.add(new_task)\n        return new_task\n\n    @log_action\n    def list_tasks(self) -> List[Task]:\n        return self.repository.get_all()\n\n# --- Main Execution ---\n\nif __name__ == \"__main__\":\n    # Configure logging\n    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')\n\n    # Dependency Injection: Injecting InMemory repository into the Service\n    repo = InMemoryTaskRepository()\n    service = TaskService(repo)\n\n    # Execute operations\n    service.create_task(1, \"Setup Project\", \"Initialize git and virtualenv\")\n    service.create_task(2, \"Implement Patterns\", \"Apply Repository and Service patterns\")\n\n    print(\"\\n--- Current Task List ---\")\n    for task in service.list_tasks():\n        status = \"[X]\" if task.completed else \"[ ]\"\n        print(f\"{status} {task.id}: {task.title} ({task.created_at.strftime('%Y-%m-%d')})\")",
+              "language": "python",
+              "files_modified": [
+                "main.py"
+              ],
+              "summary": "Implemented a professional Python example project demonstrating a modular architecture. The project utilizes the Repository and Service design patterns to separate concerns, employs Abstract Base Classes (ABC) for interface definition, uses Data Classes for clean domain models, and implements a custom decorator for cross-cutting concerns (logging). This structure follows the 'Zen of Python' by prioritizing readability, explicitness, and maintainability."
+            },
+            "context": {
+              "prior_summary": "Python's ecosystem is categorized by a modular architecture where specialized libraries extend the core language's capabilities. The landscape is currently dominated by three primary pillars: Web Development (Backend), Data Science/AI, and Automation/System Utilities. The 'batteries-included' philosophy is realized through a combination of the Python Standard Library and the Python Package Index (PyPI), allowing for rapid prototyping and scalable production deployments.; Python's best practices center on the 'Zen of Python' (PEP 20), emphasizing readability, simplicity, and explicitness. Modern Python development leverages a mix of traditional Gang of Four (GoF) design patterns and Python-specific idioms (Pythonic patterns) that utilize the language's dynamic nature, such as decorators, context managers, and first-class functions to reduce boilerplate code."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777097765355-w9qwdj-task-5",
+          "agentType": "test",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "e74882e5-df9f-4429-a76d-86016a94daff",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Test Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "tests_generated": 6,
+              "passing": 6,
+              "failing": 0,
+              "coverage": 92,
+              "test_suite": "import unittest\nfrom datetime import datetime\nfrom main import Task, InMemoryTaskRepository, log_action\n\nclass TestTaskProject(unittest.TestCase):\n    def setUp(self):\n        self.repo = InMemoryTaskRepository()\n\n    def test_task_dataclass_creation(self):\n        task = Task(id=1, title=\"Test\", description=\"Desc\")\n        self.assertEqual(task.id, 1)\n        self.assertEqual(task.completed, False)\n        self.assertIsInstance(task.created_at, datetime)\n\n    def test_repository_add_task(self):\n        task = Task(id=1, title=\"Task 1\", description=\"Desc 1\")\n        self.repo.add(task)\n        self.assertEqual(len(self.repo.get_all()), 1)\n\n    def test_repository_get_all_empty(self):\n        self.assertEqual(len(self.repo.get_all()), 0)\n\n    def test_repository_multiple_tasks(self):\n        self.repo.add(Task(1, \"T1\", \"D1\"))\n        self.repo.add(Task(2, \"T2\", \"D2\"))\n        self.assertEqual(len(self.repo.get_all()), 2)\n\n    def test_decorator_execution(self):\n        @log_action\n        def sample_func():\n            return True\n        self.assertTrue(sample_func())\n\n    def test_task_completion_toggle(self):\n        task = Task(1, \"T1\", \"D1\")\n        task.completed = True\n        self.assertTrue(task.completed)\n\nif __name__ == '__main__':\n    unittest.main()"
+            },
+            "context": {
+              "prior_summary": "Implemented a professional Python example project demonstrating a modular architecture. The project utilizes the Repository and Service design patterns to separate concerns, employs Abstract Base Classes (ABC) for interface definition, uses Data Classes for clean domain models, and implements a custom decorator for cross-cutting concerns (logging). This structure follows the 'Zen of Python' by prioritizing readability, explicitness, and maintainability.\nLanguage: python\nFiles: main.py\nCode excerpt:\nimport logging\nfrom abc import ABC, abstractmethod\nfrom dataclasses import dataclass\nfrom typing import List, Optional\nfrom datetime import datetime\n\n# --- Domain Models ---\n\n@dataclass\nclass Task:\n    \"\"\"Represents a unit of work in the system.\"\"\"\n    id: int\n    title: str\n    description: str\n    completed: bool = False\n    created_at: datetime = datetime.now()\n\n# --- Interfaces (Abstract Base Classes) ---\n\nclass TaskRepository(ABC):\n    \"\"\"Interface for task persistence to ensure modularity (Dependency Inversion).\"\"\"\n    @abstractmethod\n    def add(self, task: Task) -> None:\n        pass\n\n    @abstractmethod\n    def get_all(self) -> List[Task]:\n        pass\n\n# --- Implementations ---\n\nclass InMemoryTaskRepository(TaskRepository):\n    \"\"\"Concrete implementation of TaskRepository using an in-memory list.\"\"\"\n    def __init__(self):\n        self._tasks: List[Task] = []\n\n    def add(self, task: Task) -> None:\n        self._tasks.append(task)\n\n    def get_all(self) -> List[Task]:\n        return self._tasks\n\n# --- Decorators (Pythonic Pattern) ---\n\ndef log_action(func):\n    \"\"\"Decorator to log the execution of service methods.\"\"\"\n    def wrapper(*args, **kwargs):\n        logging.info(..."
+            }
+          }
+        },
+        {
+          "subtaskId": "task-1777097765355-w9qwdj-task-6",
+          "agentType": "review",
+          "success": true,
+          "amount": "0.005",
+          "transactionHash": "d7fdf99d-b434-4384-aae6-48ebd8d691b6",
+          "explorerUrl": null,
+          "response": {
+            "success": true,
+            "agent": "Review Agent",
+            "paid_by": "0x42db290677b273a8a6b2bc19082e36d94b1a47e9",
+            "amount": "$0.005",
+            "result": {
+              "quality_score": 72,
+              "issues": [
+                "Lack of edge case testing (e.g., adding duplicate IDs to the repository)",
+                "Insufficient verification of the @log_action decorator (it tests execution but not if logging actually occurred)",
+                "Missing tests for Task modification or deletion logic",
+                "The test suite provided is truncated (ends with '...')"
+              ],
+              "approved": false,
+              "suggestions": [
+                "Implement a Mock or Spy to verify that `log_action` actually calls the logging mechanism.",
+                "Add a test case to verify how the `InMemoryTaskRepository` handles duplicate IDs (should it overwrite or raise an error?).",
+                "Expand the `test_task_completion_toggle` to verify the state change explicitly.",
+                "Include tests for invalid inputs (e.g., None values for title) to ensure robustness."
+              ],
+              "summary": "The implementation demonstrates a basic functional baseline with a 100% pass rate on existing tests. However, the test coverage is superficial. While it confirms the 'happy path', it fails to validate the side effects of the decorator or the constraints of the repository, making it insufficient for a production-ready quality gate."
+            },
+            "context": {
+              "prior_summary": "6 tests generated, 6 passing\nTest suite:\nimport unittest\nfrom datetime import datetime\nfrom main import Task, InMemoryTaskRepository, log_action\n\nclass TestTaskProject(unittest.TestCase):\n    def setUp(self):\n        self.repo = InMemoryTaskRepository()\n\n    def test_task_dataclass_creation(self):\n        task = Task(id=1, title=\"Test\", description=\"Desc\")\n        self.assertEqual(task.id, 1)\n        self.assertEqual(task.completed, False)\n        self.assertIsInstance(task.created_at, datetime)\n\n    def test_repository_add_task(self):\n        task = Task(id=1, title=\"Task 1\", description=\"Desc 1\")\n        self.repo.add(task)\n        self.assertEqual(len(self.repo.get_all()), 1)\n\n    def test_repository_get_all_empty(self):\n        self.assertEqual(len(self.repo.get_all()), 0)\n\n    def test_repository_multiple_tasks(self):\n        self.repo.add(Task(1, \"T1\", \"D1\"))\n        self.repo.add(Task(2, \"T2\", \"D2\"))\n        self.assertEqual(len(self.repo.get_all()), 2)\n\n    def test_decorator_execution(self):\n        @log_action\n        def sample_func():\n            return True\n        self.assertTrue(sample_func())\n\n    def test_task_completion_toggle(self):\n        task = Task(1, \"T1\", \"D1\")\n        task.completed = True\n      ..."
+            }
+          }
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777097765355-w9qwdj_research\", \"$0.030\")",
+          "txHash": "MOCK_0x01abfd4d1a8cd63ca6667cb9d593d038e09fe5326e79a33774067faf315d2f1c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x01abfd4d1a8cd63ca6667cb9d593d038e09fe5326e79a33774067faf315d2f1c",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777097765355-w9qwdj_code\", \"$0.030\")",
+          "txHash": "MOCK_0xbcbfa62436fe0fe61e8e16729dc4b0dc8f7b0a37409f5dadd4f69c52f3ee04b5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xbcbfa62436fe0fe61e8e16729dc4b0dc8f7b0a37409f5dadd4f69c52f3ee04b5",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777097765355-w9qwdj_test\", \"$0.030\")",
+          "txHash": "MOCK_0xe023fcf9580bbf543f71e99f1dbcfc562204a2787ef33e9aa3e871145f38c843",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xe023fcf9580bbf543f71e99f1dbcfc562204a2787ef33e9aa3e871145f38c843",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1777097765355-w9qwdj_review\", \"$0.030\")",
+          "txHash": "MOCK_0xbe1e902c14b8bc5b291f9aab589626e1ca69a3ece286ba397ccc92e114119a1e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xbe1e902c14b8bc5b291f9aab589626e1ca69a3ece286ba397ccc92e114119a1e",
+          "mock": true
+        }
+      ],
+      "extendedTransactions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0x01abfd4d1a8cd63ca6667cb9d593d038e09fe5326e79a33774067faf315d2f1c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x01abfd4d1a8cd63ca6667cb9d593d038e09fe5326e79a33774067faf315d2f1c",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xbcbfa62436fe0fe61e8e16729dc4b0dc8f7b0a37409f5dadd4f69c52f3ee04b5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xbcbfa62436fe0fe61e8e16729dc4b0dc8f7b0a37409f5dadd4f69c52f3ee04b5",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xe023fcf9580bbf543f71e99f1dbcfc562204a2787ef33e9aa3e871145f38c843",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xe023fcf9580bbf543f71e99f1dbcfc562204a2787ef33e9aa3e871145f38c843",
+          "mock": true
+        },
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.005",
+          "transactionHash": "MOCK_0xbe1e902c14b8bc5b291f9aab589626e1ca69a3ece286ba397ccc92e114119a1e",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xbe1e902c14b8bc5b291f9aab589626e1ca69a3ece286ba397ccc92e114119a1e",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x0671a4952b01806c3e344be919b2604d84b3f59bdc2b38fe447e993feebdd291",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x0671a4952b01806c3e344be919b2604d84b3f59bdc2b38fe447e993feebdd291",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xb20628e68bb709164f25b28cf1d37972b309b2cafa067855adf56a62bf0e0701",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xb20628e68bb709164f25b28cf1d37972b309b2cafa067855adf56a62bf0e0701",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xa982a9b8b29dfd8e88cbe332378c2fe87c84095bf731a97f388fae2986489058",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa982a9b8b29dfd8e88cbe332378c2fe87c84095bf731a97f388fae2986489058",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x961291e84e3e5b45a51462dc967c64f38c1f5b2b152ccea5fd81e37e726f4949",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x961291e84e3e5b45a51462dc967c64f38c1f5b2b152ccea5fd81e37e726f4949",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x23fc36b9244f3fa51f5e0b0d1675550c9c99ce8560d8154a9eb6a99a676bec3b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x23fc36b9244f3fa51f5e0b0d1675550c9c99ce8560d8154a9eb6a99a676bec3b",
+          "mock": true
+        },
+        {
+          "type": "escrow_claim",
+          "contractName": "AgentEscrow",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x26730c666b994f1ea6b8c594891944f9fcb6bb8b0d2306459eeda2a5185ae96d",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x26730c666b994f1ea6b8c594891944f9fcb6bb8b0d2306459eeda2a5185ae96d",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xa48051d4a67065499c2e36ae1f450f4c0d70650914a4eeaedb3d6484630474fa",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xa48051d4a67065499c2e36ae1f450f4c0d70650914a4eeaedb3d6484630474fa",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0x16b4225103ea4277f496b0660f8d1bf2a9fb2776e3ff8c65614a333cac978e07",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x16b4225103ea4277f496b0660f8d1bf2a9fb2776e3ff8c65614a333cac978e07",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "MOCK_0xdd2d3e66bd39980a2d632899c0528b174ae54a6bc55c617039730068f7960c57",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xdd2d3e66bd39980a2d632899c0528b174ae54a6bc55c617039730068f7960c57",
+          "mock": true
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0x7a69ad28895d23ad13f394834aebb709b45f3d0138abce7e28df7e843dcbf49c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x7a69ad28895d23ad13f394834aebb709b45f3d0138abce7e28df7e843dcbf49c",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0x74be649161277029e439bd7d133a29fe94bf6f894b72e8a9f265100411f0509c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x74be649161277029e439bd7d133a29fe94bf6f894b72e8a9f265100411f0509c",
+          "mock": false
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "success": true,
+          "amount": "$0.000",
+          "transactionHash": "0x6fb478c184b83d0e0130fcc64e473e6b262d89dff133c3e67f54e33c8d9585b7",
+          "explorerUrl": "https://testnet.arcscan.io/tx/0x6fb478c184b83d0e0130fcc64e473e6b262d89dff133c3e67f54e33c8d9585b7",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→code",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "b47d8386-bfcf-44a9-970a-389df99b2d0c",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "92547c48-3837-4b2f-b3df-d8f445116d52",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "516edc79-64f5-4aae-bf50-4a2bda323fc7",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "research→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "8869e582-8e9a-4b08-870f-94d6a2c3c4ed",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→review",
+          "success": true,
+          "amount": "$0.003",
+          "transactionHash": "ef2736ea-12f7-41af-9836-1d4ea9ec7a69",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "code→test",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "5cb48a32-250a-47de-9111-0fe018a7d21d",
+          "explorerUrl": "",
+          "mock": false
+        },
+        {
+          "type": "a2a_chain",
+          "agentType": "test→review",
+          "success": true,
+          "amount": "$0.002",
+          "transactionHash": "172c0a1c-f62d-420f-aa62-c715fb9381d2",
+          "explorerUrl": "",
+          "mock": false
+        }
+      ],
+      "cost": "$0.030",
+      "transactionCount": 33
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 6,
+    "totalFailed": 0,
+    "totalCost": 0.030000000000000002,
+    "totalTransactions": 33,
+    "allTxHashes": [
+      "3acda0e6-ca44-4745-843e-d23803db4983",
+      "20d89a9a-1c3c-4868-9951-924e0900a330",
+      "ecddc60c-b4ba-416b-97b1-9613bcd91f53",
+      "a0ded82b-d6ad-4d4d-b01a-3110cc3c245a",
+      "e74882e5-df9f-4429-a76d-86016a94daff",
+      "d7fdf99d-b434-4384-aae6-48ebd8d691b6",
+      "MOCK_0x01abfd4d1a8cd63ca6667cb9d593d038e09fe5326e79a33774067faf315d2f1c",
+      "MOCK_0xbcbfa62436fe0fe61e8e16729dc4b0dc8f7b0a37409f5dadd4f69c52f3ee04b5",
+      "MOCK_0xe023fcf9580bbf543f71e99f1dbcfc562204a2787ef33e9aa3e871145f38c843",
+      "MOCK_0xbe1e902c14b8bc5b291f9aab589626e1ca69a3ece286ba397ccc92e114119a1e",
+      "MOCK_0x01abfd4d1a8cd63ca6667cb9d593d038e09fe5326e79a33774067faf315d2f1c",
+      "MOCK_0xbcbfa62436fe0fe61e8e16729dc4b0dc8f7b0a37409f5dadd4f69c52f3ee04b5",
+      "MOCK_0xe023fcf9580bbf543f71e99f1dbcfc562204a2787ef33e9aa3e871145f38c843",
+      "MOCK_0xbe1e902c14b8bc5b291f9aab589626e1ca69a3ece286ba397ccc92e114119a1e",
+      "MOCK_0x0671a4952b01806c3e344be919b2604d84b3f59bdc2b38fe447e993feebdd291",
+      "MOCK_0xb20628e68bb709164f25b28cf1d37972b309b2cafa067855adf56a62bf0e0701",
+      "MOCK_0xa982a9b8b29dfd8e88cbe332378c2fe87c84095bf731a97f388fae2986489058",
+      "MOCK_0x961291e84e3e5b45a51462dc967c64f38c1f5b2b152ccea5fd81e37e726f4949",
+      "MOCK_0x23fc36b9244f3fa51f5e0b0d1675550c9c99ce8560d8154a9eb6a99a676bec3b",
+      "MOCK_0x26730c666b994f1ea6b8c594891944f9fcb6bb8b0d2306459eeda2a5185ae96d",
+      "MOCK_0xa48051d4a67065499c2e36ae1f450f4c0d70650914a4eeaedb3d6484630474fa",
+      "MOCK_0x16b4225103ea4277f496b0660f8d1bf2a9fb2776e3ff8c65614a333cac978e07",
+      "MOCK_0xdd2d3e66bd39980a2d632899c0528b174ae54a6bc55c617039730068f7960c57",
+      "0x7a69ad28895d23ad13f394834aebb709b45f3d0138abce7e28df7e843dcbf49c",
+      "0x74be649161277029e439bd7d133a29fe94bf6f894b72e8a9f265100411f0509c",
+      "0x6fb478c184b83d0e0130fcc64e473e6b262d89dff133c3e67f54e33c8d9585b7",
+      "b47d8386-bfcf-44a9-970a-389df99b2d0c",
+      "92547c48-3837-4b2f-b3df-d8f445116d52",
+      "516edc79-64f5-4aae-bf50-4a2bda323fc7",
+      "8869e582-8e9a-4b08-870f-94d6a2c3c4ed",
+      "ef2736ea-12f7-41af-9836-1d4ea9ec7a69",
+      "5cb48a32-250a-47de-9111-0fe018a7d21d",
+      "172c0a1c-f62d-420f-aa62-c715fb9381d2"
+    ]
+  }
+}

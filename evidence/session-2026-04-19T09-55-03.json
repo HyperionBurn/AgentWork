@@ -1,0 +1,194 @@
+{
+  "timestamp": "2026-04-19T09:54:27.745Z",
+  "config": {
+    "task": "Build a REST API with user authentication, CRUD endpoints, and unit tests",
+    "totalRuns": 1
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "taskId": "task-1776592476377-4pmkam",
+      "results": [
+        {
+          "subtaskId": "task-1776592476377-4pmkam-1",
+          "agentType": "research",
+          "success": false,
+          "amount": "$0.005",
+          "transactionHash": null,
+          "explorerUrl": null,
+          "error": "Missing PAYMENT-REQUIRED header in 402 response"
+        },
+        {
+          "subtaskId": "task-1776592476377-4pmkam-2",
+          "agentType": "research",
+          "success": false,
+          "amount": "$0.005",
+          "transactionHash": null,
+          "explorerUrl": null,
+          "error": "Missing PAYMENT-REQUIRED header in 402 response"
+        },
+        {
+          "subtaskId": "task-1776592476377-4pmkam-3",
+          "agentType": "code",
+          "success": false,
+          "amount": "$0.005",
+          "transactionHash": null,
+          "explorerUrl": null,
+          "error": "Missing PAYMENT-REQUIRED header in 402 response"
+        },
+        {
+          "subtaskId": "task-1776592476377-4pmkam-4",
+          "agentType": "code",
+          "success": false,
+          "amount": "$0.005",
+          "transactionHash": null,
+          "explorerUrl": null,
+          "error": "Missing PAYMENT-REQUIRED header in 402 response"
+        },
+        {
+          "subtaskId": "task-1776592476377-4pmkam-5",
+          "agentType": "test",
+          "success": false,
+          "amount": "$0.005",
+          "transactionHash": null,
+          "explorerUrl": null,
+          "error": "Missing PAYMENT-REQUIRED header in 402 response"
+        },
+        {
+          "subtaskId": "task-1776592476377-4pmkam-6",
+          "agentType": "test",
+          "success": false,
+          "amount": "$0.005",
+          "transactionHash": null,
+          "explorerUrl": null,
+          "error": "Missing PAYMENT-REQUIRED header in 402 response"
+        },
+        {
+          "subtaskId": "task-1776592476377-4pmkam-7",
+          "agentType": "review",
+          "success": false,
+          "amount": "$0.005",
+          "transactionHash": null,
+          "explorerUrl": null,
+          "error": "Missing PAYMENT-REQUIRED header in 402 response"
+        }
+      ],
+      "contractInteractions": [
+        {
+          "type": "escrow_create",
+          "contractName": "AgentEscrow",
+          "functionCall": "createTask(\"task-1776592476377-4pmkam\", \"$0.035\")",
+          "txHash": "MOCK_0x82b00e708523c4403c90a0c39cf426510d31202059943f072a80bfdb8342bf9c",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x82b00e708523c4403c90a0c39cf426510d31202059943f072a80bfdb8342bf9c"
+        },
+        {
+          "type": "escrow_complete",
+          "contractName": "AgentEscrow",
+          "functionCall": "approveCompletion(\"task-1776592476377-4pmkam\")",
+          "txHash": "MOCK_0xb2c1b80401581ca13082db3520f93eb497e77882205af1a53ce1915de36339fe",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xb2c1b80401581ca13082db3520f93eb497e77882205af1a53ce1915de36339fe"
+        },
+        {
+          "type": "escrow_dispute",
+          "contractName": "AgentEscrow",
+          "functionCall": "refund(\"task-1776592476377-4pmkam_research\", \"Agent research failed during execution\")",
+          "txHash": "MOCK_0x5560499d548f821ccbf188411c3bcd168a7475f14165092ac7d602d71bfee03b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x5560499d548f821ccbf188411c3bcd168a7475f14165092ac7d602d71bfee03b"
+        },
+        {
+          "type": "escrow_dispute",
+          "contractName": "AgentEscrow",
+          "functionCall": "refund(\"task-1776592476377-4pmkam_research\", \"Agent research failed during execution\")",
+          "txHash": "MOCK_0xf380165a53b55110b76e0bdb3b80232feffa4b8fa167a2757fc0f3bd4a9d92c5",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xf380165a53b55110b76e0bdb3b80232feffa4b8fa167a2757fc0f3bd4a9d92c5"
+        },
+        {
+          "type": "escrow_dispute",
+          "contractName": "AgentEscrow",
+          "functionCall": "refund(\"task-1776592476377-4pmkam_code\", \"Agent code failed during execution\")",
+          "txHash": "MOCK_0xef151591772283261e5f98f5f39f7c6e598a8fa2138b4eb52b93bc9caa597e11",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xef151591772283261e5f98f5f39f7c6e598a8fa2138b4eb52b93bc9caa597e11"
+        },
+        {
+          "type": "escrow_dispute",
+          "contractName": "AgentEscrow",
+          "functionCall": "refund(\"task-1776592476377-4pmkam_code\", \"Agent code failed during execution\")",
+          "txHash": "MOCK_0x3a6d1f7c1758467e124086fc8001024e637d120e2aefd4536f7f2c7e66e47def",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3a6d1f7c1758467e124086fc8001024e637d120e2aefd4536f7f2c7e66e47def"
+        },
+        {
+          "type": "escrow_dispute",
+          "contractName": "AgentEscrow",
+          "functionCall": "refund(\"task-1776592476377-4pmkam_test\", \"Agent test failed during execution\")",
+          "txHash": "MOCK_0xb1df749188893735187df487594526df6a3969b705186d0aef4987a391195260",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xb1df749188893735187df487594526df6a3969b705186d0aef4987a391195260"
+        },
+        {
+          "type": "escrow_dispute",
+          "contractName": "AgentEscrow",
+          "functionCall": "refund(\"task-1776592476377-4pmkam_test\", \"Agent test failed during execution\")",
+          "txHash": "MOCK_0xd9d2670178ec1338aa6f0057c435fed48fea141a673d175da41cece482a50114",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0xd9d2670178ec1338aa6f0057c435fed48fea141a673d175da41cece482a50114"
+        },
+        {
+          "type": "escrow_dispute",
+          "contractName": "AgentEscrow",
+          "functionCall": "refund(\"task-1776592476377-4pmkam_review\", \"Agent review failed during execution\")",
+          "txHash": "MOCK_0x413917aa35e80272b2d573844b00df6650b196cc9684568c078a6e8895d6e069",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x413917aa35e80272b2d573844b00df6650b196cc9684568c078a6e8895d6e069"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_RESEARCH\", 91, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x19e8b91936d347387f71fad799ae2bf2c00fc29f21c14b1bba81e7eba20947cb",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x19e8b91936d347387f71fad799ae2bf2c00fc29f21c14b1bba81e7eba20947cb"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_CODE\", 92, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x3be11e85a087fd51480c13b40aa6aee65f1a7cf777a1d2252ae35e423aca4e9b",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x3be11e85a087fd51480c13b40aa6aee65f1a7cf777a1d2252ae35e423aca4e9b"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_TEST\", 88, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x1819f3b206c443ed2eb212bf6113f92dcac3f7edc12d3f0828cb800942e66898",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x1819f3b206c443ed2eb212bf6113f92dcac3f7edc12d3f0828cb800942e66898"
+        },
+        {
+          "type": "reputation",
+          "contractName": "ReputationRegistry",
+          "functionCall": "giveFeedback(\"0x_AGENT_REVIEW\", 98, \"Completed tasks on time with good quality\")",
+          "txHash": "MOCK_0x66a0a6e77299661671190f3e06d504d4fb5e473bdd0cc7fc8e29370097f46d14",
+          "explorerUrl": "https://testnet.arcscan.io/tx/MOCK_0x66a0a6e77299661671190f3e06d504d4fb5e473bdd0cc7fc8e29370097f46d14"
+        }
+      ],
+      "cost": "$0.000",
+      "transactionCount": 13
+    }
+  ],
+  "summary": {
+    "totalSuccessful": 0,
+    "totalFailed": 7,
+    "totalCost": 0,
+    "totalTransactions": 13,
+    "allTxHashes": [
+      "MOCK_0x82b00e708523c4403c90a0c39cf426510d31202059943f072a80bfdb8342bf9c",
+      "MOCK_0xb2c1b80401581ca13082db3520f93eb497e77882205af1a53ce1915de36339fe",
+      "MOCK_0x5560499d548f821ccbf188411c3bcd168a7475f14165092ac7d602d71bfee03b",
+      "MOCK_0xf380165a53b55110b76e0bdb3b80232feffa4b8fa167a2757fc0f3bd4a9d92c5",
+      "MOCK_0xef151591772283261e5f98f5f39f7c6e598a8fa2138b4eb52b93bc9caa597e11",
+      "MOCK_0x3a6d1f7c1758467e124086fc8001024e637d120e2aefd4536f7f2c7e66e47def",
+      "MOCK_0xb1df749188893735187df487594526df6a3969b705186d0aef4987a391195260",
+      "MOCK_0xd9d2670178ec1338aa6f0057c435fed48fea141a673d175da41cece482a50114",
+      "MOCK_0x413917aa35e80272b2d573844b00df6650b196cc9684568c078a6e8895d6e069",
+      "MOCK_0x19e8b91936d347387f71fad799ae2bf2c00fc29f21c14b1bba81e7eba20947cb",
+      "MOCK_0x3be11e85a087fd51480c13b40aa6aee65f1a7cf777a1d2252ae35e423aca4e9b",
+      "MOCK_0x1819f3b206c443ed2eb212bf6113f92dcac3f7edc12d3f0828cb800942e66898",
+      "MOCK_0x66a0a6e77299661671190f3e06d504d4fb5e473bdd0cc7fc8e29370097f46d14"
+    ]
+  }
+}
