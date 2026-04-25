@@ -249,7 +249,7 @@ function AgentOutputRenderer({ data, agent }: { data: any, agent: string }) {
               {data.issues.map((iss: any, i: number) => (
                 <div key={i} className="bg-red-500/10 border border-red-500/20 px-3 py-2 rounded-lg flex items-start space-x-2">
                   <AlertTriangle className="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />
-                  <span className="text-white/80 text-xs">{iss.description || iss}</span>
+                  <span className="text-white/80 text-xs">{typeof iss === 'string' ? iss : (iss.description || iss.message || JSON.stringify(iss))}</span>
                 </div>
               ))}
             </div>
