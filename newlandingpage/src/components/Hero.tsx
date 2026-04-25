@@ -58,7 +58,7 @@ export default function Hero() {
             Deploy Smart Agent
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
-          <MagneticButton intensity={0.2} className="glass-pill rounded-full px-8 py-4 text-sm font-medium text-white hover:bg-white/5 transition-colors cursor-pointer">
+          <MagneticButton onClick={() => window.open('https://github.com/HyperionBurn/AgentWork/blob/main/docs/MARGIN_ANALYSIS.md', '_blank')} intensity={0.2} className="glass-pill rounded-full px-8 py-4 text-sm font-medium text-white hover:bg-white/5 transition-colors cursor-pointer">
             Read Whitepaper
           </MagneticButton>
         </motion.div>

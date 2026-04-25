@@ -19,22 +19,20 @@ export default function Footer() {
         <div>
           <h4 className="font-mono text-xs uppercase tracking-widest text-orange-500 mb-6">Developers</h4>
           <ul className="space-y-4">
-            {['Documentation', 'SDK Reference', 'GitHub', 'Bug Bounty'].map(link => (
-              <li key={link}>
-                <a href="#" className="text-sm text-white/50 hover:text-white transition-colors">{link}</a>
-              </li>
-            ))}
+            <li><a href="https://github.com/HyperionBurn/AgentWork#readme" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="https://github.com/circlefin/x402" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">SDK Reference</a></li>
+            <li><a href="https://github.com/HyperionBurn/AgentWork" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">GitHub</a></li>
+            <li><a href="https://github.com/HyperionBurn/AgentWork/security" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">Bug Bounty</a></li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-mono text-xs uppercase tracking-widest text-orange-500 mb-6">Protocol</h4>
           <ul className="space-y-4">
-            {['Whitepaper', 'Node Runners', 'Governance', 'Network Status'].map(link => (
-              <li key={link}>
-                <a href="#" className="text-sm text-white/50 hover:text-white transition-colors">{link}</a>
-              </li>
-            ))}
+            <li><a href="https://github.com/HyperionBurn/AgentWork/blob/main/docs/MARGIN_ANALYSIS.md" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">Whitepaper</a></li>
+            <li><a href="https://docs.arc.network" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">Node Runners</a></li>
+            <li><a href="#governance" className="text-sm text-white/50 hover:text-white transition-colors">Governance</a></li>
+            <li><a href="https://testnet.arcscan.io" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors">Network Status</a></li>
           </ul>
         </div>
       </div>
@@ -42,8 +40,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 text-xs text-white/30 font-mono">
         <p>© 2026 Agenwork Foundation. All rights reserved.</p>
         <div className="flex items-center gap-6 mt-4 md:mt-0">
-          <a href="#" className="hover:text-white/60">Privacy Policy</a>
-          <a href="#" className="hover:text-white/60">Terms of Service</a>
+          <a href="https://github.com/HyperionBurn/AgentWork" target="_blank" rel="noopener noreferrer" className="hover:text-white/60">Privacy Policy</a>
+          <a href="https://github.com/HyperionBurn/AgentWork" target="_blank" rel="noopener noreferrer" className="hover:text-white/60">Terms of Service</a>
         </div>
       </div>
     </footer>

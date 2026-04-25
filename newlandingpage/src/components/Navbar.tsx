@@ -25,12 +25,12 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="hidden md:block text-sm font-medium text-white/80 hover:text-white transition-colors">
+        <a href="https://github.com/HyperionBurn/AgentWork#readme" target="_blank" rel="noopener noreferrer" className="hidden md:block text-sm font-medium text-white/80 hover:text-white transition-colors">
           Documentation
-        </button>
-        <button className="glass-pill px-6 py-2.5 rounded-full text-sm font-medium hover:bg-white/5 transition-colors border-orange-500/30 text-orange-50">
+        </a>
+        <a href="https://github.com/HyperionBurn/AgentWork" target="_blank" rel="noopener noreferrer" className="glass-pill px-6 py-2.5 rounded-full text-sm font-medium hover:bg-white/5 transition-colors border-orange-500/30 text-orange-50">
           Initialize Node
-        </button>
+        </a>
       </div>
     </motion.nav>
   );

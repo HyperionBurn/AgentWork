@@ -172,7 +172,7 @@ npm run demo:10   # 10 orchestrated runs → 260+ on-chain txns
 | **Code Agent** | Express · x402 middleware | `4022` | Code generation & implementation |
 | **Test Agent** | Express · x402 middleware | `4023` | Test suite generation & QA |
 | **Review Agent** | Express · x402 middleware | `4024` | Code review & quality scoring |
-| **Landing Page** | Vite · React Three Fiber · Framer Motion | `3000` | 3D glassmorphism landing page |
+| **Landing Page** | Vite · React Three Fiber · Framer Motion | `3002` | 3D glassmorphism landing page (lazy-loaded Three.js) |
 
 ### Smart Contracts (Vyper 0.4.x — Deployed on Arc Testnet)
 

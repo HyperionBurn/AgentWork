@@ -41,7 +41,7 @@ export default function TechnicalEvidenceCTA() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <a href="#" className="inline-flex items-center gap-2 bg-white text-black hover:bg-white/90 px-8 py-4 rounded-full text-sm font-medium transition-colors group">
+            <a href="https://github.com/HyperionBurn/AgentWork" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white text-black hover:bg-white/90 px-8 py-4 rounded-full text-sm font-medium transition-colors group">
               View Source Repository
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
