@@ -15,7 +15,7 @@ export default function Hero() {
            className="glass-pill px-4 py-1.5 rounded-full flex items-center gap-2 mb-8 border-orange-500/20"
         >
             <Activity className="w-3.5 h-3.5 text-orange-500" />
-            <span className="text-xs font-mono text-orange-200/80 uppercase tracking-wider">Network Status: Nominal — 7 Active Nodes</span>
+            <span className="text-xs font-mono text-orange-200/80 uppercase tracking-wider">Arc L1 Testnet — Chain ID 5042002 — USDC Native Gas</span>
         </motion.div>
 
         <h1 className="text-6xl md:text-8xl lg:text-[110px] font-display font-light leading-[0.85] tracking-tight mb-8">
@@ -55,7 +55,7 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center gap-4"
         >
           <MagneticButton onClick={() => window.open(import.meta.env.VITE_DASHBOARD_URL || 'http://localhost:3001', '_blank')} intensity={0.3} className="bg-orange-600 hover:bg-orange-500 text-white rounded-full px-8 py-4 text-sm font-medium transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)] flex items-center gap-2 group cursor-pointer">
-            Deploy Smart Agent
+            Open Dashboard
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
           <MagneticButton onClick={() => window.open('https://github.com/HyperionBurn/AgentWork/blob/main/docs/MARGIN_ANALYSIS.md', '_blank')} intensity={0.2} className="glass-pill rounded-full px-8 py-4 text-sm font-medium text-white hover:bg-white/5 transition-colors cursor-pointer">

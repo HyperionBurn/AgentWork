@@ -33,7 +33,7 @@ export default function TechnicalEvidenceCTA() {
             transition={{ delay: 0.1 }}
             className="text-white/50 font-light text-lg mb-8 leading-relaxed"
           >
-            Review our open-source settlement contracts, zk-circuit implementations, and robust peer-to-peer networking layer on GitHub. Fully audited by top firms.
+            Review our open-source settlement contracts, orchestrator, and agent gateway on GitHub. Built on Circle's official x402 SDK with 5 deployed Vyper contracts on Arc testnet.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -61,25 +61,28 @@ export default function TechnicalEvidenceCTA() {
             
             <div className="space-y-6 relative z-10">
                 <div>
-                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Audit Status</h4>
-                   <div className="flex gap-2">
-                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">PASSED: CertiK</span>
-                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">PASSED: Trail of Bits</span>
+                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Contracts Deployed</h4>
+                   <div className="flex flex-wrap gap-2">
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">AgentEscrow</span>
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">PaymentSplitter</span>
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">IdentityRegistry</span>
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">ReputationRegistry</span>
+                       <span className="glass-pill px-3 py-1 rounded-md text-xs font-mono text-green-400">SpendingLimiter</span>
                    </div>
                 </div>
                 
                 <div className="h-px bg-white/5" />
 
                 <div>
-                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Network Performance</h4>
+                   <h4 className="text-xs font-mono text-orange-500 uppercase tracking-widest mb-2">Arc L1 Performance</h4>
                    <div className="grid grid-cols-2 gap-4">
                        <div>
-                           <div className="text-2xl font-light text-white mb-1">99.999%</div>
-                           <div className="text-xs text-white/40">Uptime (Last 30 Days)</div>
+                           <div className="text-2xl font-light text-white mb-1">12ms</div>
+                           <div className="text-xs text-white/40">Avg Transaction Finality</div>
                        </div>
                        <div>
-                           <div className="text-2xl font-light text-white mb-1">0.8s</div>
-                           <div className="text-xs text-white/40">Time to Finality</div>
+                           <div className="text-2xl font-light text-white mb-1">$0.0001</div>
+                           <div className="text-xs text-white/40">Gas Cost per Transaction</div>
                        </div>
                    </div>
                 </div>

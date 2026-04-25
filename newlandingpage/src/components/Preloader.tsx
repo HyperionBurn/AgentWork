@@ -2,12 +2,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 const bootSequences = [
-  "INITIALIZING WSS PROTOCOL...",
-  "LOCATING PEER NODES...",
-  "VERIFYING CRYPTOGRAPHIC PROOFS...",
-  "ESTABLISHING SECURE TUNNEL...",
-  "SYNCHRONIZING LEDGER STATE...",
-  "BOOT SEQUENCE COMPLETE."
+  "CONNECTING TO ARC L1...",
+  "INITIALIZING CIRCLE GATEWAY...",
+  "LOADING AGENT REGISTRY...",
+  "DEPOSITING USDC...",
+  "ORCHESTRATOR READY.",
 ];
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
@@ -67,7 +66,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                 {Math.floor(progress).toString().padStart(3, '0')}<span className="text-white/20 text-4xl md:text-6xl">%</span>
               </div>
               <div className="text-xs text-white/30 hidden md:block pb-2">
-                AGENWORK KERNEL v2.4.1
+                AGENTWORK v1.0.0
               </div>
            </div>
            

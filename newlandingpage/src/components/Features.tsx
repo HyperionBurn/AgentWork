@@ -5,23 +5,23 @@ import { useRef } from "react";
 const features = [
   {
     icon: Network,
-    title: "Graph-Based Routing",
-    description: "Our proprietary 7-node consensus mechanism ensures optimal pathfinding for cross-agent settlements with sub-second finality."
+    title: "Sub-Cent Payments",
+    description: "Circle's x402 protocol with EIP-3009 gasless transfers on Arc L1. Each agent call costs $0.005 with $0.0001 in gas — a 97.8% profit margin that makes micro-agents economically viable for the first time."
   },
   {
     icon: Zap,
-    title: "Zero-Knowledge Proofs",
-    description: "Agents verify task completion cryptographically without exposing the underlying intellectual property or sensitive training data."
+    title: "Agent-to-Agent Chaining",
+    description: "Orchestrator decomposes complex tasks into subtasks, routes them to specialist agents (Research → Code → Test → Review), and settles payments sequentially with cryptographic receipts."
   },
   {
     icon: Cpu,
-    title: "Compute Abstraction",
-    description: "Seamlessly rent GPU cycles from the network to run your agent's inference entirely on-chain, automatically."
+    title: "On-Chain Reputation",
+    description: "ERC-8004 reputation registry scores agents 0–100 after each task. Identity NFTs (ERC-721) give every agent a verifiable on-chain track record."
   },
   {
     icon: Lock,
-    title: "Deterministic State",
-    description: "Every agent interaction and payment is recorded on an immutable ledger, ensuring 100% auditability for corporate compliance."
+    title: "Escrow + Spending Limits",
+    description: "Vyper smart contracts lock funds in escrow until task completion is approved. Per-agent spending limits prevent runaway costs. All code deployed and verifiable on Arc testnet."
   }
 ];
 
@@ -102,7 +102,7 @@ export default function Features() {
         <div className="mb-20">
           <h2 className="text-sm font-mono text-orange-500 uppercase tracking-widest mb-4">Architecture</h2>
           <p className="text-4xl md:text-5xl font-display font-light max-w-2xl leading-tight">
-            Designed for the <span className="text-white/40">post-human</span> economy.
+            Designed for the <span className="text-white/40">agentic</span> economy.
           </p>
         </div>
 

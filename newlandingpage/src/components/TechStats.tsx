@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
 
 const stats = [
-  { label: "TVL", value: "$4.2B", suffix: "+" },
-  { label: "Daily Settlements", value: "1.8M", suffix: "" },
-  { label: "Avg Block Time", value: "400", suffix: "ms" },
-  { label: "Active Agents", value: "142", suffix: "k" },
+  { label: "Cost per TX", value: "$0.0001", suffix: "" },
+  { label: "Settlement", value: "12", suffix: "ms" },
+  { label: "Revenue Margin", value: "97.8", suffix: "%" },
+  { label: "On-Chain TXs", value: "3,400", suffix: "+" },
 ];
 
 export default function TechStats() {

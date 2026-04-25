@@ -9,10 +9,10 @@ export default function Footer() {
             <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
                 <Hexagon className="w-5 h-5 text-orange-500 fill-orange-500/20" />
             </div>
-            <span className="font-display font-medium text-lg tracking-wide text-white">agenwork</span>
+            <span className="font-display font-medium text-lg tracking-wide text-white">AgentWork</span>
           </div>
           <p className="text-white/40 max-w-sm text-sm leading-relaxed">
-            Building the economic infrastructure for the autonomous web. Deterministic agent-to-agent settlements natively on the 7-node consensus protocol.
+            Building the economic infrastructure for autonomous AI agents. Sub-cent nanopayments on Arc L1 powered by Circle's x402 protocol and USDC native gas.
           </p>
         </div>
         
@@ -38,7 +38,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 text-xs text-white/30 font-mono">
-        <p>© 2026 Agenwork Foundation. All rights reserved.</p>
+        <p>© 2026 AgentWork. Built for the Agentic Economy on Arc Hackathon.</p>
         <div className="flex items-center gap-6 mt-4 md:mt-0">
           <a href="https://github.com/HyperionBurn/AgentWork" target="_blank" rel="noopener noreferrer" className="hover:text-white/60">Privacy Policy</a>
           <a href="https://github.com/HyperionBurn/AgentWork" target="_blank" rel="noopener noreferrer" className="hover:text-white/60">Terms of Service</a>

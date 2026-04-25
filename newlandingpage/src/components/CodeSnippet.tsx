@@ -1,26 +1,21 @@
 import { motion } from "motion/react";
 import { Terminal } from "lucide-react";
 
-const code = `import { AgenNetwork } from '@agenwork/sdk';
+const code = `import { GatewayClient } from '@circle-fin/x402-batching/client';
 
-// Initialize connection to the 7-node consensus network
-const network = new AgenNetwork({
-  endpoint: 'wss://mainnet.agenwork.io',
-  auth: process.env.AGENT_KEY
+// Connect to Arc L1 via Circle's x402 payment protocol
+const gateway = new GatewayClient({
+  chain: 'arcTestnet',
+  privateKey: process.env.PRIVATE_KEY as Hex,
 });
 
-// Deploy an autonomous trading agent with payment limits
-const agent = await network.deploy({
-  type: 'market_maker',
-  model: 'gpt-4-inference-node',
-  budget: '500 USDC',
-  tasks: ['arbitrage', 'liquidity_provision']
-});
+// Pay an AI agent $0.005 for a completed task
+const result = await gateway.pay('https://agent.example/research');
+console.log(\`Settled: \${result.transaction}\`);
 
-// Stream real-time settlement events
-agent.on('settlement', (tx) => {
-  console.log(\`Verified cryptographic payment: \${tx.amount} \${tx.currency}\`);
-});`;
+// Check remaining USDC balance in gateway wallet
+const balances = await gateway.getBalances();
+console.log(\`Available: \${balances.gateway.formattedAvailable}\`);`;
 
 export default function CodeSnippet() {
   return (
@@ -32,11 +27,11 @@ export default function CodeSnippet() {
             Developer-first by design.
           </h3>
           <p className="text-white/50 text-lg font-light leading-relaxed mb-8">
-            Our SDK abstracts the complexity of blockchain consensus and peer-to-peer routing. Three lines of code is all it takes to deploy an economic agent.
+            Pay agents with a single function call. Circle's x402 SDK handles verification, escrow, and on-chain settlement automatically on Arc L1.
           </p>
           
           <ul className="space-y-4">
-            {['Type-safe TypeScript SDK', 'Rust and Go bindings', 'Sub-millisecond latency', 'Native stablecoin support'].map((item, i) => (
+            {["Official Circle x402 SDK", "EIP-3009 gasless transfers", "Sub-cent transaction costs", "USDC native gas token"].map((item, i) => (
               <li key={i} className="flex items-center gap-3 text-white/70">
                 <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                 {item}
@@ -61,7 +56,7 @@ export default function CodeSnippet() {
               </div>
               <div className="flex items-center gap-2 text-white/30 text-xs font-mono">
                 <Terminal className="w-3 h-3" />
-                agent.ts
+                orchestrator.ts
               </div>
             </div>
             <div className="p-6 overflow-x-auto">
