@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Receipt, Download, Search, Filter, ExternalLink, ChevronRight, X, FileText, Cpu, Clock, History } from 'lucide-react';
+import { Receipt, Download, Search, Filter, ExternalLink, ChevronRight, X, FileText, Cpu, Clock, History, Loader2 } from 'lucide-react';
 import { useDashboardStore } from '../../../lib/store';
 import { apiFetch, cn, formatCurrency } from '../../../lib/utils';
 import { adaptReceiptsForHistory } from '../../../lib/api-adapters';

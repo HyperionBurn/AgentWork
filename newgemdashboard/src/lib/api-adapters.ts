@@ -32,6 +32,13 @@ export interface GeminiRevenue {
   };
 }
 
+function parseDollar(val: any): number {
+  if (typeof val === 'number') return val;
+  const s = String(val || '0').replace(/[$,]/g, '');
+  const n = parseFloat(s);
+  return isNaN(n) ? 0 : n;
+}
+
 export function adaptRevenueForEconomy(backendRevenue: any): GeminiRevenue {
   if (!backendRevenue || !backendRevenue.totals) {
     return {
@@ -47,18 +54,22 @@ export function adaptRevenueForEconomy(backendRevenue: any): GeminiRevenue {
   let topRev = 0;
   
   for (const a of agents) {
-    if (a.earned > topRev) {
-      topRev = a.earned;
-      topAgent = a.agentId || a.agentType || a.agent;
+    const earned = parseDollar(a.earned ?? a.totalEarned ?? a.revenue);
+    if (earned > topRev) {
+      topRev = earned;
+      topAgent = a.agentId || a.agentType || a.agent || a.name;
     }
   }
 
+  const totalEarned = parseDollar(totals.totalEarned ?? totals.totalRevenue);
+  const totalTasks = totals.totalTasks || 0;
+
   return {
-    totalRevenue: parseFloat(totals.totalEarned || "0"),
-    avgPerTask: totals.totalTasks > 0 ? parseFloat(totals.totalEarned || "0") / totals.totalTasks : 0,
+    totalRevenue: totalEarned,
+    avgPerTask: totalTasks > 0 ? totalEarned / totalTasks : 0,
     topEarner: {
       agent: topAgent,
-      revenue: parseFloat(String(topRev) || "0")
+      revenue: topRev
     }
   };
 }
@@ -106,7 +117,7 @@ export function adaptReceiptsForHistory(backendReceipts: any[]): GeminiReceipt[]
       explorerUrl: firstPayment?.explorerUrl || buildExplorerUrl(txHash),
       agent: firstPayment?.agentType || 'unknown',
       task: r.taskId || 'unknown',
-      amount: parseFloat(r.totalAmount || r.amount || "0"),
+      amount: parseDollar(r.totalAmount || r.amount || "0"),
       status: (r.successfulPayments || 0) > 0 || r.status === 'completed' ? 'passed' : 'failed',
       timestamp: r.createdAt || r.timestamp || new Date().toISOString(),
       metadata: {
@@ -154,24 +165,46 @@ export function adaptAgentsForEvidence(backendAgents: any[]): GeminiNodeEvidence
 export function adaptGatewayBalance(backend: any): {balance: number, deposited: number, spent: number} {
   if (!backend) return { balance: 0, deposited: 0, spent: 0 };
   return {
-    balance: parseFloat(backend.balance || "0"),
-    deposited: parseFloat(backend.deposited || "0"),
-    spent: parseFloat(backend.spent || "0")
+    balance: parseDollar(backend.balance || backend.formattedAvailable || "0"),
+    deposited: parseDollar(backend.deposited || "0"),
+    spent: parseDollar(backend.spent || backend.totalSpent || "0")
   };
 }
 
 export function adaptTaskStatus(backend: any): any {
   if (!backend) return { tasks: [], stats: { totalTasks: 0, completed: 0, failed: 0, totalSpent: 0, totalOnChainTransactions: 0 } };
-  // Handle both nested { stats: {...} } and flat { totalTasks, completed, ... } formats
-  const rawStats = backend.stats || backend;
+
+  const tasks = Array.isArray(backend.tasks) ? backend.tasks : Array.isArray(backend) ? backend : [];
+  const rawStats = backend.stats;
+
+  // If API returned a dedicated stats object, use it
+  if (rawStats) {
+    return {
+      tasks,
+      stats: {
+        totalTasks: rawStats.totalTasks || rawStats.total || 0,
+        completed: rawStats.completed || 0,
+        failed: rawStats.failed || 0,
+        totalSpent: parseDollar(rawStats.totalSpent || "0"),
+        totalOnChainTransactions: rawStats.totalOnChainTransactions || 0,
+      }
+    };
+  }
+
+  // Derive stats from tasks array (real API returns flat task list)
+  const completed = tasks.filter((t: any) => t.status === 'completed' || t.status === 'receipt_generated').length;
+  const failed = tasks.filter((t: any) => t.status === 'failed' || t.status === 'error').length;
+  const totalSpent = tasks.reduce((sum: number, t: any) => sum + parseDollar(t.amount), 0);
+  const onChainTx = tasks.filter((t: any) => t.gateway_tx && !String(t.gateway_tx).startsWith('mock_')).length;
+
   return {
-    tasks: Array.isArray(backend.tasks) ? backend.tasks : [],
+    tasks,
     stats: {
-      totalTasks: rawStats.totalTasks || rawStats.total || 0,
-      completed: rawStats.completed || 0,
-      failed: rawStats.failed || 0,
-      totalSpent: parseFloat(rawStats.totalSpent || "0"),
-      totalOnChainTransactions: rawStats.totalOnChainTransactions || 0,
+      totalTasks: tasks.length || completed + failed,
+      completed,
+      failed,
+      totalSpent,
+      totalOnChainTransactions: onChainTx,
     }
   };
 }
