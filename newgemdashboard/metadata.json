@@ -1,6 +1,6 @@
 {
-  "name": "Arc Terminal",
-  "description": "High-end orange and black orchestrated task execution application dashboard.",
+  "name": "AgentWork Dashboard",
+  "description": "AI Agent Marketplace with Nanopayments on Arc L1 — Real-time task orchestration dashboard.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }
